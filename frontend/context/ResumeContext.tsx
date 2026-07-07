@@ -8,8 +8,8 @@ import React, {
   useCallback,
   ReactNode,
 } from 'react';
-import { ResumeData } from '../types/resume';
-import { defaultResumeData } from '../lib/defaultResume';
+import { ResumeData } from '@/types/resume';
+import { defaultResumeData } from '@/lib/defaultResume';
 
 export interface SavedVersion {
   id: string;

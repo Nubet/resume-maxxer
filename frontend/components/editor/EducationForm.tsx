@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useResume } from '../../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import { GraduationCap, Plus, Trash2 } from 'lucide-react';
-import { EducationItem } from '../../types/resume';
+import { EducationItem } from '@/types/resume';
 
 export const EducationForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();

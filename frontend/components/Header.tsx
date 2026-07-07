@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Cpu, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
-import { useResume } from '../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 
 interface HeaderProps {
   onOpenAiModal?: () => void;

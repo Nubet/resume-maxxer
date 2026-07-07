@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useResume } from '../../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import { Briefcase, Plus, Trash2 } from 'lucide-react';
-import { ExperienceItem } from '../../types/resume';
+import { ExperienceItem } from '@/types/resume';
 
 export const ExperienceForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { useResume } from '../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import {
   User,
   Briefcase,

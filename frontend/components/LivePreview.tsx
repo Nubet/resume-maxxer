@@ -1,21 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useResume } from '../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import {
-  Download,
-  Eye,
-  Maximize2,
-  Minimize2,
   RefreshCw,
   AlertTriangle,
-  FileText,
   CheckCircle2,
   X,
 } from 'lucide-react';
 
 export const LivePreview: React.FC = () => {
-  const { pdfBlobUrl, isGenerating, downloadPdf, triggerRefresh, resumeData } = useResume();
+  const { pdfBlobUrl, isGenerating, triggerRefresh, resumeData } = useResume();
   const [atsReport, setAtsReport] = useState<{
     status: string;
     checks: { name: string; passed: boolean; message: string }[];

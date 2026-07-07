@@ -1,4 +1,4 @@
-import { ResumeData } from '../types/resume';
+import { ResumeData } from '@/types/resume';
 
 export const defaultResumeData: ResumeData = {
   metadata: {

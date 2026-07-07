@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { LandingPage } from '../components/LandingPage';
+import { LandingPage } from '@/components/LandingPage';
 
 export default function HomePage() {
   const router = useRouter();

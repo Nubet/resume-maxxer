@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { useResume } from '../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -16,7 +16,7 @@ interface AtsStudioProps {
   onBackToEditor: () => void;
 }
 
-export const AtsStudio: React.FC<AtsStudioProps> = ({ onOpenAiModal, onBackToEditor }) => {
+export const AtsStudio: React.FC<AtsStudioProps> = ({onBackToEditor }) => {
   const { resumeData } = useResume();
   const fileInputRef = useRef<HTMLInputElement>(null);
 

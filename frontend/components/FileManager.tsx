@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { useResume } from '../context/ResumeContext';
-import { Download, Upload, Trash2, History, Save, RotateCcw, FileJson } from 'lucide-react';
+import { useResume } from '@/context/ResumeContext';
+import { Upload, Trash2, History, Save, RotateCcw, FileJson } from 'lucide-react';
 
 export const FileManager: React.FC = () => {
   const {

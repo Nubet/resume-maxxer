@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useResume } from '../../context/ResumeContext';
+import { useResume } from '@/context/ResumeContext';
 import { User, Mail, Phone, MapPin, Briefcase, Link as LinkIcon } from 'lucide-react';
 
 export const BasicsForm: React.FC = () => {

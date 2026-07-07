@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { SubpageLayout } from '../../components/SubpageLayout';
+import { SubpageLayout } from '@/components/SubpageLayout';
 import { Globe } from 'lucide-react';
 import { FiLinkedin, FiGithub } from 'react-icons/fi';
 
