@@ -6,7 +6,7 @@ export function MeteorsDemo() {
   return (
     <div className="w-full py-12 flex justify-center items-center">
       <div className="w-full relative max-w-sm">
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl opacity-60" />
+        <div className="absolute inset-0 h-full w-full bg-linear-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl opacity-60" />
         
         <div className="relative shadow-xl bg-gray-900 border border-gray-800 px-6 py-8 h-full overflow-hidden rounded-3xl flex flex-col justify-end items-start space-y-4">
 

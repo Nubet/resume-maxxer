@@ -17,7 +17,7 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
   subtitle,
 }) => {
   return (
-    <div className="min-h-[100dvh] bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
+    <div className="min-h-dvh bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
       
       <header className="sticky top-4 sm:top-6 z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300">
         <div className="mx-auto max-w-5xl rounded-full border border-border bg-surface/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] px-5 py-2.5 flex items-center justify-between">

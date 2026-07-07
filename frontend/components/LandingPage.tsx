@@ -15,7 +15,7 @@ interface LandingPageProps {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onStartBuilder }) => {
   return (
-    <div className="min-h-[100dvh] bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
+    <div className="min-h-dvh bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
       <Navbar onStartBuilder={onStartBuilder} />
       <main className="flex-1">
         <HeroSection onStartBuilder={onStartBuilder} />

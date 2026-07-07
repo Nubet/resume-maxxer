@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
               >
                 <span>Stwórz CV online</span>
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white text-black group-hover:translate-x-0.5 transition-transform">
-                  <ArrowRight className="h-2.5 w-2.5 stroke-[3]" />
+                  <ArrowRight className="h-2.5 w-2.5 stroke-3" />
                 </span>
               </button>
             </div>
@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="sm:hidden fixed inset-x-4 top-[80px] z-40 rounded-3xl border border-border bg-white/95 backdrop-blur-xl p-5 shadow-xl overflow-hidden"
+            className="sm:hidden fixed inset-x-4 top-20 z-40 rounded-3xl border border-border bg-white/95 backdrop-blur-xl p-5 shadow-xl overflow-hidden"
           >
             <div className="flex flex-col space-y-2">
               {navLinks.map((link) => (

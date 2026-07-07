@@ -233,7 +233,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                   />
                   <div className="flex items-center justify-between pt-2">
                     <div className="rounded-2xl border border-border bg-surface-tertiary p-4 text-xs text-content font-semibold flex items-center gap-2.5">
-                      <CheckCircle2 className="h-4 w-4 text-content flex-shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-content shrink-0" />
                       <span>Gotowe do wklejenia w CV!</span>
                     </div>
                     <button

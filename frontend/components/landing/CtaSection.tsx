@@ -44,7 +44,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ onStartBuilder }) => {
                 <FileText className="h-5 w-5 text-content" />
                 <span>Stwórz swoje CV teraz — Za darmo</span>
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-content text-content-inverse group-hover:translate-x-0.5 transition-transform">
-                  <ArrowRight className="h-3.5 w-3.5 stroke-[3]" />
+                  <ArrowRight className="h-3.5 w-3.5 stroke-3" />
                 </span>
               </button>
             </div>
