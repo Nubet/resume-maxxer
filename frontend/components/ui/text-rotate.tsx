@@ -1,13 +1,8 @@
 'use client';
 
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import {
-  AnimatePresence,
-  AnimatePresenceProps,
-  motion,
-  MotionProps,
-  Transition,
-} from 'motion/react';
+import type { AnimatePresenceProps, MotionProps, Transition } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 

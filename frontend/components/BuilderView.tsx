@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { DashboardSidebar, DashboardModule, TabType } from './DashboardSidebar';
+import type { DashboardModule, TabType } from './DashboardSidebar';
+import { DashboardSidebar } from './DashboardSidebar';
 import { DashboardNavbar } from './DashboardNavbar';
 import { Editor } from './Editor';
 import { LivePreview } from './LivePreview';

@@ -2,12 +2,7 @@
 
 import React, { useState } from 'react';
 import { useResume } from '@/context/ResumeContext';
-import {
-  RefreshCw,
-  AlertTriangle,
-  CheckCircle2,
-  X,
-} from 'lucide-react';
+import { RefreshCw, AlertTriangle, CheckCircle2, X } from 'lucide-react';
 
 export const LivePreview: React.FC = () => {
   const { pdfBlobUrl, isGenerating, triggerRefresh, resumeData } = useResume();

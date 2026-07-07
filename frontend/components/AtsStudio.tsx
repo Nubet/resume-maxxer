@@ -16,7 +16,7 @@ interface AtsStudioProps {
   onBackToEditor: () => void;
 }
 
-export const AtsStudio: React.FC<AtsStudioProps> = ({onBackToEditor }) => {
+export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
   const { resumeData } = useResume();
   const fileInputRef = useRef<HTMLInputElement>(null);
 

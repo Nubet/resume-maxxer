@@ -1,14 +1,8 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  ReactNode,
-} from 'react';
-import { ResumeData } from '@/types/resume';
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type { ResumeData } from '@/types/resume';
 import { defaultResumeData } from '@/lib/defaultResume';
 
 export interface SavedVersion {
@@ -61,6 +55,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.basics) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setResumeData(parsed);
           if (parsed.metadata?.template_id) {
             setTemplateId(parsed.metadata.template_id);

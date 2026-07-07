@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { TabType } from './DashboardSidebar';
+import type { TabType } from './DashboardSidebar';
 import { BasicsForm } from './editor/BasicsForm';
 import { ExperienceForm } from './editor/ExperienceForm';
 import { EducationForm } from './editor/EducationForm';

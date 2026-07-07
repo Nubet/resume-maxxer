@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   HardDrive,
 } from 'lucide-react';
-import { DashboardModule, TabType } from './DashboardSidebar';
+import type { DashboardModule, TabType } from './DashboardSidebar';
 
 interface DashboardNavbarProps {
   activeModule: DashboardModule;

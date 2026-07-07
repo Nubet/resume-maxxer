@@ -52,7 +52,7 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onStartBuilder
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {steps.map((step, idx) => (
+          {steps.map((step, _idx) => (
             <div
               key={step.number}
               className="rounded-3xl border border-border bg-surface-secondary p-8 flex flex-col justify-between hover:border-border-strong hover:bg-surface-tertiary transition-all duration-300 shadow-sm"

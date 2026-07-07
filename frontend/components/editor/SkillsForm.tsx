@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useResume } from '@/context/ResumeContext';
 import { Wrench, Plus, Trash2 } from 'lucide-react';
-import { SkillGroup } from '@/types/resume';
+import type { SkillGroup } from '@/types/resume';
 
 export const SkillsForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
