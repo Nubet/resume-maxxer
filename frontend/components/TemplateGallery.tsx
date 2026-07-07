@@ -2,17 +2,7 @@
 
 import React, { useState } from 'react';
 import { useResume } from '@/context/ResumeContext';
-import {
-  Check,
-  Sparkles,
-  LayoutTemplate,
-  ShieldCheck,
-  ArrowRight,
-  FileText,
-  Briefcase,
-  Code2,
-  Award,
-} from 'lucide-react';
+import { Search, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
 
 interface TemplateGalleryProps {
   onSelectTemplate: (templateId: string) => void;
@@ -21,6 +11,7 @@ interface TemplateGalleryProps {
 export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTemplate }) => {
   const { templateId, setTemplateId } = useResume();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'all', label: 'Wszystkie' },
@@ -35,68 +26,77 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
       id: 'basic_resume_v1',
       name: 'Szwajcarski Rygor',
       category: 'classic',
+      author: 'ResumeMaxxer Team',
       description:
-        'Jednokolumnowy układ Swiss Editorial. Zoptymalizowany pod kątem czytelności w systemach ATS i skanerach rekrutacyjnych.',
-      tags: ['Jednokolumnowy', 'ATS 100%', 'Minimalizm'],
-      icon: FileText,
+        'Klasyczny układ, który skupia uwagę na Twoich atutach i ułatwia rekruterom szybkie czytanie.',
+      tags: ['Jednokolumnowy', 'Klasyczny', 'Minimalistyczny'],
       available: true,
+      image: '/images/templates/basic-resume-0.2.9-small.webp',
     },
     {
       id: 'crisp_cv_v1',
       name: 'Nowoczesny Przejrzysty',
       category: 'modern',
+      author: 'ResumeMaxxer Team',
       description:
-        'Czysty układ z wyraźnie wyodrębnionymi sekcjami, czytelną hierarchią nagłówków i datami wyrównanymi do prawej.',
-      tags: ['Wyrazista hierarchia', 'Nowoczesny A4', 'Czytelne daty'],
-      icon: LayoutTemplate,
+        'Przejrzysta forma, która idealnie organizuje treść i prowadzi wzrok czytającego.',
+      tags: ['Nowoczesny', 'Przejrzysty', 'Akcenty'],
       available: true,
+      image: '/images/templates/modern-resume-1.0.0-small.webp',
     },
     {
       id: 'tech_lead_v1',
       name: 'Tech Lead & Developer',
       category: 'tech',
+      author: 'ResumeMaxxer Team',
       description:
-        'Zaprojektowany dla programistów i inżynierów. Wyeksponowany stos technologiczny, linki do GitHub oraz projekty open-source.',
-      tags: ['GitHub', 'Stack techniczny', 'Projekty IT'],
-      icon: Code2,
+        'Stworzony dla branży IT. Bezpośrednio komunikuje Twoje kompetencje i zrealizowane projekty.',
+      tags: ['IT', 'Projekty', 'Umiejętności'],
       available: false,
+      image: '/images/templates/metronic-1.1.0-small.webp',
     },
     {
       id: 'exec_v1',
       name: 'Executive & Management',
       category: 'exec',
+      author: 'ResumeMaxxer Team',
       description:
-        'Dla dyrektorów i menedżerów. Kładzie nacisk na podsumowanie osiągnięć liczbowych, zarządzany budżet i skalę biznesu.',
-      tags: ['Osiągnięcia KPI', 'Executive summary', 'Zarządzanie'],
-      icon: Briefcase,
+        'Skonstruowany dla liderów. Skutecznie prezentuje Twój wpływ na rozwój firmy i wyniki biznesowe.',
+      tags: ['Biznesowy', 'Dla menedżerów', 'Osiągnięcia'],
       available: false,
+      image: '/images/templates/bamdone-rebuttal-0.1.2-small.webp',
     },
     {
       id: 'academic_v1',
       name: 'Academic & Research',
       category: 'classic',
+      author: 'ResumeMaxxer Team',
       description:
-        'Uporządkowany szablon dla naukowców i badaczy. Zoptymalizowany pod kątem listy publikacji, grantów i certyfikatów.',
-      tags: ['Publikacje', 'Granty', 'Edukacja'],
-      icon: Award,
+        'Zaprojektowany do eleganckiej prezentacji Twojego obszernego dorobku, badań i publikacji.',
+      tags: ['Akademicki', 'Rozbudowany', 'Publikacje'],
       available: false,
+      image: '/images/templates/basic-resume-0.2.9-small.webp',
     },
     {
       id: 'editorial_v1',
       name: 'Editorial Studio',
       category: 'modern',
+      author: 'ResumeMaxxer Team',
       description:
-        'Wysmakowana typografia dla projektantów, architekta i twórców produktów. Inspirowana szwajcarskimi publikacjami wydawniczymi.',
-      tags: ['Swiss Design', 'Wysoka typografia', 'Product Design'],
-      icon: Sparkles,
+        'Wyróżniający się układ, który od pierwszej sekundy buduje Twój wizerunek jako estety.',
+      tags: ['Kreatywny', 'Design', 'Unikalna typografia'],
       available: false,
+      image: '/images/templates/modern-resume-1.0.0-small.webp',
     },
   ];
 
-  const filteredTemplates =
-    selectedCategory === 'all'
-      ? templates
-      : templates.filter((t) => t.category === selectedCategory);
+  const filteredTemplates = templates.filter((t) => {
+    const matchesCategory = selectedCategory === 'all' || t.category === selectedCategory;
+    const matchesSearch =
+      t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const handleSelect = (id: string, available: boolean) => {
     if (!available) {
@@ -108,140 +108,162 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 sm:p-12 lg:p-16 bg-surface text-content animate-fade-in">
-      <div className="mx-auto max-w-5xl space-y-10">
-        <div className="border-b border-border pb-8 space-y-3">
-          <div className="flex items-center space-x-2.5">
-            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-content text-content-inverse">
-              <LayoutTemplate className="h-3.5 w-3.5" />
-            </span>
-            <span className="text-xs font-black uppercase tracking-widest text-content-muted">
-              Biblioteka Szablonów
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-content">
-            Galeria Szablonów CV
-          </h2>
-          <p className="text-sm sm:text-base text-content-secondary max-w-2xl leading-relaxed font-medium">
-            Wybierz układ, który najlepiej pasuje do Twojej branży i stanowiska. Wszystkie nasze
-            szablony są składane w profesjonalnym silniku Typst i przechodzą rygorystyczne testy
-            czytelności w systemach ATS.
+    <div className="flex-1 overflow-y-auto bg-surface text-content animate-fade-in font-sans relative selection:bg-content selection:text-surface">
+      <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-surface-secondary/80 to-transparent pointer-events-none -z-10" />
+
+      <div className="pt-24 pb-16 px-6 sm:px-12 lg:px-20 mx-auto max-w-[1400px]">
+        <div className="max-w-3xl space-y-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-content leading-tight">
+            Galeria Szablonów
+          </h1>
+          <p className="text-lg text-content-secondary max-w-xl font-medium leading-relaxed">
+            Wybierz układ, który najlepiej pasuje do Twojej profesji. Wszystkie szablony są
+            zaprojektowane tak, aby ułatwić czytanie i wyeksponować Twoje kompetencje.
           </p>
         </div>
+      </div>
 
-        <div className="flex flex-wrap items-center gap-2 border-b border-border pb-6">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`rounded-full px-5 py-2 text-xs font-bold transition-all duration-200 active:scale-[0.98] ${
-                selectedCategory === cat.id
-                  ? 'bg-content text-content-inverse shadow-sm'
-                  : 'bg-surface-secondary text-content-muted border border-border hover:border-content hover:text-content'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+      <div className="sticky top-0 z-30 bg-surface/80 backdrop-blur-2xl border-b border-border/40 transition-all">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-12 lg:px-20 py-4 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+          <div className="flex gap-8 overflow-x-auto w-full md:w-auto no-scrollbar mask-linear-fade">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`relative pb-2 whitespace-nowrap text-sm font-bold tracking-wide transition-all duration-300 ${
+                  selectedCategory === cat.id
+                    ? 'text-content'
+                    : 'text-content-muted hover:text-content-secondary'
+                }`}
+              >
+                {cat.label}
+                {selectedCategory === cat.id && (
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-content rounded-t-full" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative group w-full md:w-72">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-content-muted group-focus-within:text-content transition-colors" />
+            </div>
+            <input
+              type="text"
+              placeholder="Wyszukaj po nazwie lub tagu..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-surface-secondary/50 border border-transparent group-hover:bg-surface-secondary group-focus-within:bg-surface focus:border-border rounded-xl py-2.5 pl-11 pr-4 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-content/5 transition-all"
+            />
+          </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="mx-auto max-w-[1400px] px-6 sm:px-12 lg:px-20 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {filteredTemplates.map((tpl) => {
             const isSelected = templateId === tpl.id;
-            const Icon = tpl.icon;
+
             return (
               <div
                 key={tpl.id}
                 onClick={() => handleSelect(tpl.id, tpl.available)}
-                className={`group relative flex flex-col justify-between rounded-3xl border p-8 transition-all duration-300 cursor-pointer overflow-hidden ${
-                  isSelected
-                    ? 'border-2 border-content bg-surface-secondary shadow-xl'
-                    : tpl.available
-                      ? 'border-border bg-surface hover:border-content hover:shadow-lg hover:-translate-y-1'
-                      : 'border-border bg-surface-secondary/50 opacity-60 cursor-not-allowed'
-                }`}
+                className={`group flex flex-col cursor-pointer`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface border border-border text-content shadow-xs group-hover:scale-105 transition-transform">
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    {isSelected && (
-                      <span className="rounded-full bg-content px-3 py-1 text-[11px] font-black tracking-wide text-content-inverse">
-                        Wybrany
-                      </span>
+                <div
+                  className={`relative w-full aspect-[1/1.414] mb-6 rounded-2xl flex items-center justify-center p-6 sm:p-10 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
+                  ${isSelected ? 'bg-surface-secondary/80 border border-border/50 shadow-inner' : 'bg-surface-secondary/30 group-hover:bg-surface-secondary/60'}
+                `}
+                >
+                  <div
+                    className={`relative w-full h-full bg-white rounded-lg shadow-xl shadow-black/5 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu
+                    ${!tpl.available && 'opacity-60 grayscale-[0.8]'}
+                    ${tpl.available && !isSelected && 'group-hover:-translate-y-4 group-hover:scale-[1.03] group-hover:shadow-2xl group-hover:shadow-black/15 group-hover:rotate-1'}
+                    ${isSelected && 'shadow-2xl shadow-black/10 scale-105 ring-1 ring-content/10'}
+                  `}
+                  >
+                    <img
+                      src={tpl.image}
+                      alt={`Podgląd ${tpl.name}`}
+                      className="w-full h-full object-cover object-top origin-top transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
+
+                    {tpl.available && !isSelected && (
+                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                        <div className="flex items-center justify-between text-white">
+                          <span className="font-bold text-lg tracking-tight">Wybierz układ</span>
+                          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <ArrowRight className="w-5 h-5" />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {!tpl.available && (
+                      <div className="absolute inset-0 bg-surface/20 backdrop-blur-[2px] flex items-center justify-center">
+                        <div className="bg-surface/90 px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold tracking-wide text-content shadow-xl border border-white/10">
+                          <Lock className="w-4 h-4" />
+                          <span>Wkrótce</span>
+                        </div>
+                      </div>
                     )}
                   </div>
 
-                  <h3 className="text-xl font-black text-content tracking-tight mb-2">
-                    {tpl.name}
-                  </h3>
-                  <p className="text-xs text-content-secondary leading-relaxed mb-6 font-medium">
-                    {tpl.description}
-                  </p>
+                  {isSelected && (
+                    <div className="absolute -top-3 -right-3 bg-content text-surface rounded-full p-2.5 shadow-xl z-10 animate-fade-in">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                  )}
                 </div>
 
-                <div className="space-y-6 pt-4 border-t border-border">
-                  <div className="flex flex-wrap gap-1.5">
+                <div className="px-2">
+                  <div className="text-[10px] font-black uppercase tracking-[0.2em] text-content-muted mb-3 flex items-center gap-2">
+                    {tpl.author}
+                    {isSelected && (
+                      <>
+                        <span className="w-1 h-1 rounded-full bg-content-muted" />
+                        <span className="text-content">Aktywny</span>
+                      </>
+                    )}
+                  </div>
+
+                  <h3 className="text-2xl font-black tracking-tight text-content mb-3 group-hover:text-content-secondary transition-colors duration-300">
+                    {tpl.name}
+                  </h3>
+
+                  <p className="text-sm text-content-secondary font-medium leading-relaxed mb-5 line-clamp-2">
+                    {tpl.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
                     {tpl.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="rounded-md bg-surface-tertiary px-2.5 py-1 text-[10px] font-bold text-content-secondary"
+                        className="text-xs font-bold text-content-muted bg-surface-secondary/60 border border-border/40 px-3 py-1 rounded-lg group-hover:border-border/80 transition-colors"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  <button
-                    disabled={!tpl.available}
-                    className={`w-full flex items-center justify-center gap-2 rounded-full py-3.5 text-xs font-bold transition-all ${
-                      isSelected
-                        ? 'bg-content text-content-inverse shadow-md'
-                        : tpl.available
-                          ? 'border border-content bg-surface text-content group-hover:bg-content group-hover:text-content-inverse'
-                          : 'bg-border text-content-muted cursor-not-allowed'
-                    }`}
-                  >
-                    {isSelected ? (
-                      <>
-                        <Check className="h-4 w-4" />
-                        <span>Aktywny w Edytorze</span>
-                      </>
-                    ) : tpl.available ? (
-                      <>
-                        <span>Wybierz ten szablon</span>
-                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    ) : (
-                      <span>Dostępny wkrótce</span>
-                    )}
-                  </button>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="rounded-3xl border border-border bg-surface-secondary p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mt-12">
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2 text-xs font-black uppercase tracking-wider text-content">
-              <ShieldCheck className="h-4 w-4" />
-              <span>Gwarancja Czytelności ATS</span>
+        {filteredTemplates.length === 0 && (
+          <div className="py-32 text-center flex flex-col items-center animate-fade-in">
+            <div className="w-20 h-20 rounded-full bg-surface-secondary flex items-center justify-center mb-6">
+              <Search className="h-8 w-8 text-content-muted" />
             </div>
-            <p className="text-xs text-content-secondary max-w-xl leading-relaxed font-medium">
-              Wszystkie szablony z naszej galerii są kompilowane bez użycia problematycznych tabel
-              HTML czy graficznych warstw, co zapewnia 100% poprawności odczytu w skanerach
-              rekrutacyjnych Workday, Taleo i Greenhouse.
+            <h3 className="text-2xl font-black tracking-tight text-content mb-2">
+              Nic nie znaleziono
+            </h3>
+            <p className="text-content-secondary font-medium">
+              Spróbuj wpisać inne zapytanie lub wybierz inną kategorię.
             </p>
           </div>
-          <button
-            onClick={() => onSelectTemplate(templateId)}
-            className="rounded-full bg-content px-8 py-3.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all shadow-md shrink-0 active:scale-[0.98]"
-          >
-            Wróć do Edytora CV
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );
