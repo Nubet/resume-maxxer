@@ -1,26 +1,24 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { Cpu } from "lucide-react";
+import React from 'react';
+import Link from 'next/link';
+import { Cpu } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-border bg-surface-tertiary py-12 md:py-16 text-xs text-content-secondary font-sans">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center space-x-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-surface border border-border text-content shadow-sm">
                 <Cpu className="h-4 w-4" />
               </div>
-              <span className="text-base font-bold tracking-tight text-content">
-                Resume Maxxer
-              </span>
+              <span className="text-base font-bold tracking-tight text-content">Resume Maxxer</span>
             </div>
             <p className="text-content-secondary leading-relaxed max-w-sm">
-              Stwórz profesjonalne CV, które przyciąga uwagę rekruterów i bezbłędnie przechodzi przez systemy ATS.
+              Stwórz profesjonalne CV, które przyciąga uwagę rekruterów i bezbłędnie przechodzi
+              przez systemy ATS.
             </p>
           </div>
 
@@ -35,7 +33,10 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/#builder" className="hover:text-content transition-colors font-medium text-content">
+                <Link
+                  href="/#builder"
+                  className="hover:text-content transition-colors font-medium text-content"
+                >
                   Kreator CV (Edytor)
                 </Link>
               </li>
@@ -80,9 +81,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-content-muted font-mono text-[11px]">
-          <div>
-            &copy; {new Date().getFullYear()} Resume Maxxer. Wszelkie prawa zastrzeżone.
-          </div>
+          <div>&copy; {new Date().getFullYear()} Resume Maxxer. Wszelkie prawa zastrzeżone.</div>
         </div>
       </div>
     </footer>

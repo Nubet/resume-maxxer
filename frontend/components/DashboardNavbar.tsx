@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useResume } from "../context/ResumeContext";
-import { 
-  Download, 
-  Eye, 
-  Columns, 
-  Sparkles, 
-  LayoutTemplate, 
-  Edit3, 
-  ShieldCheck, 
-  HardDrive
-} from "lucide-react";
-import { DashboardModule, TabType } from "./DashboardSidebar";
+import React from 'react';
+import { useResume } from '../context/ResumeContext';
+import {
+  Download,
+  Eye,
+  Columns,
+  Sparkles,
+  LayoutTemplate,
+  Edit3,
+  ShieldCheck,
+  HardDrive,
+} from 'lucide-react';
+import { DashboardModule, TabType } from './DashboardSidebar';
 
 interface DashboardNavbarProps {
   activeModule: DashboardModule;
   onModuleChange: (mod: DashboardModule) => void;
   activeTab?: TabType;
-  dashboardView: "editor" | "preview" | "split";
-  onViewChange: (mode: "editor" | "preview" | "split") => void;
+  dashboardView: 'editor' | 'preview' | 'split';
+  onViewChange: (mode: 'editor' | 'preview' | 'split') => void;
   onOpenAiModal: () => void;
 }
 
@@ -34,28 +34,30 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
 
   const getModuleTitle = () => {
     switch (activeModule) {
-      case "editor":
+      case 'editor':
         return {
-          title: resumeData?.basics?.name || "Nowy Życiorys Zawodowy",
-          subtitle: resumeData?.basics?.title || "Wypełnij sekcje po lewej stronie, aby wygenerować dokument PDF.",
+          title: resumeData?.basics?.name || 'Nowy Życiorys Zawodowy',
+          subtitle:
+            resumeData?.basics?.title ||
+            'Wypełnij sekcje po lewej stronie, aby wygenerować dokument PDF.',
           icon: Edit3,
         };
-      case "templates":
+      case 'templates':
         return {
-          title: "Galeria Szablonów",
-          subtitle: "Wybierz układ i styl swojego życiorysu.",
+          title: 'Galeria Szablonów',
+          subtitle: 'Wybierz układ i styl swojego życiorysu.',
           icon: LayoutTemplate,
         };
-      case "ats":
+      case 'ats':
         return {
-          title: "Audyt ATS & AI",
-          subtitle: "Sprawdź czytelność swojego CV i zoptymalizuj treść.",
+          title: 'Audyt ATS & AI',
+          subtitle: 'Sprawdź czytelność swojego CV i zoptymalizuj treść.',
           icon: ShieldCheck,
         };
-      case "history":
+      case 'history':
         return {
-          title: "Historia Zapisanych CV",
-          subtitle: "Zarządzaj swoimi wersjami dokumentu i kodem źródłowym JSON.",
+          title: 'Historia Zapisanych CV',
+          subtitle: 'Zarządzaj swoimi wersjami dokumentu i kodem źródłowym JSON.',
           icon: HardDrive,
         };
     }
@@ -66,7 +68,6 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-surface/90 backdrop-blur-xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shrink-0 transition-all">
-
       <div className="flex items-center space-x-3.5 min-w-0">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-surface-secondary border border-border text-content shadow-xs">
           <Icon className="h-5 w-5" />
@@ -82,40 +83,39 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
       </div>
 
       <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto justify-end">
-
-        {activeModule === "editor" && (
+        {activeModule === 'editor' && (
           <div className="flex items-center rounded-full border border-border bg-surface-secondary p-1 shadow-xs">
             <button
-              onClick={() => onViewChange("editor")}
+              onClick={() => onViewChange('editor')}
               title="Tylko Edytor"
               className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
-                dashboardView === "editor"
-                  ? "bg-content text-content-inverse shadow-sm"
-                  : "text-content-secondary hover:text-content"
+                dashboardView === 'editor'
+                  ? 'bg-content text-content-inverse shadow-sm'
+                  : 'text-content-secondary hover:text-content'
               }`}
             >
               <Edit3 className="h-3.5 w-3.5" />
               <span className="hidden md:inline">Edytor</span>
             </button>
             <button
-              onClick={() => onViewChange("split")}
+              onClick={() => onViewChange('split')}
               title="Widok Podzielony"
               className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
-                dashboardView === "split"
-                  ? "bg-content text-content-inverse shadow-sm"
-                  : "text-content-secondary hover:text-content"
+                dashboardView === 'split'
+                  ? 'bg-content text-content-inverse shadow-sm'
+                  : 'text-content-secondary hover:text-content'
               }`}
             >
               <Columns className="h-3.5 w-3.5" />
               <span className="hidden md:inline">50/50</span>
             </button>
             <button
-              onClick={() => onViewChange("preview")}
+              onClick={() => onViewChange('preview')}
               title="Tylko Podgląd PDF"
               className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
-                dashboardView === "preview"
-                  ? "bg-content text-content-inverse shadow-sm"
-                  : "text-content-secondary hover:text-content"
+                dashboardView === 'preview'
+                  ? 'bg-content text-content-inverse shadow-sm'
+                  : 'text-content-secondary hover:text-content'
               }`}
             >
               <Eye className="h-3.5 w-3.5" />
@@ -132,9 +132,9 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           <span>AI Asystent</span>
         </button>
 
-        {activeModule !== "editor" && (
+        {activeModule !== 'editor' && (
           <button
-            onClick={() => onModuleChange("editor")}
+            onClick={() => onModuleChange('editor')}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2 text-xs font-bold text-content hover:border-content transition-all active:scale-[0.98] shadow-xs"
           >
             <span>Wróć do edycji CV</span>
@@ -147,10 +147,9 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           className="inline-flex items-center gap-2 rounded-full bg-content px-5 py-2 text-xs font-black text-content-inverse shadow-md hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98] shrink-0"
         >
           <Download className="h-3.5 w-3.5" />
-          <span>{isGenerating ? "Kompilacja..." : "Pobierz PDF"}</span>
+          <span>{isGenerating ? 'Kompilacja...' : 'Pobierz PDF'}</span>
         </button>
       </div>
-
     </header>
   );
 };

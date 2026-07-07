@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useResume } from "../../context/ResumeContext";
-import { Wrench, Plus, Trash2 } from "lucide-react";
-import { SkillGroup } from "../../types/resume";
+import React, { useState } from 'react';
+import { useResume } from '../../context/ResumeContext';
+import { Wrench, Plus, Trash2 } from 'lucide-react';
+import { SkillGroup } from '../../types/resume';
 
 export const SkillsForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
   const skills: SkillGroup[] = resumeData?.skills || [];
-  
-  const [newSkillName, setNewSkillName] = useState("");
-  const [newSkillCategory, setNewSkillCategory] = useState("Techniczne & Języki");
+
+  const [newSkillName, setNewSkillName] = useState('');
+  const [newSkillCategory, setNewSkillCategory] = useState('Techniczne & Języki');
 
   const categories = [
-    "Techniczne & Języki",
-    "Frameworki & Biblioteki",
-    "Chmura & DevOps",
-    "Narzędzia & Metodyki"
+    'Techniczne & Języki',
+    'Frameworki & Biblioteki',
+    'Chmura & DevOps',
+    'Narzędzia & Metodyki',
   ];
 
   const handleAddSkill = (e?: React.FormEvent) => {
@@ -24,32 +24,32 @@ export const SkillsForm: React.FC = () => {
     if (!newSkillName.trim()) return;
 
     const items = newSkillName
-      .split(",")
-      .map(s => s.trim())
+      .split(',')
+      .map((s) => s.trim())
       .filter(Boolean);
 
     updateResumeData((prev) => {
       const currentSkills = [...(prev.skills || [])];
-      const existingGroupIndex = currentSkills.findIndex(g => g.category === newSkillCategory);
+      const existingGroupIndex = currentSkills.findIndex((g) => g.category === newSkillCategory);
 
       if (existingGroupIndex >= 0) {
         const existingKeywords = currentSkills[existingGroupIndex].keywords || [];
-        const uniqueItems = items.filter(i => !existingKeywords.includes(i));
+        const uniqueItems = items.filter((i) => !existingKeywords.includes(i));
         currentSkills[existingGroupIndex] = {
           ...currentSkills[existingGroupIndex],
-          keywords: [...existingKeywords, ...uniqueItems]
+          keywords: [...existingKeywords, ...uniqueItems],
         };
       } else {
         currentSkills.push({
           category: newSkillCategory,
-          keywords: items
+          keywords: items,
         });
       }
 
       return { ...prev, skills: currentSkills };
     });
 
-    setNewSkillName("");
+    setNewSkillName('');
   };
 
   const handleRemoveSkill = (groupIndex: number, keywordToRemove: string) => {
@@ -57,13 +57,15 @@ export const SkillsForm: React.FC = () => {
       const currentSkills = [...(prev.skills || [])];
       if (!currentSkills[groupIndex]) return prev;
 
-      const filteredKeywords = currentSkills[groupIndex].keywords.filter(k => k !== keywordToRemove);
+      const filteredKeywords = currentSkills[groupIndex].keywords.filter(
+        (k) => k !== keywordToRemove
+      );
       if (filteredKeywords.length === 0) {
         currentSkills.splice(groupIndex, 1);
       } else {
         currentSkills[groupIndex] = {
           ...currentSkills[groupIndex],
-          keywords: filteredKeywords
+          keywords: filteredKeywords,
         };
       }
 
@@ -74,13 +76,19 @@ export const SkillsForm: React.FC = () => {
   return (
     <div className="space-y-10 animate-fade-in">
       <div className="border-b border-border pb-5">
-        <h3 className="text-xl font-bold tracking-tight text-content">Umiejętności i Kompetencje</h3>
+        <h3 className="text-xl font-bold tracking-tight text-content">
+          Umiejętności i Kompetencje
+        </h3>
         <p className="text-xs text-content-secondary mt-1">
-          Słowa kluczowe z tej sekcji są kluczowe dla systemów ATS. Dodawaj pojedynczo lub po przecinku (np. React, TypeScript, Docker).
+          Słowa kluczowe z tej sekcji są kluczowe dla systemów ATS. Dodawaj pojedynczo lub po
+          przecinku (np. React, TypeScript, Docker).
         </p>
       </div>
 
-      <form onSubmit={handleAddSkill} className="rounded-3xl border border-border bg-surface-secondary p-6 space-y-4 shadow-xs">
+      <form
+        onSubmit={handleAddSkill}
+        className="rounded-3xl border border-border bg-surface-secondary p-6 space-y-4 shadow-xs"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div className="sm:col-span-4">
             <select
@@ -89,7 +97,9 @@ export const SkillsForm: React.FC = () => {
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-bold text-content focus:border-content focus:outline-none"
             >
               {categories.map((cat, idx) => (
-                <option key={idx} value={cat}>{cat}</option>
+                <option key={idx} value={cat}>
+                  {cat}
+                </option>
               ))}
             </select>
           </div>
@@ -121,7 +131,8 @@ export const SkillsForm: React.FC = () => {
           <Wrench className="h-8 w-8 text-content-muted mx-auto" />
           <p className="text-sm font-bold text-content">Brak wpisów o umiejętnościach</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj przynajmniej 6-10 umiejętności technicznych i biznesowych, aby podnieść swój wynik w audycie ATS.
+            Dodaj przynajmniej 6-10 umiejętności technicznych i biznesowych, aby podnieść swój wynik
+            w audycie ATS.
           </p>
         </div>
       ) : (

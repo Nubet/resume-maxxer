@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { Cpu, ArrowRight, ArrowLeft } from "lucide-react";
-import { Footer } from "./Footer";
+import React from 'react';
+import Link from 'next/link';
+import { Cpu, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Footer } from './Footer';
 
 interface SubpageLayoutProps {
   children: React.ReactNode;
@@ -11,14 +11,9 @@ interface SubpageLayoutProps {
   subtitle?: string;
 }
 
-export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
-  children,
-  title,
-  subtitle,
-}) => {
+export const SubpageLayout: React.FC<SubpageLayoutProps> = ({ children, title, subtitle }) => {
   return (
     <div className="min-h-dvh bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
-      
       <header className="sticky top-4 sm:top-6 z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300">
         <div className="mx-auto max-w-5xl rounded-full border border-border bg-surface/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] px-5 py-2.5 flex items-center justify-between">
           <Link
@@ -28,9 +23,7 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-tertiary border border-border text-content">
               <Cpu className="h-4.5 w-4.5" />
             </div>
-            <span className="text-base font-bold tracking-tight text-content">
-              Resume Maxxer
-            </span>
+            <span className="text-base font-bold tracking-tight text-content">Resume Maxxer</span>
           </Link>
 
           <div className="flex items-center space-x-4">
@@ -55,7 +48,6 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
 
       <main className="flex-1 py-16 md:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-12">
-          
           <div className="border-b border-border pb-10 space-y-4">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-content">
               {title}

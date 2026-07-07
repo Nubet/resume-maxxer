@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useResume } from "../context/ResumeContext";
-import { 
-  Download, 
-  Eye, 
-  Maximize2, 
-  Minimize2, 
-  RefreshCw, 
+import React, { useState } from 'react';
+import { useResume } from '../context/ResumeContext';
+import {
+  Download,
+  Eye,
+  Maximize2,
+  Minimize2,
+  RefreshCw,
   AlertTriangle,
   FileText,
   CheckCircle2,
-  X
-} from "lucide-react";
+  X,
+} from 'lucide-react';
 
 export const LivePreview: React.FC = () => {
   const { pdfBlobUrl, isGenerating, downloadPdf, triggerRefresh, resumeData } = useResume();
@@ -22,45 +22,57 @@ export const LivePreview: React.FC = () => {
   } | null>(null);
 
   const handleRunAtsCheck = () => {
-    const hasSummary = Boolean(resumeData?.basics?.summary && resumeData.basics.summary.length > 20);
+    const hasSummary = Boolean(
+      resumeData?.basics?.summary && resumeData.basics.summary.length > 20
+    );
     const hasExp = Boolean(resumeData?.experience && resumeData.experience.length > 0);
-    const totalSkills = resumeData?.skills?.reduce((acc, g) => acc + (g.keywords?.length || 0), 0) || 0;
+    const totalSkills =
+      resumeData?.skills?.reduce((acc, g) => acc + (g.keywords?.length || 0), 0) || 0;
     const hasSkills = totalSkills >= 3;
 
     setAtsReport({
-      status: "Zgodność ze skanerami (Workday, Taleo, Greenhouse)",
+      status: 'Zgodność ze skanerami (Workday, Taleo, Greenhouse)',
       checks: [
         {
-          name: "Format i Silnik Składu",
+          name: 'Format i Silnik Składu',
           passed: true,
-          message: "Plik kompilowany w Typst (100% wektorowy strumień bez ukrytych tabel HTML).",
+          message: 'Plik kompilowany w Typst (100% wektorowy strumień bez ukrytych tabel HTML).',
         },
         {
-          name: "Profil Wykonawczy (Summary)",
+          name: 'Profil Wykonawczy (Summary)',
           passed: hasSummary,
-          message: hasSummary ? "Wykryto czytelne podsumowanie na początku dokumentu." : "Brak podsumowania — dodaj 2-3 zdania w sekcji Kontakt i Profil.",
+          message: hasSummary
+            ? 'Wykryto czytelne podsumowanie na początku dokumentu.'
+            : 'Brak podsumowania — dodaj 2-3 zdania w sekcji Kontakt i Profil.',
         },
         {
-          name: "Historia Zatrudnienia",
+          name: 'Historia Zatrudnienia',
           passed: hasExp,
-          message: hasExp ? "Wykryto sekcję doświadczenia z chronologicznym układem dat." : "Brak pozycji zawodowych — dodaj swoje stanowiska.",
+          message: hasExp
+            ? 'Wykryto sekcję doświadczenia z chronologicznym układem dat.'
+            : 'Brak pozycji zawodowych — dodaj swoje stanowiska.',
         },
         {
-          name: "Słowa Kluczowe (Keywords)",
+          name: 'Słowa Kluczowe (Keywords)',
           passed: hasSkills,
-          message: hasSkills ? `Zidentyfikowano ${totalSkills} kompetencji kluczowych.` : "Dodaj min. 3 umiejętności, aby przejść automatyczną filtrację.",
+          message: hasSkills
+            ? `Zidentyfikowano ${totalSkills} kompetencji kluczowych.`
+            : 'Dodaj min. 3 umiejętności, aby przejść automatyczną filtrację.',
         },
       ],
     });
   };
 
   return (
-    <div className={`relative flex h-full flex-col bg-surface-secondary border-l border-border p-6 lg:p-8`}>
-      
+    <div
+      className={`relative flex h-full flex-col bg-surface-secondary border-l border-border p-6 lg:p-8`}
+    >
       <div className="flex items-center justify-between pb-6 border-b border-border shrink-0">
         <div className="flex items-center space-x-2.5">
           <span className="h-2 w-2 rounded-full bg-content"></span>
-          <span className="text-xs font-bold uppercase tracking-widest text-content-muted">Podgląd na żywo</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-content-muted">
+            Podgląd na żywo
+          </span>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -79,13 +91,16 @@ export const LivePreview: React.FC = () => {
         {isGenerating ? (
           <div className="flex flex-col items-center justify-center p-8 text-center animate-fade-in">
             <RefreshCw className="h-6 w-6 text-content animate-spin mb-3" />
-            <span className="text-xs font-bold tracking-wide uppercase text-content-muted">Generowanie...</span>
+            <span className="text-xs font-bold tracking-wide uppercase text-content-muted">
+              Generowanie...
+            </span>
           </div>
         ) : !pdfBlobUrl ? (
           <div className="flex flex-col items-center justify-center p-8 text-center max-w-sm space-y-4 animate-fade-in">
             <AlertTriangle className="h-8 w-8 text-content mx-auto" />
             <p className="text-xs font-medium text-content-secondary leading-relaxed">
-              Nie udało się załadować podglądu PDF. Kliknij przycisk poniżej, aby ponowić próbe kompilacji w silniku Typst.
+              Nie udało się załadować podglądu PDF. Kliknij przycisk poniżej, aby ponowić próbe
+              kompilacji w silniku Typst.
             </p>
             <button
               onClick={() => triggerRefresh()}
@@ -116,20 +131,32 @@ export const LivePreview: React.FC = () => {
                   <p className="text-xs text-content-muted">{atsReport.status}</p>
                 </div>
               </div>
-              <button onClick={() => setAtsReport(null)} className="text-content-muted hover:text-content p-1.5 rounded-full hover:bg-surface-tertiary transition-colors">
+              <button
+                onClick={() => setAtsReport(null)}
+                className="text-content-muted hover:text-content p-1.5 rounded-full hover:bg-surface-tertiary transition-colors"
+              >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
               {atsReport.checks.map((chk, idx) => (
-                <div key={idx} className="flex items-start gap-3 text-xs p-3.5 rounded-2xl bg-surface-secondary border border-border">
-                  <span className={`mt-0.5 ${chk.passed ? "text-content" : "text-content-muted"}`}>
-                    {chk.passed ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <AlertTriangle className="h-4 w-4 text-amber-600" />}
+                <div
+                  key={idx}
+                  className="flex items-start gap-3 text-xs p-3.5 rounded-2xl bg-surface-secondary border border-border"
+                >
+                  <span className={`mt-0.5 ${chk.passed ? 'text-content' : 'text-content-muted'}`}>
+                    {chk.passed ? (
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    ) : (
+                      <AlertTriangle className="h-4 w-4 text-amber-600" />
+                    )}
                   </span>
                   <div>
                     <div className="font-bold text-content">{chk.name}</div>
-                    <div className="text-content-secondary text-[11px] leading-relaxed mt-0.5">{chk.message}</div>
+                    <div className="text-content-secondary text-[11px] leading-relaxed mt-0.5">
+                      {chk.message}
+                    </div>
                   </div>
                 </div>
               ))}

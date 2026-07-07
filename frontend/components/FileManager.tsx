@@ -1,52 +1,43 @@
-"use client";
+'use client';
 
-import React, { useRef, useState } from "react";
-import { useResume } from "../context/ResumeContext";
-import { 
-  Download, 
-  Upload, 
-  Trash2, 
-  History,
-  Save,
-  RotateCcw,
-  FileJson
-} from "lucide-react";
+import React, { useRef, useState } from 'react';
+import { useResume } from '../context/ResumeContext';
+import { Download, Upload, Trash2, History, Save, RotateCcw, FileJson } from 'lucide-react';
 
 export const FileManager: React.FC = () => {
-  const { 
-    savedVersions, 
-    saveCurrentVersion, 
-    loadVersion, 
-    deleteVersion, 
+  const {
+    savedVersions,
+    saveCurrentVersion,
+    loadVersion,
+    deleteVersion,
     exportVersionJson,
-    importJson 
+    importJson,
   } = useResume();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [versionName, setVersionName] = useState("");
+  const [versionName, setVersionName] = useState('');
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       try {
         await importJson(file);
-        alert("Pomyślnie wczytano dane z pliku jako bieżącą wersję!");
+        alert('Pomyślnie wczytano dane z pliku jako bieżącą wersję!');
       } catch (err: any) {
         alert(`Błąd wczytywania: ${err.message}`);
       }
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
   const handleSaveVersion = () => {
     saveCurrentVersion(versionName);
-    setVersionName("");
-    alert("Zapisano obecny stan jako nową wersję.");
+    setVersionName('');
+    alert('Zapisano obecny stan jako nową wersję.');
   };
 
   return (
     <div className="flex-1 overflow-y-auto p-6 sm:p-12 lg:p-16 bg-surface text-content animate-fade-in">
       <div className="mx-auto max-w-5xl space-y-12">
-
         <div className="border-b border-border pb-8 space-y-3">
           <div className="flex items-center space-x-2.5">
             <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-content text-content-inverse">
@@ -60,7 +51,8 @@ export const FileManager: React.FC = () => {
             Zapisane Wersje CV
           </h2>
           <p className="text-sm sm:text-base text-content-secondary max-w-2xl leading-relaxed font-medium">
-            Zapisuj różne wersje swojego dokumentu wewnątrz platformy, aby swobodnie do nich wracać, eksperymentować ze zmianami i generować z nich pliki PDF.
+            Zapisuj różne wersje swojego dokumentu wewnątrz platformy, aby swobodnie do nich wracać,
+            eksperymentować ze zmianami i generować z nich pliki PDF.
           </p>
         </div>
 
@@ -87,7 +79,9 @@ export const FileManager: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-xl font-bold tracking-tight text-content">Oś czasu (Lokalnie zapisane)</h3>
+          <h3 className="text-xl font-bold tracking-tight text-content">
+            Oś czasu (Lokalnie zapisane)
+          </h3>
           {savedVersions.length === 0 ? (
             <div className="rounded-3xl border border-dashed border-border p-12 text-center text-content-muted">
               <History className="h-8 w-8 mx-auto mb-3 opacity-50" />
@@ -96,14 +90,17 @@ export const FileManager: React.FC = () => {
           ) : (
             <div className="space-y-4">
               {savedVersions.map((version) => (
-                <div key={version.id} className="group rounded-2xl border border-border bg-surface p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm hover:border-border-strong transition-colors">
+                <div
+                  key={version.id}
+                  className="group rounded-2xl border border-border bg-surface p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm hover:border-border-strong transition-colors"
+                >
                   <div className="space-y-1">
                     <h4 className="text-base font-bold text-content">{version.name}</h4>
                     <p className="text-xs font-medium text-content-secondary">
                       Zapisano: {new Date(version.date).toLocaleString('pl-PL')}
                     </p>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 flex-wrap">
                     <button
                       onClick={() => loadVersion(version.id)}
@@ -113,7 +110,7 @@ export const FileManager: React.FC = () => {
                       <RotateCcw className="h-3.5 w-3.5" />
                       <span>Przywróć</span>
                     </button>
-                    
+
                     <button
                       onClick={() => exportVersionJson(version.id)}
                       title="Eksportuj dane do pliku JSON"
@@ -125,7 +122,7 @@ export const FileManager: React.FC = () => {
 
                     <button
                       onClick={() => {
-                        if (confirm("Na pewno usunąć tę wersję z historii?")) {
+                        if (confirm('Na pewno usunąć tę wersję z historii?')) {
                           deleteVersion(version.id);
                         }
                       }}
@@ -146,7 +143,8 @@ export const FileManager: React.FC = () => {
             <div className="space-y-2">
               <h3 className="text-lg font-bold text-content">Importuj starszy profil</h3>
               <p className="text-xs text-content-secondary leading-relaxed font-medium max-w-lg">
-                Jeśli masz plik JSON wyeksportowany w przeszłości, wgraj go tutaj. Zostanie on załadowany jako Twój obecny profil w edytorze.
+                Jeśli masz plik JSON wyeksportowany w przeszłości, wgraj go tutaj. Zostanie on
+                załadowany jako Twój obecny profil w edytorze.
               </p>
             </div>
             <input
@@ -165,7 +163,6 @@ export const FileManager: React.FC = () => {
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );

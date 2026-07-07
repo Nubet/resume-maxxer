@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Cpu, ArrowRight, Menu, X } from "lucide-react";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Cpu, ArrowRight, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onStartBuilder: () => void;
@@ -12,14 +12,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Dlaczego warto", href: "#comparison" },
-    { name: "Jak to działa", href: "#workflow" },
-    { name: "FAQ", href: "#faq" },
+    { name: 'Dlaczego warto', href: '#comparison' },
+    { name: 'Jak to działa', href: '#workflow' },
+    { name: 'FAQ', href: '#faq' },
   ];
 
   return (
     <>
-      
       <header className="sticky top-4 sm:top-6 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
         <div className="mx-auto max-w-5xl pointer-events-auto">
           <motion.div
@@ -28,14 +27,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
             transition={{ duration: 0.5 }}
             className="flex items-center justify-between rounded-full border border-border bg-white/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] px-5 py-2.5 transition-all duration-300"
           >
-            
             <a href="#" className="flex items-center gap-2.5 group">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-tertiary border border-border text-content transition-transform duration-300 group-hover:scale-105">
                 <Cpu className="h-4.5 w-4.5" />
               </div>
-              <span className="text-base font-bold tracking-tight text-content">
-                Resume Maxxer
-              </span>
+              <span className="text-base font-bold tracking-tight text-content">Resume Maxxer</span>
             </a>
 
             <nav className="hidden md:flex items-center gap-1">

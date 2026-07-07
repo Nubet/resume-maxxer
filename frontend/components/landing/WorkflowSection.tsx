@@ -1,13 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { 
-  Code2, 
-  Layers, 
-  ArrowRight, 
-  Download
-} from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Code2, Layers, ArrowRight, Download } from 'lucide-react';
 
 interface WorkflowSectionProps {
   onStartBuilder: () => void;
@@ -16,35 +11,34 @@ interface WorkflowSectionProps {
 export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onStartBuilder }) => {
   const steps = [
     {
-      number: "01",
+      number: '01',
       icon: <Code2 className="h-5 w-5 text-content" />,
-      title: "Wpisz lub wklej swoje dane",
-      desc: "Dodaj doświadczenie i umiejętności w prostym formularzu, bez walki z formatowaniem."
+      title: 'Wpisz lub wklej swoje dane',
+      desc: 'Dodaj doświadczenie i umiejętności w prostym formularzu, bez walki z formatowaniem.',
     },
     {
-      number: "02",
+      number: '02',
       icon: <Layers className="h-5 w-5 text-content" />,
-      title: "Wybierz wygląd dokumentu",
-      desc: "Przełączaj szablony jednym kliknięciem. Tekst automatycznie dopasuje się do marginesów."
+      title: 'Wybierz wygląd dokumentu',
+      desc: 'Przełączaj szablony jednym kliknięciem. Tekst automatycznie dopasuje się do marginesów.',
     },
     {
-      number: "03",
+      number: '03',
       icon: <Download className="h-5 w-5 text-content" />,
-      title: "Pobierz gotowy plik PDF",
-      desc: "Otrzymujesz profesjonalny dokument, gotowy do wysłania rekruterowi."
-    }
+      title: 'Pobierz gotowy plik PDF',
+      desc: 'Otrzymujesz profesjonalny dokument, gotowy do wysłania rekruterowi.',
+    },
   ];
 
   return (
     <section id="workflow" className="py-20 md:py-32 relative bg-surface border-t border-border">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        viewport={{ once: true, margin: '-10%' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16"
       >
-
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-content">
             Jak działa <br />
@@ -58,14 +52,12 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onStartBuilder
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          
           {steps.map((step, idx) => (
             <div
               key={step.number}
               className="rounded-3xl border border-border bg-surface-secondary p-8 flex flex-col justify-between hover:border-border-strong hover:bg-surface-tertiary transition-all duration-300 shadow-sm"
             >
               <div className="space-y-6">
-                
                 <div className="flex items-center justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white border border-border shadow-sm text-content">
                     {step.icon}
@@ -76,17 +68,12 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onStartBuilder
                 </div>
 
                 <div className="space-y-2.5 text-left">
-                  <h3 className="text-xl font-bold text-content tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-content-secondary leading-relaxed">
-                    {step.desc}
-                  </p>
+                  <h3 className="text-xl font-bold text-content tracking-tight">{step.title}</h3>
+                  <p className="text-sm text-content-secondary leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             </div>
           ))}
-
         </div>
 
         <div className="text-center pt-8">
@@ -100,7 +87,6 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onStartBuilder
             </span>
           </button>
         </div>
-
       </motion.div>
     </section>
   );

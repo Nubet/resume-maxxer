@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { useResume } from "../context/ResumeContext";
-import { 
-  User, 
-  Briefcase, 
-  GraduationCap, 
-  Wrench, 
-  FolderGit2, 
+import React, { useRef } from 'react';
+import { useResume } from '../context/ResumeContext';
+import {
+  User,
+  Briefcase,
+  GraduationCap,
+  Wrench,
+  FolderGit2,
   Globe2,
   CheckCircle2,
   Cpu,
@@ -16,11 +16,11 @@ import {
   LayoutTemplate,
   Edit3,
   ShieldCheck,
-  History
-} from "lucide-react";
+  History,
+} from 'lucide-react';
 
-export type TabType = "basics" | "experience" | "education" | "skills" | "projects" | "extra";
-export type DashboardModule = "editor" | "templates" | "ats" | "history";
+export type TabType = 'basics' | 'experience' | 'education' | 'skills' | 'projects' | 'extra';
+export type DashboardModule = 'editor' | 'templates' | 'ats' | 'history';
 
 interface DashboardSidebarProps {
   activeModule: DashboardModule;
@@ -50,19 +50,25 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   );
 
   const modules = [
-    { id: "editor", label: "Edytor CV", icon: Edit3 },
-    { id: "templates", label: "Galeria Szablonów", icon: LayoutTemplate },
-    { id: "ats", label: "Audyt ATS & AI", icon: ShieldCheck },
-    { id: "history", label: "Historia Wersji", icon: History },
+    { id: 'editor', label: 'Edytor CV', icon: Edit3 },
+    { id: 'templates', label: 'Galeria Szablonów', icon: LayoutTemplate },
+    { id: 'ats', label: 'Audyt ATS & AI', icon: ShieldCheck },
+    { id: 'history', label: 'Historia Wersji', icon: History },
   ];
 
   const steps = [
-    { id: "basics", number: 1, label: "Profil i Kontakt", icon: User, completed: hasBasics },
-    { id: "experience", number: 2, label: "Doświadczenie", icon: Briefcase, completed: hasExp },
-    { id: "education", number: 3, label: "Edukacja", icon: GraduationCap, completed: hasEdu },
-    { id: "skills", number: 4, label: "Umiejętności", icon: Wrench, completed: hasSkills },
-    { id: "projects", number: 5, label: "Projekty", icon: FolderGit2, completed: Boolean(resumeData?.projects && resumeData.projects.length > 0) },
-    { id: "extra", number: 6, label: "Języki i Dodatki", icon: Globe2, completed: hasExtra },
+    { id: 'basics', number: 1, label: 'Profil i Kontakt', icon: User, completed: hasBasics },
+    { id: 'experience', number: 2, label: 'Doświadczenie', icon: Briefcase, completed: hasExp },
+    { id: 'education', number: 3, label: 'Edukacja', icon: GraduationCap, completed: hasEdu },
+    { id: 'skills', number: 4, label: 'Umiejętności', icon: Wrench, completed: hasSkills },
+    {
+      id: 'projects',
+      number: 5,
+      label: 'Projekty',
+      icon: FolderGit2,
+      completed: Boolean(resumeData?.projects && resumeData.projects.length > 0),
+    },
+    { id: 'extra', number: 6, label: 'Języki i Dodatki', icon: Globe2, completed: hasExtra },
   ];
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,19 +76,18 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     if (file) {
       try {
         await importJson(file);
-        alert("Pomyślnie wczytano dane z pliku!");
+        alert('Pomyślnie wczytano dane z pliku!');
       } catch (err: any) {
         alert(`Błąd wczytywania: ${err.message}`);
       }
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
   return (
     <aside className="w-full md:w-64 lg:w-72 border-b md:border-b-0 md:border-r border-border bg-surface-secondary p-6 flex flex-col justify-between shrink-0 min-h-full">
       <div className="space-y-8">
-        
-        <button 
+        <button
           onClick={onBackToLanding}
           title="Powrót na stronę główną"
           className="flex items-center space-x-3 text-left transition-all hover:opacity-80 active:scale-[0.98] group w-full"
@@ -111,11 +116,13 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                   onClick={() => onModuleChange(mod.id as DashboardModule)}
                   className={`group flex w-full items-center space-x-3 rounded-2xl px-4 py-3 text-xs font-bold transition-all duration-200 active:scale-[0.98] ${
                     isActive
-                      ? "bg-content text-content-inverse shadow-md"
-                      : "text-content-secondary hover:bg-surface hover:text-content"
+                      ? 'bg-content text-content-inverse shadow-md'
+                      : 'text-content-secondary hover:bg-surface hover:text-content'
                   }`}
                 >
-                  <Icon className={`h-4 w-4 ${isActive ? "text-content-inverse" : "text-content-muted group-hover:text-content"}`} />
+                  <Icon
+                    className={`h-4 w-4 ${isActive ? 'text-content-inverse' : 'text-content-muted group-hover:text-content'}`}
+                  />
                   <span>{mod.label}</span>
                 </button>
               );
@@ -123,7 +130,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           </nav>
         </div>
 
-        {activeModule === "editor" && (
+        {activeModule === 'editor' && (
           <div className="space-y-2 pt-4 border-t border-border animate-fade-in">
             <div className="px-3 text-[11px] font-black uppercase tracking-widest text-content-muted mb-2">
               Sekcje Życiorysu
@@ -137,19 +144,25 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                     onClick={() => onTabChange(step.id as TabType)}
                     className={`group flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                       isActive
-                        ? "bg-surface text-content font-bold shadow-xs border border-border"
-                        : "text-content-secondary hover:bg-surface/60 hover:text-content"
+                        ? 'bg-surface text-content font-bold shadow-xs border border-border'
+                        : 'text-content-secondary hover:bg-surface/60 hover:text-content'
                     }`}
                   >
                     <div className="flex items-center space-x-2.5">
-                      <span className={`flex h-5 w-5 items-center justify-center rounded-lg text-[10px] font-black transition-colors ${
-                        isActive 
-                          ? "bg-content text-content-inverse" 
-                          : step.completed 
-                            ? "bg-content text-content-inverse" 
-                            : "bg-border text-content-muted"
-                      }`}>
-                        {step.completed && !isActive ? <CheckCircle2 className="h-3 w-3" /> : step.number}
+                      <span
+                        className={`flex h-5 w-5 items-center justify-center rounded-lg text-[10px] font-black transition-colors ${
+                          isActive
+                            ? 'bg-content text-content-inverse'
+                            : step.completed
+                              ? 'bg-content text-content-inverse'
+                              : 'bg-border text-content-muted'
+                        }`}
+                      >
+                        {step.completed && !isActive ? (
+                          <CheckCircle2 className="h-3 w-3" />
+                        ) : (
+                          step.number
+                        )}
                       </span>
                       <span>{step.label}</span>
                     </div>
@@ -164,11 +177,11 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       <div className="mt-8 pt-6 border-t border-border space-y-4">
         <div className="flex items-center justify-between text-xs text-content-secondary">
           <span className="font-semibold">Szablon:</span>
-          <button 
-            onClick={() => onModuleChange("templates")}
+          <button
+            onClick={() => onModuleChange('templates')}
             className="font-bold text-content hover:underline"
           >
-            {templateId === "basic_resume_v1" ? "Klasyczny" : "Nowoczesny"} ➔
+            {templateId === 'basic_resume_v1' ? 'Klasyczny' : 'Nowoczesny'} ➔
           </button>
         </div>
 

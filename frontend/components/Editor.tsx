@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import { TabType } from "./DashboardSidebar";
-import { BasicsForm } from "./editor/BasicsForm";
-import { ExperienceForm } from "./editor/ExperienceForm";
-import { EducationForm } from "./editor/EducationForm";
-import { SkillsForm } from "./editor/SkillsForm";
-import { ProjectsForm } from "./editor/ProjectsForm";
-import { ExtraForm } from "./editor/ExtraForm";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import React from 'react';
+import { TabType } from './DashboardSidebar';
+import { BasicsForm } from './editor/BasicsForm';
+import { ExperienceForm } from './editor/ExperienceForm';
+import { EducationForm } from './editor/EducationForm';
+import { SkillsForm } from './editor/SkillsForm';
+import { ProjectsForm } from './editor/ProjectsForm';
+import { ExtraForm } from './editor/ExtraForm';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface EditorProps {
   activeTab: TabType;
@@ -16,7 +16,7 @@ interface EditorProps {
 }
 
 export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
-  const steps: TabType[] = ["basics", "experience", "education", "skills", "projects", "extra"];
+  const steps: TabType[] = ['basics', 'experience', 'education', 'skills', 'projects', 'extra'];
   const currentStepIndex = steps.indexOf(activeTab);
 
   const handleNext = () => {
@@ -33,17 +33,17 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
 
   const renderActiveForm = () => {
     switch (activeTab) {
-      case "basics":
+      case 'basics':
         return <BasicsForm />;
-      case "experience":
+      case 'experience':
         return <ExperienceForm />;
-      case "education":
+      case 'education':
         return <EducationForm />;
-      case "skills":
+      case 'skills':
         return <SkillsForm />;
-      case "projects":
+      case 'projects':
         return <ProjectsForm />;
-      case "extra":
+      case 'extra':
         return <ExtraForm />;
       default:
         return <BasicsForm />;
@@ -52,11 +52,8 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
 
   return (
     <div className="flex h-full flex-col bg-surface text-content">
-      
       <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-12 sm:py-12 lg:px-16 animate-fade-in">
-        <div className="mx-auto max-w-3xl">
-          {renderActiveForm()}
-        </div>
+        <div className="mx-auto max-w-3xl">{renderActiveForm()}</div>
       </div>
 
       <div className="border-t border-border bg-surface px-8 py-5 flex items-center justify-between gap-4 shrink-0">
@@ -83,7 +80,11 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
           </button>
         ) : (
           <button
-            onClick={() => alert("Wszystkie sekcje wypełnione! Możesz teraz przejrzeć podgląd PDF lub sprawdzić audyt ATS.")}
+            onClick={() =>
+              alert(
+                'Wszystkie sekcje wypełnione! Możesz teraz przejrzeć podgląd PDF lub sprawdzić audyt ATS.'
+              )
+            }
             className="inline-flex items-center gap-2 rounded-full bg-content px-8 py-2.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98] shadow-sm"
           >
             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />

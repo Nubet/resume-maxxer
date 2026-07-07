@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useResume } from "../../context/ResumeContext";
-import { FolderGit2, Plus, Trash2 } from "lucide-react";
+import React from 'react';
+import { useResume } from '../../context/ResumeContext';
+import { FolderGit2, Plus, Trash2 } from 'lucide-react';
 
 export const ProjectsForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -14,11 +14,11 @@ export const ProjectsForm: React.FC = () => {
       projects: [
         ...(prev.projects || []),
         {
-          name: "",
-          description: "",
+          name: '',
+          description: '',
           highlights: [],
           keywords: [],
-          url: "",
+          url: '',
         },
       ],
     }));
@@ -40,8 +40,11 @@ export const ProjectsForm: React.FC = () => {
   };
 
   const handleKeywordsChange = (index: number, value: string) => {
-    const kws = value.split(",").map(k => k.trim()).filter(Boolean);
-    handleChange(index, "keywords", kws);
+    const kws = value
+      .split(',')
+      .map((k) => k.trim())
+      .filter(Boolean);
+    handleChange(index, 'keywords', kws);
   };
 
   return (
@@ -62,20 +65,24 @@ export const ProjectsForm: React.FC = () => {
           <FolderGit2 className="h-8 w-8 text-content-muted mx-auto" />
           <p className="text-sm font-bold text-content">Brak wpisów o projektach</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Projekty open-source, aplikacje komercyjne lub osiągnięcia akademickie to doskonały sposób na wyróżnienie się w branży IT i inżynierii.
+            Projekty open-source, aplikacje komercyjne lub osiągnięcia akademickie to doskonały
+            sposób na wyróżnienie się w branży IT i inżynierii.
           </p>
         </div>
       ) : (
         <div className="space-y-6">
           {projects.map((proj, index) => (
-            <div key={index} className="rounded-3xl border border-border bg-surface-secondary p-8 space-y-6 transition-all hover:border-border-strong">
+            <div
+              key={index}
+              className="rounded-3xl border border-border bg-surface-secondary p-8 space-y-6 transition-all hover:border-border-strong"
+            >
               <div className="flex items-center justify-between border-b border-border pb-4">
                 <div className="flex items-center space-x-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-content text-content-inverse font-bold text-xs">
                     {index + 1}
                   </span>
                   <span className="font-bold text-base text-content">
-                    {proj.name || "Nowy Projekt"}
+                    {proj.name || 'Nowy Projekt'}
                   </span>
                 </div>
                 <button
@@ -89,32 +96,38 @@ export const ProjectsForm: React.FC = () => {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Nazwa Projektu / Aplikacji</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Nazwa Projektu / Aplikacji
+                  </label>
                   <input
                     type="text"
-                    value={proj.name || ""}
-                    onChange={(e) => handleChange(index, "name", e.target.value)}
+                    value={proj.name || ''}
+                    onChange={(e) => handleChange(index, 'name', e.target.value)}
                     placeholder="np. E-Commerce Microservice Architecture"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Link do Repozytorium / Live URL</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Link do Repozytorium / Live URL
+                  </label>
                   <input
                     type="text"
-                    value={proj.url || ""}
-                    onChange={(e) => handleChange(index, "url", e.target.value)}
+                    value={proj.url || ''}
+                    onChange={(e) => handleChange(index, 'url', e.target.value)}
                     placeholder="np. github.com/username/project"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">Technologie / Słowa Kluczowe (oddzielone przecinkami)</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Technologie / Słowa Kluczowe (oddzielone przecinkami)
+                  </label>
                   <input
                     type="text"
-                    value={(proj.keywords || []).join(", ")}
+                    value={(proj.keywords || []).join(', ')}
                     onChange={(e) => handleKeywordsChange(index, e.target.value)}
                     placeholder="np. TypeScript, Next.js, Docker, PostgreSQL, Redis, AWS"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
@@ -122,11 +135,13 @@ export const ProjectsForm: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">Opis Projektu i Rozwiązane Problemy</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Opis Projektu i Rozwiązane Problemy
+                  </label>
                   <textarea
                     rows={4}
-                    value={proj.description || ""}
-                    onChange={(e) => handleChange(index, "description", e.target.value)}
+                    value={proj.description || ''}
+                    onChange={(e) => handleChange(index, 'description', e.target.value)}
                     placeholder="Opisz architekturę, cel aplikacji i swoje kluczowe osiągnięcia (np. • Zbudowałem system przetwarzający 10 000 żądań na sekundę...)"
                     className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
                   />

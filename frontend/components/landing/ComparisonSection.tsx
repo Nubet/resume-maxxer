@@ -1,12 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { 
-  XCircle, 
-  ArrowRight,
-  Check
-} from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { XCircle, ArrowRight, Check } from 'lucide-react';
 
 interface ComparisonSectionProps {
   onStartBuilder: () => void;
@@ -15,52 +11,51 @@ interface ComparisonSectionProps {
 export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBuilder }) => {
   const traditionalFlaws = [
     {
-      title: "Rozjeżdżające się tabele",
-      desc: "Po otwarciu na innym komputerze kolumny i marginesy często się przesuwają."
+      title: 'Rozjeżdżające się tabele',
+      desc: 'Po otwarciu na innym komputerze kolumny i marginesy często się przesuwają.',
     },
     {
-      title: "Brak odczytu w systemach HR",
-      desc: "Programy rekrutacyjne nie potrafią odczytać liter z szablonów graficznych i odrzucają plik."
+      title: 'Brak odczytu w systemach HR',
+      desc: 'Programy rekrutacyjne nie potrafią odczytać liter z szablonów graficznych i odrzucają plik.',
     },
     {
-      title: "Ręczne poprawianie układu",
-      desc: "Dopisanie jednego zdania niszczy układ strony i zmusza do poprawiania całości."
+      title: 'Ręczne poprawianie układu',
+      desc: 'Dopisanie jednego zdania niszczy układ strony i zmusza do poprawiania całości.',
     },
     {
-      title: "Przepisywanie danych od nowa",
-      desc: "Zmiana wyglądu CV wymaga ponownego wprowadzania całej historii zatrudnienia."
-    }
+      title: 'Przepisywanie danych od nowa',
+      desc: 'Zmiana wyglądu CV wymaga ponownego wprowadzania całej historii zatrudnienia.',
+    },
   ];
 
   const maxxerAdvantages = [
     {
-      title: "Pewna rekrutacja HR",
-      desc: "Czysty format PDF gwarantuje, że system rekrutacyjny odczyta 100% Twoich umiejętności."
+      title: 'Pewna rekrutacja HR',
+      desc: 'Czysty format PDF gwarantuje, że system rekrutacyjny odczyta 100% Twoich umiejętności.',
     },
     {
-      title: "Automatyczny układ strony",
-      desc: "Nasz system sam wyrównuje tekst i marginesy w czasie rzeczywistym."
+      title: 'Automatyczny układ strony',
+      desc: 'Nasz system sam wyrównuje tekst i marginesy w czasie rzeczywistym.',
     },
     {
-      title: "Zmień wygląd jednym kliknięciem",
-      desc: "Dane wpisujesz raz, a szablony graficzne przełączasz bez utraty treści."
+      title: 'Zmień wygląd jednym kliknięciem',
+      desc: 'Dane wpisujesz raz, a szablony graficzne przełączasz bez utraty treści.',
     },
     {
-      title: "Dopasowanie do oferty pracy",
-      desc: "Inteligentny asystent pomaga wyeksponować umiejętności, których dokładnie szuka pracodawca."
-    }
+      title: 'Dopasowanie do oferty pracy',
+      desc: 'Inteligentny asystent pomaga wyeksponować umiejętności, których dokładnie szuka pracodawca.',
+    },
   ];
 
   return (
     <section id="comparison" className="py-20 md:py-32 relative bg-surface border-t border-border">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        viewport={{ once: true, margin: '-10%' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16"
       >
-
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-content">
             Dlaczego zwykłe edytory <br />
@@ -69,17 +64,19 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
             </span>
           </h2>
           <p className="text-base sm:text-lg text-content-secondary leading-relaxed">
-            Świetne kandydatury często przepadają przez błędy w pliku. Zobacz, jak oszczędzić czas i zyskać pewność w rekrutacji.
+            Świetne kandydatury często przepadają przez błędy w pliku. Zobacz, jak oszczędzić czas i
+            zyskać pewność w rekrutacji.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
-
           <div className="rounded-3xl border border-border bg-surface-secondary p-8 sm:p-10 flex flex-col justify-between space-y-8 relative">
             <div className="space-y-6">
               <div className="border-b border-border pb-6">
                 <h3 className="text-xl font-bold text-content">Zwykłe programy i edytory</h3>
-                <p className="text-xs text-content-muted mt-1">Popularne kreatory graficzne i edytory tekstu</p>
+                <p className="text-xs text-content-muted mt-1">
+                  Popularne kreatory graficzne i edytory tekstu
+                </p>
               </div>
 
               <div className="space-y-5">
@@ -102,7 +99,9 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
             <div className="space-y-6">
               <div className="border-b border-neutral-800 pb-6">
                 <h3 className="text-xl font-bold text-content-inverse">Resume Maxxer</h3>
-                <p className="text-xs text-neutral-400 mt-1">Nowoczesny kreator odporny na błędy formatowania</p>
+                <p className="text-xs text-neutral-400 mt-1">
+                  Nowoczesny kreator odporny na błędy formatowania
+                </p>
               </div>
 
               <div className="space-y-5">
@@ -130,9 +129,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
               </button>
             </div>
           </div>
-
         </div>
-
       </motion.div>
     </section>
   );

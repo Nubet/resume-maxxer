@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useResume } from "../context/ResumeContext";
-import { 
-  Check, 
-  Sparkles, 
-  LayoutTemplate, 
-  ShieldCheck, 
+import React, { useState } from 'react';
+import { useResume } from '../context/ResumeContext';
+import {
+  Check,
+  Sparkles,
+  LayoutTemplate,
+  ShieldCheck,
   ArrowRight,
   FileText,
   Briefcase,
   Code2,
-  Award
-} from "lucide-react";
+  Award,
+} from 'lucide-react';
 
 interface TemplateGalleryProps {
   onSelectTemplate: (templateId: string) => void;
@@ -20,80 +20,87 @@ interface TemplateGalleryProps {
 
 export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTemplate }) => {
   const { templateId, setTemplateId } = useResume();
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const categories = [
-    { id: "all", label: "Wszystkie" },
-    { id: "classic", label: "Klasyczne" },
-    { id: "modern", label: "Nowoczesne" },
-    { id: "tech", label: "IT & Inżynieria" },
-    { id: "exec", label: "Management" },
+    { id: 'all', label: 'Wszystkie' },
+    { id: 'classic', label: 'Klasyczne' },
+    { id: 'modern', label: 'Nowoczesne' },
+    { id: 'tech', label: 'IT & Inżynieria' },
+    { id: 'exec', label: 'Management' },
   ];
 
   const templates = [
     {
-      id: "basic_resume_v1",
-      name: "Szwajcarski Rygor",
-      category: "classic",
-      description: "Jednokolumnowy układ Swiss Editorial. Zoptymalizowany pod kątem czytelności w systemach ATS i skanerach rekrutacyjnych.",
-      tags: ["Jednokolumnowy", "ATS 100%", "Minimalizm"],
+      id: 'basic_resume_v1',
+      name: 'Szwajcarski Rygor',
+      category: 'classic',
+      description:
+        'Jednokolumnowy układ Swiss Editorial. Zoptymalizowany pod kątem czytelności w systemach ATS i skanerach rekrutacyjnych.',
+      tags: ['Jednokolumnowy', 'ATS 100%', 'Minimalizm'],
       icon: FileText,
       available: true,
     },
     {
-      id: "crisp_cv_v1",
-      name: "Nowoczesny Przejrzysty",
-      category: "modern",
-      description: "Czysty układ z wyraźnie wyodrębnionymi sekcjami, czytelną hierarchią nagłówków i datami wyrównanymi do prawej.",
-      tags: ["Wyrazista hierarchia", "Nowoczesny A4", "Czytelne daty"],
+      id: 'crisp_cv_v1',
+      name: 'Nowoczesny Przejrzysty',
+      category: 'modern',
+      description:
+        'Czysty układ z wyraźnie wyodrębnionymi sekcjami, czytelną hierarchią nagłówków i datami wyrównanymi do prawej.',
+      tags: ['Wyrazista hierarchia', 'Nowoczesny A4', 'Czytelne daty'],
       icon: LayoutTemplate,
       available: true,
     },
     {
-      id: "tech_lead_v1",
-      name: "Tech Lead & Developer",
-      category: "tech",
-      description: "Zaprojektowany dla programistów i inżynierów. Wyeksponowany stos technologiczny, linki do GitHub oraz projekty open-source.",
-      tags: ["GitHub", "Stack techniczny", "Projekty IT"],
+      id: 'tech_lead_v1',
+      name: 'Tech Lead & Developer',
+      category: 'tech',
+      description:
+        'Zaprojektowany dla programistów i inżynierów. Wyeksponowany stos technologiczny, linki do GitHub oraz projekty open-source.',
+      tags: ['GitHub', 'Stack techniczny', 'Projekty IT'],
       icon: Code2,
       available: false,
     },
     {
-      id: "exec_v1",
-      name: "Executive & Management",
-      category: "exec",
-      description: "Dla dyrektorów i menedżerów. Kładzie nacisk na podsumowanie osiągnięć liczbowych, zarządzany budżet i skalę biznesu.",
-      tags: ["Osiągnięcia KPI", "Executive summary", "Zarządzanie"],
+      id: 'exec_v1',
+      name: 'Executive & Management',
+      category: 'exec',
+      description:
+        'Dla dyrektorów i menedżerów. Kładzie nacisk na podsumowanie osiągnięć liczbowych, zarządzany budżet i skalę biznesu.',
+      tags: ['Osiągnięcia KPI', 'Executive summary', 'Zarządzanie'],
       icon: Briefcase,
       available: false,
     },
     {
-      id: "academic_v1",
-      name: "Academic & Research",
-      category: "classic",
-      description: "Uporządkowany szablon dla naukowców i badaczy. Zoptymalizowany pod kątem listy publikacji, grantów i certyfikatów.",
-      tags: ["Publikacje", "Granty", "Edukacja"],
+      id: 'academic_v1',
+      name: 'Academic & Research',
+      category: 'classic',
+      description:
+        'Uporządkowany szablon dla naukowców i badaczy. Zoptymalizowany pod kątem listy publikacji, grantów i certyfikatów.',
+      tags: ['Publikacje', 'Granty', 'Edukacja'],
       icon: Award,
       available: false,
     },
     {
-      id: "editorial_v1",
-      name: "Editorial Studio",
-      category: "modern",
-      description: "Wysmakowana typografia dla projektantów, architekta i twórców produktów. Inspirowana szwajcarskimi publikacjami wydawniczymi.",
-      tags: ["Swiss Design", "Wysoka typografia", "Product Design"],
+      id: 'editorial_v1',
+      name: 'Editorial Studio',
+      category: 'modern',
+      description:
+        'Wysmakowana typografia dla projektantów, architekta i twórców produktów. Inspirowana szwajcarskimi publikacjami wydawniczymi.',
+      tags: ['Swiss Design', 'Wysoka typografia', 'Product Design'],
       icon: Sparkles,
       available: false,
     },
   ];
 
-  const filteredTemplates = selectedCategory === "all" 
-    ? templates 
-    : templates.filter(t => t.category === selectedCategory);
+  const filteredTemplates =
+    selectedCategory === 'all'
+      ? templates
+      : templates.filter((t) => t.category === selectedCategory);
 
   const handleSelect = (id: string, available: boolean) => {
     if (!available) {
-      alert("Ten szablon będzie dostępny w nadchodzącej aktualizacji biblioteki!");
+      alert('Ten szablon będzie dostępny w nadchodzącej aktualizacji biblioteki!');
       return;
     }
     setTemplateId(id);
@@ -103,7 +110,6 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
   return (
     <div className="flex-1 overflow-y-auto p-6 sm:p-12 lg:p-16 bg-surface text-content animate-fade-in">
       <div className="mx-auto max-w-5xl space-y-10">
-
         <div className="border-b border-border pb-8 space-y-3">
           <div className="flex items-center space-x-2.5">
             <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-content text-content-inverse">
@@ -117,7 +123,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
             Galeria Szablonów CV
           </h2>
           <p className="text-sm sm:text-base text-content-secondary max-w-2xl leading-relaxed font-medium">
-            Wybierz układ, który najlepiej pasuje do Twojej branży i stanowiska. Wszystkie nasze szablony są składane w profesjonalnym silniku Typst i przechodzą rygorystyczne testy czytelności w systemach ATS.
+            Wybierz układ, który najlepiej pasuje do Twojej branży i stanowiska. Wszystkie nasze
+            szablony są składane w profesjonalnym silniku Typst i przechodzą rygorystyczne testy
+            czytelności w systemach ATS.
           </p>
         </div>
 
@@ -128,8 +136,8 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
               onClick={() => setSelectedCategory(cat.id)}
               className={`rounded-full px-5 py-2 text-xs font-bold transition-all duration-200 active:scale-[0.98] ${
                 selectedCategory === cat.id
-                  ? "bg-content text-content-inverse shadow-sm"
-                  : "bg-surface-secondary text-content-muted border border-border hover:border-content hover:text-content"
+                  ? 'bg-content text-content-inverse shadow-sm'
+                  : 'bg-surface-secondary text-content-muted border border-border hover:border-content hover:text-content'
               }`}
             >
               {cat.label}
@@ -147,10 +155,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                 onClick={() => handleSelect(tpl.id, tpl.available)}
                 className={`group relative flex flex-col justify-between rounded-3xl border p-8 transition-all duration-300 cursor-pointer overflow-hidden ${
                   isSelected
-                    ? "border-2 border-content bg-surface-secondary shadow-xl"
+                    ? 'border-2 border-content bg-surface-secondary shadow-xl'
                     : tpl.available
-                      ? "border-border bg-surface hover:border-content hover:shadow-lg hover:-translate-y-1"
-                      : "border-border bg-surface-secondary/50 opacity-60 cursor-not-allowed"
+                      ? 'border-border bg-surface hover:border-content hover:shadow-lg hover:-translate-y-1'
+                      : 'border-border bg-surface-secondary/50 opacity-60 cursor-not-allowed'
                 }`}
               >
                 <div>
@@ -176,7 +184,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                 <div className="space-y-6 pt-4 border-t border-border">
                   <div className="flex flex-wrap gap-1.5">
                     {tpl.tags.map((tag, i) => (
-                      <span key={i} className="rounded-md bg-surface-tertiary px-2.5 py-1 text-[10px] font-bold text-content-secondary">
+                      <span
+                        key={i}
+                        className="rounded-md bg-surface-tertiary px-2.5 py-1 text-[10px] font-bold text-content-secondary"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -186,10 +197,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     disabled={!tpl.available}
                     className={`w-full flex items-center justify-center gap-2 rounded-full py-3.5 text-xs font-bold transition-all ${
                       isSelected
-                        ? "bg-content text-content-inverse shadow-md"
+                        ? 'bg-content text-content-inverse shadow-md'
                         : tpl.available
-                          ? "border border-content bg-surface text-content group-hover:bg-content group-hover:text-content-inverse"
-                          : "bg-border text-content-muted cursor-not-allowed"
+                          ? 'border border-content bg-surface text-content group-hover:bg-content group-hover:text-content-inverse'
+                          : 'bg-border text-content-muted cursor-not-allowed'
                     }`}
                   >
                     {isSelected ? (
@@ -219,7 +230,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
               <span>Gwarancja Czytelności ATS</span>
             </div>
             <p className="text-xs text-content-secondary max-w-xl leading-relaxed font-medium">
-              Wszystkie szablony z naszej galerii są kompilowane bez użycia problematycznych tabel HTML czy graficznych warstw, co zapewnia 100% poprawności odczytu w skanerach rekrutacyjnych Workday, Taleo i Greenhouse.
+              Wszystkie szablony z naszej galerii są kompilowane bez użycia problematycznych tabel
+              HTML czy graficznych warstw, co zapewnia 100% poprawności odczytu w skanerach
+              rekrutacyjnych Workday, Taleo i Greenhouse.
             </p>
           </div>
           <button
@@ -229,7 +242,6 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
             Wróć do Edytora CV
           </button>
         </div>
-
       </div>
     </div>
   );

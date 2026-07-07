@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Navbar } from "./landing/Navbar";
-import { HeroSection } from "./landing/HeroSection";
-import { ComparisonSection } from "./landing/ComparisonSection";
-import { WorkflowSection } from "./landing/WorkflowSection";
-import { FaqSection } from "./landing/FaqSection";
-import { CtaSection } from "./landing/CtaSection";
-import { Footer } from "./Footer";
+import React from 'react';
+import { Navbar } from './landing/Navbar';
+import { HeroSection } from './landing/HeroSection';
+import { ComparisonSection } from './landing/ComparisonSection';
+import { WorkflowSection } from './landing/WorkflowSection';
+import { FaqSection } from './landing/FaqSection';
+import { CtaSection } from './landing/CtaSection';
+import { Footer } from './Footer';
 
 interface LandingPageProps {
   onStartBuilder: () => void;

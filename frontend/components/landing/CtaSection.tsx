@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, FileText } from "lucide-react";
-import { Meteors } from "../ui/meteors";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, FileText } from 'lucide-react';
+import { Meteors } from '../ui/meteors';
 
 interface CtaSectionProps {
   onStartBuilder: () => void;
@@ -16,24 +16,27 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ onStartBuilder }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          viewport={{ once: true, margin: '-10%' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="rounded-3xl bg-content text-content-inverse p-10 sm:p-16 lg:p-20 text-center relative overflow-hidden shadow-2xl group"
         >
-          
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-neutral-800/40 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-neutral-800/40 rounded-full blur-3xl pointer-events-none" />
 
           <Meteors number={18} />
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-            
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
-              Gotowy na <span className="underline decoration-neutral-600 underline-offset-8">czytelne CV</span> bez problemów z formatowaniem?
+              Gotowy na{' '}
+              <span className="underline decoration-neutral-600 underline-offset-8">
+                czytelne CV
+              </span>{' '}
+              bez problemów z formatowaniem?
             </h2>
 
             <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Dołącz do osób, które tworzą swoje życiorysy w nowoczesnym kreatorze, mając pewność, że pracodawca zawsze otworzy przejrzysty i profesjonalny dokument.
+              Dołącz do osób, które tworzą swoje życiorysy w nowoczesnym kreatorze, mając pewność,
+              że pracodawca zawsze otworzy przejrzysty i profesjonalny dokument.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">

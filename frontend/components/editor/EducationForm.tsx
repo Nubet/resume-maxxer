@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useResume } from "../../context/ResumeContext";
-import { GraduationCap, Plus, Trash2 } from "lucide-react";
-import { EducationItem } from "../../types/resume";
+import React from 'react';
+import { useResume } from '../../context/ResumeContext';
+import { GraduationCap, Plus, Trash2 } from 'lucide-react';
+import { EducationItem } from '../../types/resume';
 
 export const EducationForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -15,12 +15,12 @@ export const EducationForm: React.FC = () => {
       education: [
         ...(prev.education || []),
         {
-          institution: "",
-          degree: "",
-          field: "",
-          startDate: "",
-          endDate: "",
-          gpa: "",
+          institution: '',
+          degree: '',
+          field: '',
+          startDate: '',
+          endDate: '',
+          gpa: '',
           highlights: [],
         },
       ],
@@ -60,20 +60,24 @@ export const EducationForm: React.FC = () => {
           <GraduationCap className="h-8 w-8 text-content-muted mx-auto" />
           <p className="text-sm font-bold text-content">Brak wpisów o edukacji</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Kliknij przycisk powyżej, aby dodać ukończone uczelnie, kierunki studiów lub ważne kursy.
+            Kliknij przycisk powyżej, aby dodać ukończone uczelnie, kierunki studiów lub ważne
+            kursy.
           </p>
         </div>
       ) : (
         <div className="space-y-6">
           {education.map((edu, index) => (
-            <div key={index} className="rounded-3xl border border-border bg-surface-secondary p-8 space-y-6 transition-all hover:border-border-strong">
+            <div
+              key={index}
+              className="rounded-3xl border border-border bg-surface-secondary p-8 space-y-6 transition-all hover:border-border-strong"
+            >
               <div className="flex items-center justify-between border-b border-border pb-4">
                 <div className="flex items-center space-x-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-content text-content-inverse font-bold text-xs">
                     {index + 1}
                   </span>
                   <span className="font-bold text-base text-content">
-                    {edu.institution || "Nowa Uczelnia"}
+                    {edu.institution || 'Nowa Uczelnia'}
                   </span>
                 </div>
                 <button
@@ -87,44 +91,52 @@ export const EducationForm: React.FC = () => {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Stopień / Tytuł</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Stopień / Tytuł
+                  </label>
                   <input
                     type="text"
-                    value={edu.degree || ""}
-                    onChange={(e) => handleChange(index, "degree", e.target.value)}
+                    value={edu.degree || ''}
+                    onChange={(e) => handleChange(index, 'degree', e.target.value)}
                     placeholder="np. Magister Inżynier, Licencjat"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Kierunek / Specjalizacja</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Kierunek / Specjalizacja
+                  </label>
                   <input
                     type="text"
-                    value={edu.field || ""}
-                    onChange={(e) => handleChange(index, "field", e.target.value)}
+                    value={edu.field || ''}
+                    onChange={(e) => handleChange(index, 'field', e.target.value)}
                     placeholder="np. Informatyka Stosowana"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">Uczelnia / Szkoła</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Uczelnia / Szkoła
+                  </label>
                   <input
                     type="text"
-                    value={edu.institution || ""}
-                    onChange={(e) => handleChange(index, "institution", e.target.value)}
+                    value={edu.institution || ''}
+                    onChange={(e) => handleChange(index, 'institution', e.target.value)}
                     placeholder="np. Politechnika Warszawska"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">Wynik / Średnia (opcjonalnie)</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Wynik / Średnia (opcjonalnie)
+                  </label>
                   <input
                     type="text"
-                    value={edu.gpa || ""}
-                    onChange={(e) => handleChange(index, "gpa", e.target.value)}
+                    value={edu.gpa || ''}
+                    onChange={(e) => handleChange(index, 'gpa', e.target.value)}
                     placeholder="np. 4.8 / 5.0 (Wyróżnienie)"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
@@ -134,19 +146,21 @@ export const EducationForm: React.FC = () => {
                   <label className="block text-xs font-bold text-content mb-2">Od (YYYY-MM)</label>
                   <input
                     type="text"
-                    value={edu.startDate || ""}
-                    onChange={(e) => handleChange(index, "startDate", e.target.value)}
+                    value={edu.startDate || ''}
+                    onChange={(e) => handleChange(index, 'startDate', e.target.value)}
                     placeholder="np. 2018-10"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Do (YYYY-MM lub Obecnie)</label>
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Do (YYYY-MM lub Obecnie)
+                  </label>
                   <input
                     type="text"
-                    value={edu.endDate || ""}
-                    onChange={(e) => handleChange(index, "endDate", e.target.value)}
+                    value={edu.endDate || ''}
+                    onChange={(e) => handleChange(index, 'endDate', e.target.value)}
                     placeholder="np. 2020-06"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
