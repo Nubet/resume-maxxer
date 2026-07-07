@@ -91,33 +91,39 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
   if (analysisState === 'idle') {
     return (
       <div className="flex-1 overflow-y-auto p-6 sm:p-12 lg:p-16 bg-surface text-content flex items-center justify-center animate-fade-in">
-        <div className="max-w-xl w-full space-y-8 text-center">
-          <div className="space-y-4">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-secondary border border-border shadow-sm text-content">
-              <ShieldCheck className="h-8 w-8" />
-            </div>
-            <h2 className="text-3xl font-black tracking-tight text-content">
-              Audyt ATS i Czytelności
+        <div className="max-w-2xl w-full space-y-10 text-center">
+          <div className="space-y-3">
+            <h2 className="text-4xl font-black tracking-tight text-content">
+              Sprawdź swoje obecne CV
             </h2>
-            <p className="text-sm text-content-secondary leading-relaxed font-medium">
-              Wgraj swój obecny plik CV (PDF), a nasz system przeanalizuje go pod kątem czytelności
-              przez automatyczne filtry rekrutacyjne (ATS).
+            <p className="text-base text-content-secondary max-w-md mx-auto font-medium">
+              Wgraj plik PDF, aby upewnić się, że automatyczne systemy rekrutacyjne potrafią z niego
+              poprawnie odczytać Twoje dane.
             </p>
           </div>
 
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="rounded-3xl border-2 border-dashed border-border bg-surface-secondary hover:border-content transition-all cursor-pointer p-12 space-y-4 flex flex-col items-center justify-center group"
+            className="group relative rounded-[2.5rem] border-2 border-dashed border-border hover:border-content bg-surface-secondary/30 hover:bg-surface-secondary/80 transition-all duration-300 cursor-pointer overflow-hidden p-16 flex flex-col items-center justify-center shadow-sm hover:shadow-md"
           >
-            <div className="rounded-full bg-surface p-4 border border-border group-hover:scale-110 transition-transform">
-              <UploadCloud className="h-6 w-6 text-content" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-content/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <div className="relative mb-6">
+              <div className="absolute inset-0 bg-content/5 rounded-full scale-150 group-hover:scale-[2] opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out" />
+              <div className="rounded-2xl bg-surface p-5 border border-border/60 shadow-sm group-hover:shadow-lg group-hover:-translate-y-3 transition-all duration-500 ease-out relative z-10">
+                <UploadCloud className="h-8 w-8 text-content" />
+              </div>
             </div>
-            <div className="space-y-1">
-              <span className="text-base font-bold text-content block">
-                Kliknij, aby wybrać plik PDF
+
+            <div className="space-y-2 text-center relative z-10">
+              <span className="text-lg font-bold text-content block">
+                Upuść plik tutaj lub kliknij, aby wybrać
               </span>
-              <span className="text-xs text-content-muted">Maksymalny rozmiar: 5 MB</span>
+              <span className="text-sm font-medium text-content-muted">
+                Obsługiwane formaty: PDF (do 5 MB)
+              </span>
             </div>
+
             <input
               type="file"
               accept=".pdf"
