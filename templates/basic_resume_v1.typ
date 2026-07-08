@@ -83,6 +83,8 @@
   else { start-date + " – " + end-date }
 }
 
+#let clean-url(url) = url.replace("https://", "").replace("http://", "")
+
 = #(cv.basics.at("name", default: ""))
 
 #pad(
@@ -94,9 +96,11 @@
       if cv.basics.at("phone", default: "") != "" { items.push(cv.basics.phone) }
       if cv.basics.at("location", default: "") != "" { items.push(cv.basics.location) }
       if cv.basics.at("email", default: "") != "" { items.push(link("mailto:" + cv.basics.email)[#cv.basics.email]) }
-      if cv.basics.at("url", default: "") != "" { 
-        let clean-url = cv.basics.url.replace("https://", "").replace("http://", "")
-        items.push(link("https://" + clean-url)[#clean-url])
+      for (_, url) in cv.basics.at("urls", default: (:)) {
+        if url != "" {
+          let safe-url = clean-url(url)
+          items.push(link("https://" + safe-url)[#safe-url])
+        }
       }
       items.join("  |  ")
     }
@@ -128,7 +132,10 @@
   #for edu in cv.education [
     #block(width: 100%, above: 0.8em, below: 0.4em)[
       #strong(edu.at("institution", default: "")) #h(1fr) #dates-helper(edu.at("startDate", default: ""), edu.at("endDate", default: "")) \
-      #emph(edu.at("studyType", default: "") + if edu.at("area", default: "") != "" { " – " + edu.area } else { "" }) #h(1fr) #emph(edu.at("score", default: ""))
+      #emph(edu.at("degree", default: "") + if edu.at("field", default: "") != "" { " – " + edu.at("field", default: "") } else { "" }) #h(1fr) #emph(edu.at("gpa", default: ""))
+    ]
+    #if edu.at("coursework", default: ()).len() > 0 [
+      - *Kursy / przedmioty*: #edu.coursework.join(", ")
     ]
   ]
 ]
@@ -139,13 +146,24 @@
     #block(width: 100%, above: 0.8em, below: 0.4em)[
       *#proj.at("name", default: "")* #if proj.at("url", default: "") != "" [
         #{
-          let clean-url = proj.url.replace("https://", "").replace("http://", "")
-          [ (#link("https://" + clean-url)[#clean-url])]
+          let safe-url = clean-url(proj.at("url", default: ""))
+          [ (#link("https://" + safe-url)[#safe-url])]
         }
-      ] #h(1fr) #emph(proj.at("description", default: ""))
+      ] #h(1fr) #emph(proj.at("period", default: ""))
+    ]
+    #if proj.at("role", default: "") != "" or proj.at("organization", default: "") != "" [
+      - *Rola / kontekst*: #proj.at("role", default: "")#if proj.at("role", default: "") != "" and proj.at("organization", default: "") != "" { " - " } else { "" }#proj.at("organization", default: "")
+    ]
+    #if proj.at("description", default: "") != "" [
+      - #proj.description
     ]
     #if proj.at("keywords", default: ()).len() > 0 [
       - *#i18n.technologies*: #proj.keywords.join(", ")
+    ]
+    #if proj.at("highlights", default: ()).len() > 0 [
+      #for item in proj.highlights [
+        - #item
+      ]
     ]
   ]
 ]
@@ -153,7 +171,7 @@
 #if cv.at("skills", default: ()).len() > 0 [
   == #i18n.skills
   #for skill in cv.skills [
-    - *#skill.at("name", default: "")*: #skill.at("keywords", default: ()).join(", ")
+    - *#skill.at("category", default: "")*: #skill.at("keywords", default: ()).join(", ")
   ]
 ]
 

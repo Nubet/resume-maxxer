@@ -9,6 +9,13 @@ import { FormBlock } from '@/components/editor/FormBlock';
 export const EducationForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
   const education: EducationItem[] = resumeData?.education || [];
+
+  const toDateInputValue = (value?: string) => {
+    if (!value) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
+    return '';
+  };
   const degreeOptions = [
     'Szkoła średnia',
     'Technik',
@@ -207,25 +214,21 @@ export const EducationForm: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Od (YYYY-MM)</label>
+                  <label className="block text-xs font-bold text-content mb-2">Od</label>
                   <input
-                    type="month"
-                    value={edu.startDate || ''}
+                    type="date"
+                    value={toDateInputValue(edu.startDate)}
                     onChange={(e) => handleChange(index, 'startDate', e.target.value)}
-                    placeholder="np. 2018-10"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Do (YYYY-MM lub Obecnie)
-                  </label>
+                  <label className="block text-xs font-bold text-content mb-2">Do</label>
                   <input
-                    type="month"
-                    value={edu.endDate || ''}
+                    type="date"
+                    value={toDateInputValue(edu.endDate)}
                     onChange={(e) => handleChange(index, 'endDate', e.target.value)}
-                    placeholder="np. 2020-06"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>

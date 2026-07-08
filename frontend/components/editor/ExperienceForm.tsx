@@ -10,6 +10,16 @@ export const ExperienceForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
   const experience: ExperienceItem[] = resumeData?.experience || [];
 
+  const toDateInputValue = (value?: string) => {
+    if (!value) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
+    return '';
+  };
+
+  const isCurrentRole = (value?: string) =>
+    value === 'Obecnie' || value === 'obecnie' || value === 'present' || value === 'Present';
+
   const handleAdd = () => {
     updateResumeData((prev) => ({
       ...prev,
@@ -41,6 +51,10 @@ export const ExperienceForm: React.FC = () => {
       newExp[index] = { ...newExp[index], [field]: value };
       return { ...prev, experience: newExp };
     });
+  };
+
+  const handleCurrentChange = (index: number, checked: boolean) => {
+    handleChange(index, 'endDate', checked ? 'Obecnie' : '');
   };
 
   const handleHighlightsChange = (index: number, value: string) => {
@@ -144,27 +158,35 @@ export const ExperienceForm: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Od (YYYY-MM)</label>
+                  <label className="block text-xs font-bold text-content mb-2">Od</label>
                   <input
-                    type="text"
-                    value={exp.startDate || ''}
+                    type="date"
+                    value={toDateInputValue(exp.startDate)}
                     onChange={(e) => handleChange(index, 'startDate', e.target.value)}
-                    placeholder="np. 2021-03"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Do (YYYY-MM lub Obecnie)
-                  </label>
-                  <input
-                    type="text"
-                    value={exp.endDate || ''}
-                    onChange={(e) => handleChange(index, 'endDate', e.target.value)}
-                    placeholder="np. Obecnie"
-                    className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
-                  />
+                  <label className="block text-xs font-bold text-content mb-2">Do</label>
+                  <div className="space-y-2">
+                    <input
+                      type="date"
+                      value={isCurrentRole(exp.endDate) ? '' : toDateInputValue(exp.endDate)}
+                      onChange={(e) => handleChange(index, 'endDate', e.target.value)}
+                      disabled={isCurrentRole(exp.endDate)}
+                      className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+                    />
+                    <label className="flex items-center gap-2 text-[11px] font-semibold text-content-secondary">
+                      <input
+                        type="checkbox"
+                        checked={isCurrentRole(exp.endDate)}
+                        onChange={(e) => handleCurrentChange(index, e.target.checked)}
+                        className="h-3.5 w-3.5 rounded border-border"
+                      />
+                      Obecnie
+                    </label>
+                  </div>
                 </div>
 
                 <div className="sm:col-span-2">

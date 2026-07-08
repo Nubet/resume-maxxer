@@ -2,8 +2,14 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { ZodError } from 'zod';
 import type { ResumeData } from '@/types/resume';
 import { defaultResumeData } from '@/lib/defaultResume';
+import {
+  formatResumeValidationError,
+  normalizeResumeData,
+  serializeResumeData,
+} from '@/lib/resumeData';
 
 export interface SavedVersion {
   id: string;
@@ -51,17 +57,18 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed && parsed.basics) {
-          // eslint-disable-next-line react-hooks/set-state-in-effect
-          setResumeData(parsed);
-          if (parsed.metadata?.template_id) {
-            setTemplateId(parsed.metadata.template_id);
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.basics) {
+            const normalized = normalizeResumeData(parsed);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setResumeData(normalized);
+            if (normalized.metadata?.template_id) {
+              setTemplateId(normalized.metadata.template_id);
+            }
           }
         }
-      }
       const history = localStorage.getItem(HISTORY_STORAGE_KEY);
       if (history) {
         setSavedVersions(JSON.parse(history));
@@ -73,11 +80,11 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resumeData));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(normalizeResumeData(resumeData, templateId)));
     } catch (err) {
       console.error('Błąd zapisu do localStorage:', err);
     }
-  }, [resumeData]);
+  }, [resumeData, templateId]);
 
   useEffect(() => {
     try {
@@ -94,10 +101,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           id: crypto.randomUUID(),
           name: name || 'Nowa wersja',
           date: new Date().toISOString(),
-          data: {
-            ...resumeData,
-            metadata: { ...resumeData.metadata, template_id: templateId },
-          },
+          data: normalizeResumeData(resumeData, templateId),
         },
         ...prev,
       ]);
@@ -109,9 +113,10 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
     (id: string) => {
       const version = savedVersions.find((v) => v.id === id);
       if (version) {
-        setResumeData(version.data);
-        if (version.data.metadata?.template_id) {
-          setTemplateId(version.data.metadata.template_id);
+        const normalized = normalizeResumeData(version.data);
+        setResumeData(normalized);
+        if (normalized.metadata?.template_id) {
+          setTemplateId(normalized.metadata.template_id);
         }
       }
     },
@@ -126,8 +131,9 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
     (id: string) => {
       const version = savedVersions.find((v) => v.id === id);
       if (!version) return;
+      const payload = serializeResumeData(version.data, version.data.metadata?.template_id);
       const dataStr =
-        'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(version.data, null, 2));
+        'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(payload, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute('href', dataStr);
       const safeName = version.name.replace(/\s+/g, '_');
@@ -143,13 +149,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
     (updater: (prev: ResumeData) => ResumeData) => {
       setResumeData((prev) => {
         const next = updater(prev);
-        return {
-          ...next,
-          metadata: {
-            ...next.metadata,
-            template_id: templateId,
-          },
-        };
+        return normalizeResumeData(next, templateId);
       });
     },
     [templateId]
@@ -163,13 +163,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
       setIsGenerating(true);
       setServerError(null);
       try {
-        const payload: ResumeData = {
-          ...resumeData,
-          metadata: {
-            ...resumeData.metadata,
-            template_id: templateId,
-          },
-        };
+        const payload = serializeResumeData(resumeData, templateId);
 
         const response = await fetch(`${BACKEND_URL}?template_id=${templateId}`, {
           method: 'POST',
@@ -193,12 +187,18 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
             return url;
           });
         }
-      } catch (err: any) {
-        if (err.name !== 'AbortError') {
+      } catch (err: unknown) {
+        if (!(err instanceof Error && err.name === 'AbortError')) {
           console.error('Błąd generowania PDF:', err);
           if (isMounted) {
+            const message =
+              err instanceof ZodError
+                ? `Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`
+                : err instanceof Error
+                  ? err.message
+                  : 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?';
             setServerError(
-              err.message || 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?'
+              message || 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?'
             );
           }
         }
@@ -225,16 +225,26 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const exportJson = useCallback(() => {
-    const dataStr =
-      'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeData, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', dataStr);
-    const safeName = (resumeData.basics.name || 'CV').replace(/\s+/g, '_');
-    downloadAnchor.setAttribute('download', `${safeName}_resume_data.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }, [resumeData]);
+    try {
+      const payload = serializeResumeData(resumeData, templateId);
+      const dataStr =
+        'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(payload, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute('href', dataStr);
+      const safeName = (resumeData.basics.name || 'CV').replace(/\s+/g, '_');
+      downloadAnchor.setAttribute('download', `${safeName}_resume_data.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      setServerError(null);
+    } catch (err) {
+      const message =
+        err instanceof ZodError
+          ? `Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`
+          : 'Nie udało się wyeksportować danych CV.';
+      setServerError(message);
+    }
+  }, [resumeData, templateId]);
 
   const importJson = useCallback(async (file: File) => {
     return new Promise<void>((resolve, reject) => {
@@ -243,15 +253,21 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
         try {
           const content = event.target?.result as string;
           const parsed = JSON.parse(content);
-          if (!parsed.basics || !parsed.basics.name) {
+          if (!parsed.basics) {
             throw new Error('Nieprawidłowy format pliku JSON CV.');
           }
-          setResumeData(parsed);
-          if (parsed.metadata?.template_id) {
-            setTemplateId(parsed.metadata.template_id);
+          const normalized = normalizeResumeData(parsed);
+          serializeResumeData(normalized, normalized.metadata?.template_id);
+          setResumeData(normalized);
+          if (normalized.metadata?.template_id) {
+            setTemplateId(normalized.metadata.template_id);
           }
           resolve();
-        } catch (err: any) {
+        } catch (err) {
+          if (err instanceof ZodError) {
+            reject(new Error(`Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`));
+            return;
+          }
           reject(err);
         }
       };

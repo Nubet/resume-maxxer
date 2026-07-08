@@ -16,7 +16,23 @@ export const ExtraForm: React.FC = () => {
     'Full professional proficiency',
     'Native or bilingual proficiency',
   ];
-  const certificationStatuses = ['Aktywny', 'Ukończony', 'W trakcie', 'Wygasł', 'Do odnowienia'];
+  const certificationStatuses = [
+    { value: 'Bezterminowy', label: 'Bezterminowy' },
+    { value: 'Terminowy', label: 'Terminowy' },
+    { value: 'Wygasły', label: 'Wygasły' },
+    { value: 'Do odnowienia', label: 'Do odnowienia' },
+  ];
+
+  const toDateInputValue = (value?: string) => {
+    if (!value) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
+    if (/^\d{4}$/.test(value)) return `${value}-01-01`;
+    return '';
+  };
+
+  const certificationNeedsExpiry = (status?: string) =>
+    status === 'Terminowy' || status === 'Wygasły' || status === 'Do odnowienia';
 
   const handleAddLanguage = () => {
     updateResumeData((prev) => ({
@@ -48,7 +64,15 @@ export const ExtraForm: React.FC = () => {
       ...prev,
       certifications: [
         ...(prev.certifications || []),
-        { name: '', date: '', issuer: '', expires: '', status: '', details: '', url: '' },
+        {
+          name: '',
+          date: '',
+          issuer: '',
+          expires: '',
+          status: 'Bezterminowy',
+          details: '',
+          url: '',
+        },
       ],
     }));
   };
@@ -64,6 +88,9 @@ export const ExtraForm: React.FC = () => {
     updateResumeData((prev) => {
       const newCerts = [...(prev.certifications || [])];
       newCerts[index] = { ...newCerts[index], [field]: value };
+      if (field === 'status' && value === 'Bezterminowy') {
+        newCerts[index].expires = '';
+      }
       return { ...prev, certifications: newCerts };
     });
   };
@@ -225,45 +252,48 @@ export const ExtraForm: React.FC = () => {
 
                   <div>
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Data Uzyskania (YYYY-MM)
+                      Data Uzyskania
                     </label>
-                    <input
-                      type="text"
-                      value={cert.date || ''}
-                      onChange={(e) => handleChangeCert(idx, 'date', e.target.value)}
-                      placeholder="np. 2023-08"
-                      className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-bold text-content mb-1">
-                      Ważny Do / Planowana Data
-                    </label>
-                    <input
-                      type="text"
-                      value={cert.expires || ''}
-                      onChange={(e) => handleChangeCert(idx, 'expires', e.target.value)}
-                      placeholder="np. 2026-08 lub w trakcie"
-                      className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
-                    />
+                      <input
+                        type="date"
+                        value={toDateInputValue(cert.date)}
+                        onChange={(e) => handleChangeCert(idx, 'date', e.target.value)}
+                        className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
+                      />
                   </div>
 
                   <div>
                     <label className="block text-[11px] font-bold text-content mb-1">Status</label>
                     <select
-                      value={cert.status || ''}
+                      value={cert.status || 'Bezterminowy'}
                       onChange={(e) => handleChangeCert(idx, 'status', e.target.value)}
                       className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                     >
-                      <option value="">Wybierz status</option>
                       {certificationStatuses.map((status) => (
-                        <option key={status} value={status}>
-                          {status}
+                        <option key={status.value} value={status.value}>
+                          {status.label}
                         </option>
                       ))}
                     </select>
+                    <p className="mt-1 text-[10px] text-content-muted">
+                      Większość certyfikatów jest bezterminowa. Datę wygaśnięcia pokazujemy tylko dla
+                      certyfikatów terminowych.
+                    </p>
                   </div>
+
+                  {certificationNeedsExpiry(cert.status) ? (
+                    <div>
+                      <label className="block text-[11px] font-bold text-content mb-1">
+                        Data wygaśnięcia
+                      </label>
+                      <input
+                        type="date"
+                        value={toDateInputValue(cert.expires)}
+                        onChange={(e) => handleChangeCert(idx, 'expires', e.target.value)}
+                        className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
+                      />
+                    </div>
+                  ) : null}
 
                   <div className="sm:col-span-3">
                     <label className="block text-[11px] font-bold text-content mb-1">

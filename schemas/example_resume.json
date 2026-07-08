@@ -1,6 +1,7 @@
 {
   "metadata": {
     "language": "pl",
+    "schema_version": "resume_maxxer.v1",
     "template_id": "basic_resume_v1"
   },
   "basics": {
@@ -11,7 +12,7 @@
     "targetJobDescription": "",
     "email": "jan.kowalski@example.com",
     "phone": "+48 500 600 700",
-    "location": "Polska, Warszawa / Zdalnie",
+    "location": "Polska, Warszawa / Remote",
     "city": "Warszawa",
     "country": "Polska",
     "remoteFriendly": true,

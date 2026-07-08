@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useSyncExternalStore, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { DashboardModule, TabType } from './DashboardSidebar';
 import { DashboardSidebar } from './DashboardSidebar';
@@ -16,32 +16,70 @@ interface BuilderViewProps {
   activeModule: DashboardModule;
 }
 
+const BUILDER_STORAGE_EVENT = 'resume-maxxer-builder-state';
+
+const getStoredActiveTab = (): TabType => {
+  if (typeof window === 'undefined') return 'basics';
+  const value = sessionStorage.getItem('builder_activeTab');
+  return value === 'experience' ||
+    value === 'education' ||
+    value === 'skills' ||
+    value === 'projects' ||
+    value === 'extra'
+    ? value
+    : 'basics';
+};
+
+const getStoredDashboardView = (): 'editor' | 'preview' | 'split' => {
+  if (typeof window === 'undefined') return 'split';
+  const value = sessionStorage.getItem('builder_dashboardView');
+  return value === 'editor' || value === 'preview' || value === 'split' ? value : 'split';
+};
+
+const subscribeBuilderState = (callback: () => void) => {
+  if (typeof window === 'undefined') return () => {};
+
+  const handleChange = () => callback();
+  window.addEventListener('storage', handleChange);
+  window.addEventListener(BUILDER_STORAGE_EVENT, handleChange);
+
+  return () => {
+    window.removeEventListener('storage', handleChange);
+    window.removeEventListener(BUILDER_STORAGE_EVENT, handleChange);
+  };
+};
+
+const notifyBuilderStateChange = () => {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new Event(BUILDER_STORAGE_EVENT));
+};
+
 export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<TabType>(() => {
-    if (typeof window !== 'undefined') {
-      return (sessionStorage.getItem('builder_activeTab') as TabType) || 'basics';
-    }
-    return 'basics';
-  });
+  const activeTab = useSyncExternalStore<TabType>(
+    subscribeBuilderState,
+    getStoredActiveTab,
+    () => 'basics'
+  );
 
-  const [dashboardView, setDashboardView] = useState<'editor' | 'preview' | 'split'>(() => {
-    if (typeof window !== 'undefined') {
-      return (sessionStorage.getItem('builder_dashboardView') as any) || 'split';
-    }
-    return 'split';
-  });
+  const dashboardView = useSyncExternalStore<'editor' | 'preview' | 'split'>(
+    subscribeBuilderState,
+    getStoredDashboardView,
+    () => 'split'
+  );
 
   const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    sessionStorage.setItem('builder_activeTab', activeTab);
-  }, [activeTab]);
+  const handleTabChange = (tab: TabType) => {
+    sessionStorage.setItem('builder_activeTab', tab);
+    notifyBuilderStateChange();
+  };
 
-  useEffect(() => {
-    sessionStorage.setItem('builder_dashboardView', dashboardView);
-  }, [dashboardView]);
+  const handleViewChange = (view: 'editor' | 'preview' | 'split') => {
+    sessionStorage.setItem('builder_dashboardView', view);
+    notifyBuilderStateChange();
+  };
 
   const handleBackToLanding = () => {
     router.push('/');
@@ -61,7 +99,7 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
         activeModule={activeModule}
         onModuleChange={handleModuleChange}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={handleTabChange}
         onBackToLanding={handleBackToLanding}
       />
 
@@ -71,7 +109,7 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
           onModuleChange={handleModuleChange}
           activeTab={activeTab}
           dashboardView={dashboardView}
-          onViewChange={setDashboardView}
+          onViewChange={handleViewChange}
           onOpenAiModal={() => setIsAiModalOpen(true)}
         />
 
@@ -84,7 +122,7 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
                     dashboardView === 'split' ? 'w-full lg:w-1/2 border-r border-border' : 'w-full'
                   }`}
                 >
-                  <Editor activeTab={activeTab} onTabChange={setActiveTab} />
+                  <Editor activeTab={activeTab} onTabChange={handleTabChange} />
                 </div>
               )}
 

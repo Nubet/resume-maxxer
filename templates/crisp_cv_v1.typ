@@ -77,6 +77,8 @@
   else { start-date + " – " + end-date }
 }
 
+#let clean-url(url) = url.replace("https://", "").replace("http://", "")
+
 #let record(primary: "", secondary: "", timespan: "", location: "", body) = pad(left: 0.4em, bottom: 0.8em, stack(
   spacing: 0.6em,
   grid(
@@ -92,7 +94,7 @@
   columns: (auto, 1fr),
   row-gutter: 0.8em,
   column-gutter: 1.5em,
-  ..items.map(item => (strong(item.at("name", default: "")), item.at("keywords", default: ()).join(", "))).flatten(),
+  ..items.map(item => (strong(item.at("category", default: item.at("name", default: ""))), item.at("keywords", default: ()).join(", "))).flatten(),
 ))
 
 #grid(
@@ -100,13 +102,7 @@
   gutter: 2em,
   align(bottom, stack(
     spacing: 0.6em,
-    text(size: 24pt, weight: "bold", fill: rgb("#111827"))[#cv.basics.at("name", default: "")],
-    if cv.basics.at("url", default: "") != "" [
-      #{
-        let clean-url = cv.basics.url.replace("https://", "").replace("http://", "")
-        link("https://" + clean-url)[#clean-url]
-      }
-    ] else []
+    text(size: 24pt, weight: "bold", fill: rgb("#111827"))[#cv.basics.at("name", default: "")]
   )),
   align(right, stack(
     spacing: 0.35em,
@@ -142,11 +138,13 @@
   = #i18n.education
   #for edu in cv.education [
     #record(
-      primary: edu.at("studyType", default: "") + if edu.at("area", default: "") != "" { " – " + edu.area } else { "" },
+      primary: edu.at("degree", default: "") + if edu.at("field", default: "") != "" { " – " + edu.at("field", default: "") } else { "" },
       secondary: edu.at("institution", default: ""),
       timespan: dates-helper(edu.at("startDate", default: ""), edu.at("endDate", default: "")),
-      location: edu.at("score", default: ""),
-      []
+      location: edu.at("gpa", default: ""),
+      if edu.at("coursework", default: ()).len() > 0 [
+        *Kursy / przedmioty*: #edu.coursework.join(", ")
+      ] else [ [] ]
     )
   ]
 ]
@@ -157,15 +155,26 @@
     #record(
       primary: proj.at("name", default: ""),
       secondary: if proj.at("url", default: "") != "" { 
-        let clean-url = proj.url.replace("https://", "").replace("http://", "")
-        link("https://" + clean-url)[#clean-url]
+        let safe-url = clean-url(proj.at("url", default: ""))
+        link("https://" + safe-url)[#safe-url]
       } else { "" },
-      timespan: "",
-      location: "",
-      if proj.at("description", default: "") != "" or proj.at("keywords", default: ()).len() > 0 [
+      timespan: proj.at("period", default: ""),
+      location: if proj.at("role", default: "") != "" and proj.at("organization", default: "") != "" {
+        proj.at("role", default: "") + " - " + proj.at("organization", default: "")
+      } else if proj.at("role", default: "") != "" {
+        proj.at("role", default: "")
+      } else {
+        proj.at("organization", default: "")
+      },
+      if proj.at("description", default: "") != "" or proj.at("keywords", default: ()).len() > 0 or proj.at("highlights", default: ()).len() > 0 [
         #if proj.at("description", default: "") != "" [ #proj.description ]
         #if proj.at("keywords", default: ()).len() > 0 [
           \ *#i18n.technologies*: #proj.keywords.join(", ")
+        ]
+        #if proj.at("highlights", default: ()).len() > 0 [
+          #for item in proj.highlights [
+            \ - #item
+          ]
         ]
       ] else [ [] ]
     )

@@ -7,12 +7,17 @@
   "properties": {
     "metadata": {
       "type": "object",
-      "required": ["language", "template_id"],
+      "required": ["language", "schema_version", "template_id"],
       "properties": {
         "language": {
           "type": "string",
           "default": "pl",
           "description": "Language code (e.g., 'pl', 'en')"
+        },
+        "schema_version": {
+          "type": "string",
+          "default": "resume_maxxer.v1",
+          "description": "Canonical Resume Maxxer JSON schema version"
         },
         "template_id": {
           "type": "string",
@@ -23,7 +28,7 @@
     },
     "basics": {
       "type": "object",
-      "required": ["name", "title", "email", "phone", "location", "summary"],
+      "required": ["name", "title", "email", "phone", "location"],
       "properties": {
         "name": {
           "type": "string",
@@ -91,7 +96,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["company", "position", "location", "startDate", "endDate", "highlights"],
+        "required": ["company", "position", "startDate", "endDate"],
         "properties": {
           "company": { "type": "string" },
           "position": { "type": "string" },
@@ -149,7 +154,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "description", "keywords"],
+        "required": ["name"],
         "properties": {
           "name": { "type": "string" },
           "role": { "type": "string" },

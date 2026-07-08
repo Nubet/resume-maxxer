@@ -1,6 +1,7 @@
 import type { ResumeData } from '@/types/resume';
+import { normalizeResumeData } from '@/lib/resumeData';
 
-export const defaultResumeData: ResumeData = {
+export const defaultResumeData: ResumeData = normalizeResumeData({
   metadata: {
     language: 'pl',
     template_id: 'basic_resume_v1',
@@ -194,4 +195,4 @@ export const defaultResumeData: ResumeData = {
       details: 'Tabele przestawne, funkcje wyszukiwania, podstawy dashboardów i raportowania.',
     },
   ],
-};
+});
