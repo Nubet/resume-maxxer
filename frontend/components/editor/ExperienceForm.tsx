@@ -5,6 +5,7 @@ import { useResume } from '@/context/ResumeContext';
 import { Briefcase, Plus, Trash2 } from 'lucide-react';
 import type { ExperienceItem } from '@/types/resume';
 import { FormBlock } from '@/components/editor/FormBlock';
+import { ListEditorField } from '@/components/editor/ListEditorField';
 
 export const ExperienceForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -45,7 +46,11 @@ export const ExperienceForm: React.FC = () => {
     }));
   };
 
-  const handleChange = (index: number, field: keyof ExperienceItem, value: any) => {
+  const handleChange = <K extends keyof ExperienceItem>(
+    index: number,
+    field: K,
+    value: ExperienceItem[K]
+  ) => {
     updateResumeData((prev) => {
       const newExp = [...(prev.experience || [])];
       newExp[index] = { ...newExp[index], [field]: value };
@@ -55,24 +60,6 @@ export const ExperienceForm: React.FC = () => {
 
   const handleCurrentChange = (index: number, checked: boolean) => {
     handleChange(index, 'endDate', checked ? 'Obecnie' : '');
-  };
-
-  const handleHighlightsChange = (index: number, value: string) => {
-    const highlightsArray = value
-      .split('\n')
-      .map((line) => line.replace(/^[•\-\*]\s*/, '').trim())
-      .filter(Boolean);
-
-    handleChange(index, 'highlights', highlightsArray);
-  };
-
-  const handleResponsibilitiesChange = (index: number, value: string) => {
-    const responsibilitiesArray = value
-      .split('\n')
-      .map((line) => line.replace(/^[•\-\*]\s*/, '').trim())
-      .filter(Boolean);
-
-    handleChange(index, 'responsibilities', responsibilitiesArray);
   };
 
   return (
@@ -202,37 +189,23 @@ export const ExperienceForm: React.FC = () => {
                   />
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Główne Obowiązki (każda linia to osobny punkt)
-                  </label>
-                  <p className="text-[11px] text-content-secondary mb-2 leading-relaxed">
-                    Wpisz po prostu, co realnie robiłeś na tym stanowisku.
-                  </p>
-                  <textarea
-                    rows={4}
-                    value={(exp.responsibilities || []).join('\n')}
-                    onChange={(e) => handleResponsibilitiesChange(index, e.target.value)}
-                    placeholder="Obsługa klientów biznesowych w systemie CRM&#10;Koordynacja zamówień i reklamacji dla 3 regionów"
-                    className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
-                  />
-                </div>
+                <ListEditorField
+                  label="Główne obowiązki"
+                  items={exp.responsibilities || []}
+                  onChange={(items) => handleChange(index, 'responsibilities', items)}
+                  placeholder="np. Obsługa klientów biznesowych w systemie CRM"
+                  helperText="Dodaj najważniejsze obszary pracy. Jeden punkt opisuje jeden konkretny obowiązek."
+                  addLabel="Dodaj obowiązek"
+                />
 
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Osiągnięcia i Efekty (każda linia to nowy punkt)
-                  </label>
-                  <p className="text-[11px] text-content-secondary mb-2 leading-relaxed">
-                    Najlepiej: czasownik działania, co zostało zrobione, jak i z jakim rezultatem.
-                  </p>
-                  <textarea
-                    rows={5}
-                    value={(exp.highlights || []).join('\n')}
-                    onChange={(e) => handleHighlightsChange(index, e.target.value)}
-                    placeholder="Zwiększenie sprzedaży o 18% dzięki uporządkowaniu procesu kontaktu z klientem&#10;Skrócenie czasu obsługi reklamacji z 5 do 2 dni roboczych"
-                    className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
-                  />
-                </div>
+                <ListEditorField
+                  label="Osiągnięcia i efekty"
+                  items={exp.highlights || []}
+                  onChange={(items) => handleChange(index, 'highlights', items)}
+                  placeholder="np. Skrócenie czasu obsługi reklamacji z 5 do 2 dni roboczych"
+                  helperText="Dodaj 2-5 najmocniejszych efektów. Najlepiej jeden punkt = jedno działanie i jeden rezultat."
+                  addLabel="Dodaj efekt"
+                />
               </div>
             </div>
           ))}

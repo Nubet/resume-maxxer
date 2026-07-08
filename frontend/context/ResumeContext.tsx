@@ -57,18 +57,18 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed && parsed.basics) {
-            const normalized = normalizeResumeData(parsed);
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setResumeData(normalized);
-            if (normalized.metadata?.template_id) {
-              setTemplateId(normalized.metadata.template_id);
-            }
+      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.basics) {
+          const normalized = normalizeResumeData(parsed);
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setResumeData(normalized);
+          if (normalized.metadata?.template_id) {
+            setTemplateId(normalized.metadata.template_id);
           }
         }
+      }
       const history = localStorage.getItem(HISTORY_STORAGE_KEY);
       if (history) {
         setSavedVersions(JSON.parse(history));
@@ -80,7 +80,10 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(normalizeResumeData(resumeData, templateId)));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(normalizeResumeData(resumeData, templateId))
+      );
     } catch (err) {
       console.error('Błąd zapisu do localStorage:', err);
     }

@@ -4,6 +4,8 @@ import React from 'react';
 import { useResume } from '@/context/ResumeContext';
 import { FolderGit2, Plus, Trash2 } from 'lucide-react';
 import { FormBlock } from '@/components/editor/FormBlock';
+import { ListEditorField } from '@/components/editor/ListEditorField';
+import type { ProjectItem } from '@/types/resume';
 
 export const ProjectsForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -37,7 +39,11 @@ export const ProjectsForm: React.FC = () => {
     }));
   };
 
-  const handleChange = (index: number, field: string, value: any) => {
+  const handleChange = <K extends keyof ProjectItem>(
+    index: number,
+    field: K,
+    value: ProjectItem[K]
+  ) => {
     updateResumeData((prev) => {
       const newProj = [...(prev.projects || [])];
       newProj[index] = { ...newProj[index], [field]: value };
@@ -51,15 +57,6 @@ export const ProjectsForm: React.FC = () => {
       .map((k) => k.trim())
       .filter(Boolean);
     handleChange(index, 'keywords', kws);
-  };
-
-  const handleHighlightsChange = (index: number, value: string) => {
-    const items = value
-      .split('\n')
-      .map((line) => line.replace(/^[•\-\*]\s*/, '').trim())
-      .filter(Boolean);
-
-    handleChange(index, 'highlights', items);
   };
 
   const buildPeriod = (startDate?: string, endDate?: string) => {
@@ -234,18 +231,14 @@ export const ProjectsForm: React.FC = () => {
                   />
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Rezultaty Projektu (każda linia osobno)
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={(proj.highlights || []).join('\n')}
-                    onChange={(e) => handleHighlightsChange(index, e.target.value)}
-                    placeholder="Skrócenie czasu raportowania z 3 godzin do 30 minut&#10;Przygotowanie dokumentacji używanej przez 20-osobowy zespół"
-                    className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
-                  />
-                </div>
+                <ListEditorField
+                  label="Rezultaty projektu"
+                  items={proj.highlights || []}
+                  onChange={(items) => handleChange(index, 'highlights', items)}
+                  placeholder="np. Skrócenie czasu raportowania z 3 godzin do 30 minut"
+                  helperText="Dodaj najważniejsze rezultaty projektu. Każdy punkt powinien mówić, co realnie się poprawiło albo powstało."
+                  addLabel="Dodaj rezultat"
+                />
               </div>
             </div>
           ))}

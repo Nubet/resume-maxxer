@@ -13,7 +13,11 @@ const text = (max: number, label: string) =>
   z.string().trim().max(max, `${label} może mieć maksymalnie ${max} znaków`).default('');
 
 const listItem = (max: number, label: string) =>
-  z.string().trim().min(1, `${label} nie może być puste`).max(max, `${label} może mieć maksymalnie ${max} znaków`);
+  z
+    .string()
+    .trim()
+    .min(1, `${label} nie może być puste`)
+    .max(max, `${label} może mieć maksymalnie ${max} znaków`);
 
 const stringList = (maxItems: number, itemMax: number, label: string) =>
   z
@@ -37,28 +41,44 @@ const optionalUrl = text(300, 'Link').refine(
 );
 
 const optionalMonth = (label: string) =>
-  z.string().trim().default('').refine(
-    (value) => value === '' || monthRegex.test(value),
-    `${label} musi mieć format YYYY-MM`
-  );
+  z
+    .string()
+    .trim()
+    .default('')
+    .refine((value) => value === '' || monthRegex.test(value), `${label} musi mieć format YYYY-MM`);
 
 const optionalDate = (label: string) =>
-  z.string().trim().default('').refine(
-    (value) => value === '' || dateRegex.test(value),
-    `${label} musi mieć format YYYY-MM-DD`
-  );
+  z
+    .string()
+    .trim()
+    .default('')
+    .refine(
+      (value) => value === '' || dateRegex.test(value),
+      `${label} musi mieć format YYYY-MM-DD`
+    );
 
 const optionalMonthOrPresent = (label: string) =>
-  z.string().trim().default('').refine(
-    (value) => value === '' || monthRegex.test(value) || PRESENT_VALUES.includes(value as (typeof PRESENT_VALUES)[number]),
-    `${label} musi mieć format YYYY-MM albo wartość typu 'obecnie'`
-  );
+  z
+    .string()
+    .trim()
+    .default('')
+    .refine(
+      (value) =>
+        value === '' ||
+        monthRegex.test(value) ||
+        PRESENT_VALUES.includes(value as (typeof PRESENT_VALUES)[number]),
+      `${label} musi mieć format YYYY-MM albo wartość typu 'obecnie'`
+    );
 
 const optionalFullDate = (label: string) =>
-  z.string().trim().default('').refine(
-    (value) => value === '' || dateRegex.test(value),
-    `${label} musi mieć format YYYY-MM-DD`
-  );
+  z
+    .string()
+    .trim()
+    .default('')
+    .refine(
+      (value) => value === '' || dateRegex.test(value),
+      `${label} musi mieć format YYYY-MM-DD`
+    );
 
 const withDateOrder = <T extends z.ZodRawShape>(
   schema: z.ZodObject<T>,

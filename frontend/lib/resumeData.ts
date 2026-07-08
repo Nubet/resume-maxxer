@@ -19,17 +19,14 @@ export const formatResumeValidationError = (error: ZodError) =>
 const asString = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
 
 const asStringArray = (value: unknown) =>
-  Array.isArray(value)
-    ? value.map((item) => asString(item)).filter(Boolean)
-    : [];
+  Array.isArray(value) ? value.map((item) => asString(item)).filter(Boolean) : [];
 
 const asObject = (value: unknown): Record<string, unknown> =>
   value && typeof value === 'object' && !Array.isArray(value)
     ? (value as Record<string, unknown>)
     : {};
 
-const asLanguage = (value: unknown): ResumeMetadata['language'] =>
-  value === 'en' ? 'en' : 'pl';
+const asLanguage = (value: unknown): ResumeMetadata['language'] => (value === 'en' ? 'en' : 'pl');
 
 const asCertificationStatus = (value: unknown): CertificationItem['status'] => {
   const status = asString(value);
@@ -42,7 +39,7 @@ const asCertificationStatus = (value: unknown): CertificationItem['status'] => {
   if (['Aktywny', 'Ukończony'].includes(status)) return 'Bezterminowy';
   if (status === 'W trakcie') return 'Terminowy';
 
-  return '';
+  return 'Bezterminowy';
 };
 
 const asFullDate = (value: unknown) => {
@@ -205,7 +202,8 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
       ? source.certifications.map((item) => {
           const certification = asObject(item);
           const expires = asFullDate(certification.expires);
-          const status = asCertificationStatus(certification.status) || (expires ? 'Terminowy' : 'Bezterminowy');
+          const status =
+            asCertificationStatus(certification.status) || (expires ? 'Terminowy' : 'Bezterminowy');
           return {
             name: asString(certification.name),
             issuer: asString(certification.issuer),
@@ -297,7 +295,9 @@ export const serializeResumeData = (input: ResumeData, templateId?: string): Res
         name: item.name,
         issuer: item.issuer,
         date: asFullDate(item.date),
-        ...(item.status === 'Bezterminowy' ? {} : withOptionalString('expires', item.expires || '')),
+        ...(item.status === 'Bezterminowy'
+          ? {}
+          : withOptionalString('expires', item.expires || '')),
         status: item.status || 'Bezterminowy',
         ...withOptionalString('details', item.details || ''),
         ...withOptionalString('url', item.url || ''),

@@ -5,6 +5,7 @@ import { useResume } from '@/context/ResumeContext';
 import { GraduationCap, Plus, Trash2 } from 'lucide-react';
 import type { EducationItem } from '@/types/resume';
 import { FormBlock } from '@/components/editor/FormBlock';
+import { ListEditorField } from '@/components/editor/ListEditorField';
 
 export const EducationForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -66,21 +67,16 @@ export const EducationForm: React.FC = () => {
     }));
   };
 
-  const handleChange = (index: number, field: keyof EducationItem, value: any) => {
+  const handleChange = <K extends keyof EducationItem>(
+    index: number,
+    field: K,
+    value: EducationItem[K]
+  ) => {
     updateResumeData((prev) => {
       const newEdu = [...(prev.education || [])];
       newEdu[index] = { ...newEdu[index], [field]: value };
       return { ...prev, education: newEdu };
     });
-  };
-
-  const handleListChange = (index: number, field: keyof EducationItem, value: string) => {
-    const items = value
-      .split('\n')
-      .map((line) => line.replace(/^[•\-\*]\s*/, '').trim())
-      .filter(Boolean);
-
-    handleChange(index, field, items);
   };
 
   return (
@@ -233,18 +229,14 @@ export const EducationForm: React.FC = () => {
                   />
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    Ważne Kursy / Przedmioty (każda linia osobno)
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={(edu.coursework || []).join('\n')}
-                    onChange={(e) => handleListChange(index, 'coursework', e.target.value)}
-                    placeholder="Analiza finansowa&#10;Podstawy zarządzania projektami&#10;Obsługa systemów ERP"
-                    className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
-                  />
-                </div>
+                <ListEditorField
+                  label="Ważne kursy i przedmioty"
+                  items={edu.coursework || []}
+                  onChange={(items) => handleChange(index, 'coursework', items)}
+                  placeholder="np. Analiza finansowa"
+                  helperText="Dodaj tylko te pozycje, które realnie wspierają rolę, na którą aplikujesz."
+                  addLabel="Dodaj pozycję"
+                />
               </div>
             </div>
           ))}

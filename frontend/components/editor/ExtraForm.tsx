@@ -254,12 +254,12 @@ export const ExtraForm: React.FC = () => {
                     <label className="block text-[11px] font-bold text-content mb-1">
                       Data Uzyskania
                     </label>
-                      <input
-                        type="date"
-                        value={toDateInputValue(cert.date)}
-                        onChange={(e) => handleChangeCert(idx, 'date', e.target.value)}
-                        className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
-                      />
+                    <input
+                      type="date"
+                      value={toDateInputValue(cert.date)}
+                      onChange={(e) => handleChangeCert(idx, 'date', e.target.value)}
+                      className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
+                    />
                   </div>
 
                   <div>
@@ -276,8 +276,8 @@ export const ExtraForm: React.FC = () => {
                       ))}
                     </select>
                     <p className="mt-1 text-[10px] text-content-muted">
-                      Większość certyfikatów jest bezterminowa. Datę wygaśnięcia pokazujemy tylko dla
-                      certyfikatów terminowych.
+                      Większość certyfikatów jest bezterminowa. Datę wygaśnięcia pokazujemy tylko
+                      dla certyfikatów terminowych.
                     </p>
                   </div>
 
