@@ -4,6 +4,7 @@ import React from 'react';
 import { useResume } from '@/context/ResumeContext';
 import { Briefcase, Plus, Trash2 } from 'lucide-react';
 import type { ExperienceItem } from '@/types/resume';
+import { FormBlock } from '@/components/editor/FormBlock';
 
 export const ExperienceForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
@@ -20,6 +21,7 @@ export const ExperienceForm: React.FC = () => {
           location: '',
           startDate: '',
           endDate: '',
+          responsibilities: [],
           highlights: [],
         },
       ],
@@ -50,10 +52,22 @@ export const ExperienceForm: React.FC = () => {
     handleChange(index, 'highlights', highlightsArray);
   };
 
+  const handleResponsibilitiesChange = (index: number, value: string) => {
+    const responsibilitiesArray = value
+      .split('\n')
+      .map((line) => line.replace(/^[•\-\*]\s*/, '').trim())
+      .filter(Boolean);
+
+    handleChange(index, 'responsibilities', responsibilitiesArray);
+  };
+
   return (
-    <div className="space-y-8 animate-fade-in">
-      <div className="flex items-center justify-between border-b border-border pb-5">
-        <h3 className="text-xl font-bold tracking-tight text-content">Doświadczenie Zawodowe</h3>
+    <div className="space-y-5 animate-fade-in">
+      <FormBlock
+        eyebrow="Zasada"
+        title="Opisz stanowisko tak, jak ma wyglądać w CV"
+        description="Podaj firmę, rolę, daty, lokalizację, obowiązki i konkretne efekty. Nic więcej nie jest tu potrzebne."
+      >
         <button
           onClick={handleAdd}
           className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
@@ -61,15 +75,15 @@ export const ExperienceForm: React.FC = () => {
           <Plus className="h-4 w-4" />
           <span>Dodaj Stanowisko</span>
         </button>
-      </div>
+      </FormBlock>
 
       {experience.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-3 bg-surface-secondary">
           <Briefcase className="h-8 w-8 text-content-muted mx-auto" />
           <p className="text-sm font-bold text-content">Brak wpisów o doświadczeniu</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj swoje miejsca pracy, staże lub projekty komercyjne. Pamiętaj o używaniu liczb i
-            języka korzyści!
+            Dodaj pracę etatową, zlecenia, praktyki, działalność lub doświadczenie branżowe.
+            Najmocniejsze wpisy pokazują efekt pracy, nie tylko zakres obowiązków.
           </p>
         </div>
       ) : (
@@ -97,6 +111,11 @@ export const ExperienceForm: React.FC = () => {
                 </button>
               </div>
 
+              <div className="rounded-2xl border border-border bg-surface px-4 py-3 text-[11px] font-semibold leading-relaxed text-content-secondary">
+                Wypełnij w kolejności: firma i rola, daty, obowiązki, a potem konkretne efekty z
+                liczbami.
+              </div>
+
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
@@ -106,7 +125,7 @@ export const ExperienceForm: React.FC = () => {
                     type="text"
                     value={exp.position || ''}
                     onChange={(e) => handleChange(index, 'position', e.target.value)}
-                    placeholder="np. Senior Software Engineer"
+                    placeholder="np. Specjalista ds. sprzedaży, Technik utrzymania ruchu"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
@@ -119,7 +138,7 @@ export const ExperienceForm: React.FC = () => {
                     type="text"
                     value={exp.company || ''}
                     onChange={(e) => handleChange(index, 'company', e.target.value)}
-                    placeholder="np. Google / Tech Corp"
+                    placeholder="np. IKEA / ABC Logistics / własna działalność"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
@@ -156,24 +175,39 @@ export const ExperienceForm: React.FC = () => {
                     type="text"
                     value={exp.location || ''}
                     onChange={(e) => handleChange(index, 'location', e.target.value)}
-                    placeholder="np. Warszawa, Polska (Hybrydowo)"
+                    placeholder="np. Warszawa, Polska"
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-content mb-2">
-                    Opis Obowiązków i Osiągnięć (każda linia to nowy punkt)
+                    Główne Obowiązki (każda linia to osobny punkt)
                   </label>
                   <p className="text-[11px] text-content-secondary mb-2 leading-relaxed">
-                    Opisz swoje kluczowe sukcesy. Każda nowa linia zostanie zmapowana jako punktor w
-                    kompilatorze Typst.
+                    Wpisz po prostu, co realnie robiłeś na tym stanowisku.
+                  </p>
+                  <textarea
+                    rows={4}
+                    value={(exp.responsibilities || []).join('\n')}
+                    onChange={(e) => handleResponsibilitiesChange(index, e.target.value)}
+                    placeholder="Obsługa klientów biznesowych w systemie CRM&#10;Koordynacja zamówień i reklamacji dla 3 regionów"
+                    className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-bold text-content mb-2">
+                    Osiągnięcia i Efekty (każda linia to nowy punkt)
+                  </label>
+                  <p className="text-[11px] text-content-secondary mb-2 leading-relaxed">
+                    Najlepiej: czasownik działania, co zostało zrobione, jak i z jakim rezultatem.
                   </p>
                   <textarea
                     rows={5}
                     value={(exp.highlights || []).join('\n')}
                     onChange={(e) => handleHighlightsChange(index, e.target.value)}
-                    placeholder="Zasiadałem w zespole architektonicznym, redukując opóźnienia API o 40%...&#10;Koordynowałem migrację do chmury AWS dla 10+ mikroserwisów..."
+                    placeholder="Zwiększenie sprzedaży o 18% dzięki uporządkowaniu procesu kontaktu z klientem&#10;Skrócenie czasu obsługi reklamacji z 5 do 2 dni roboczych"
                     className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
                   />
                 </div>

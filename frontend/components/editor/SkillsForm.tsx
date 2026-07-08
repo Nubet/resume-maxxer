@@ -4,19 +4,20 @@ import React, { useState } from 'react';
 import { useResume } from '@/context/ResumeContext';
 import { Wrench, Plus, Trash2 } from 'lucide-react';
 import type { SkillGroup } from '@/types/resume';
+import { FormBlock } from '@/components/editor/FormBlock';
 
 export const SkillsForm: React.FC = () => {
   const { resumeData, updateResumeData } = useResume();
   const skills: SkillGroup[] = resumeData?.skills || [];
 
   const [newSkillName, setNewSkillName] = useState('');
-  const [newSkillCategory, setNewSkillCategory] = useState('Techniczne & Języki');
+  const [newSkillCategory, setNewSkillCategory] = useState('Kompetencje Branżowe');
 
   const categories = [
-    'Techniczne & Języki',
-    'Frameworki & Biblioteki',
-    'Chmura & DevOps',
-    'Narzędzia & Metodyki',
+    'Kompetencje Branżowe',
+    'Narzędzia i Systemy',
+    'Metodyki i Procesy',
+    'Techniczne i Specjalistyczne',
   ];
 
   const handleAddSkill = (e?: React.FormEvent) => {
@@ -74,65 +75,60 @@ export const SkillsForm: React.FC = () => {
   };
 
   return (
-    <div className="space-y-10 animate-fade-in">
-      <div className="border-b border-border pb-5">
-        <h3 className="text-xl font-bold tracking-tight text-content">
-          Umiejętności i Kompetencje
-        </h3>
-        <p className="text-xs text-content-secondary mt-1">
-          Słowa kluczowe z tej sekcji są kluczowe dla systemów ATS. Dodawaj pojedynczo lub po
-          przecinku (np. React, TypeScript, Docker).
-        </p>
-      </div>
-
-      <form
-        onSubmit={handleAddSkill}
-        className="rounded-3xl border border-border bg-surface-secondary p-6 space-y-4 shadow-xs"
+    <div className="space-y-5 animate-fade-in">
+      <FormBlock
+        eyebrow="Słowa kluczowe"
+        title="Dodawaj tylko kompetencje, które umiesz obronić"
+        description="Najlepiej działają konkretne narzędzia, systemy, metody i kompetencje branżowe. Miękkie cechy pokaż później w osiągnięciach."
       >
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div className="sm:col-span-4">
-            <select
-              value={newSkillCategory}
-              onChange={(e) => setNewSkillCategory(e.target.value)}
-              className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-bold text-content focus:border-content focus:outline-none"
-            >
-              {categories.map((cat, idx) => (
-                <option key={idx} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
+        <form
+          onSubmit={handleAddSkill}
+          className="rounded-3xl border border-border bg-surface p-4 space-y-4 shadow-xs sm:p-5"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+            <div className="sm:col-span-4">
+              <select
+                value={newSkillCategory}
+                onChange={(e) => setNewSkillCategory(e.target.value)}
+                className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-bold text-content focus:border-content focus:outline-none"
+              >
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="sm:col-span-6">
-            <input
-              type="text"
-              value={newSkillName}
-              onChange={(e) => setNewSkillName(e.target.value)}
-              placeholder="Wpisz umiejętność (np. Docker, AWS, Scrum)..."
-              className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
-            />
-          </div>
+            <div className="sm:col-span-6">
+              <input
+                type="text"
+                value={newSkillName}
+                onChange={(e) => setNewSkillName(e.target.value)}
+                placeholder="np. Salesforce, Excel, obsługa reklamacji, AutoCAD, HACCP"
+                className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
+              />
+            </div>
 
-          <div className="sm:col-span-2">
-            <button
-              type="submit"
-              className="w-full h-full inline-flex items-center justify-center gap-1.5 rounded-2xl bg-content px-4 py-3.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
-            >
-              <Plus className="h-4 w-4" />
-              <span>Dodaj</span>
-            </button>
+            <div className="sm:col-span-2">
+              <button
+                type="submit"
+                className="w-full h-full inline-flex items-center justify-center gap-1.5 rounded-2xl bg-content px-4 py-3.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
+              >
+                <Plus className="h-4 w-4" />
+                <span>Dodaj</span>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </FormBlock>
 
       {skills.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-3 bg-surface-secondary">
           <Wrench className="h-8 w-8 text-content-muted mx-auto" />
           <p className="text-sm font-bold text-content">Brak wpisów o umiejętnościach</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj przynajmniej 6-10 umiejętności technicznych i biznesowych, aby podnieść swój wynik
-            w audycie ATS.
+            Dodaj 6-12 najważniejszych umiejętności pasujących do docelowej roli i ogłoszenia.
           </p>
         </div>
       ) : (

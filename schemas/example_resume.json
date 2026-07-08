@@ -5,131 +5,167 @@
   },
   "basics": {
     "name": "Jan Kowalski",
-    "title": "Senior Software Engineer & Architect",
+    "title": "Specjalista ds. operacji i obsługi klienta",
+    "targetRole": "Koordynator zespołu obsługi klienta",
+    "targetCompany": "Firmy usługowe i e-commerce",
+    "targetJobDescription": "",
     "email": "jan.kowalski@example.com",
     "phone": "+48 500 600 700",
-    "location": "Warszawa, Polska (Hybrydowo)",
+    "location": "Polska, Warszawa / Zdalnie",
+    "city": "Warszawa",
+    "country": "Polska",
+    "remoteFriendly": true,
     "urls": {
       "linkedin": "linkedin.com/in/jankowalski-dev",
       "github": "github.com/jankowalski",
       "portfolio": "jankowalski.dev"
     },
-    "summary": "Doświadczony Inżynier Oprogramowania z ponad 6-letnim stażem w projektowaniu, skalowaniu i optymalizacji systemów backendowych oraz chmurowych. Specjalizuję się w architekturze rozproszonej, językach Python i Rust oraz infrastrukturze Kubernetes i AWS. W ostatnich projektach zredukowałem koszty infrastruktury chmurowej o 35% i skróciłem czas odpowiedzi kluczowych mikrousług o 50% dzięki optymalizacji zapytań SQL oraz wdrożeniu asynchronicznego przetwarzania zdarzeń."
+    "summary": "Specjalista ds. operacji i obsługi klienta z ponad 6-letnim doświadczeniem w pracy z klientami biznesowymi, reklamacjami i usprawnianiem procesów. Łączy praktyczną znajomość systemów CRM, analizy danych i koordynacji międzyzespołowej z udokumentowanymi efektami w skracaniu czasu obsługi oraz poprawie jakości raportowania."
   },
   "experience": [
     {
       "company": "CloudScale Solutions",
-      "position": "Senior Backend Engineer",
-      "location": "Warszawa / Zdalnie",
+      "position": "Koordynator ds. operacji klienta",
+      "location": "Warszawa / Hybrydowo",
       "startDate": "2022-03",
       "endDate": "obecnie",
+      "responsibilities": [
+        "Koordynacja zgłoszeń klientów biznesowych w systemie CRM i współpraca z zespołami sprzedaży, finansów oraz logistyki.",
+        "Przygotowywanie raportów operacyjnych, analiza przyczyn opóźnień i rekomendowanie usprawnień procesu obsługi."
+      ],
       "highlights": [
-        "Zaprojektowałem i wdrożyłem od zera system przetwarzania strumieniowego w oparciu o Apache Kafka i FastAPI (Python), obsługujący ponad 10 000 zdarzeń na sekundę.",
-        "Zoptymalizowałem kluczowe zapytania do bazy danych PostgreSQL, co doprowadziło do spadku obciążenia procesorów o 40% i skrócenia czasu odpowiedzi API z 450 ms do 120 ms.",
-        "Przeprowadziłem migrację monolitycznej aplikacji do architektury mikroserwisów na platformie Kubernetes (EKS), redukując koszty operacyjne AWS o 35%.",
-        "Prowadziłem mentoring techniczy dla 4 młodszych programistów (Code Reviews, Pair Programming, warsztaty z czystego kodu i wzorców projektowych)."
+        "Skrócił średni czas obsługi reklamacji z 5 do 2 dni roboczych dzięki uporządkowaniu priorytetów i wdrożeniu szablonów odpowiedzi.",
+        "Zwiększył terminowość realizacji zgłoszeń z 82% do 94% przez cotygodniową analizę przyczyn opóźnień i lepsze przekazywanie spraw między działami.",
+        "Przygotował dashboard raportowy w Excelu, który ograniczył ręczne raportowanie z 3 godzin do 35 minut tygodniowo."
       ]
     },
     {
       "company": "FinTech Innovations Sp. z o.o.",
-      "position": "Software Engineer",
+      "position": "Specjalista ds. obsługi klienta biznesowego",
       "location": "Kraków",
       "startDate": "2019-07",
       "endDate": "2022-02",
+      "responsibilities": [
+        "Obsługa zapytań klientów, weryfikacja dokumentów i koordynacja spraw wymagających udziału działu ryzyka.",
+        "Prowadzenie dokumentacji spraw w CRM oraz przygotowywanie podsumowań dla przełożonych."
+      ],
       "highlights": [
-        "Rozwijałem silnik transakcyjny w językach Python i Rust, przetwarzający płatności w czasie rzeczywistym przy zachowaniu rygorystycznych norm bezpieczeństwa PCI-DSS.",
-        "Zautomatyzowałem procesy CI/CD z wykorzystaniem GitHub Actions oraz Docker, skracając średni czas wdrożenia nowej wersji z 2 godzin do 15 minut.",
-        "Zintegrowałem system ze skomplikowanymi zewnętrznymi API bankowymi (Open Banking / PSD2), implementując odporne na błędy mechanizmy ponawiania z wykładniczym opóźnieniem (exponential backoff)."
+        "Utrzymał średnią ocenę satysfakcji klienta na poziomie 4.8/5 przez 6 kolejnych kwartałów.",
+        "Ograniczył liczbę powtarzających się pytań o 22% po przygotowaniu bazy odpowiedzi dla najczęstszych spraw.",
+        "Wsparł wdrożenie nowego procesu weryfikacji dokumentów, skracając czas akceptacji spraw o 30%."
       ]
     },
     {
       "company": "StartUp Labs",
-      "position": "Junior Python Developer",
+      "position": "Asystent biura obsługi",
       "location": "Warszawa",
       "startDate": "2018-06",
       "endDate": "2019-06",
+      "responsibilities": [
+        "Rejestrowanie zgłoszeń klientów, uzupełnianie dokumentacji i wsparcie administracyjne zespołu."
+      ],
       "highlights": [
-        "Tworzyłem interfejsy REST API w frameworku Django REST Framework dla aplikacji SaaS z branży e-commerce.",
-        "Napisałem zestaw kompleksowych testów jednostkowych i integracyjnych (pytest), podnosząc pokrycie kodu testami z 40% do 88%."
+        "Uporządkował bazę kontaktów obejmującą ponad 2 000 rekordów, poprawiając kompletność danych kontaktowych.",
+        "Przygotował prosty szablon raportu dziennego, który ujednolicił przekazywanie informacji między zmianami."
       ]
     }
   ],
   "education": [
     {
       "institution": "Politechnika Warszawska",
-      "degree": "Magister Inżynier",
-      "field": "Informatyka (Specjalizacja: Inżynieria Oprogramowania)",
+      "degree": "Magister",
+      "field": "Zarządzanie",
+      "location": "Warszawa",
       "startDate": "2018-10",
       "endDate": "2020-06",
-      "gpa": "4.8 / 5.0"
+      "gpa": "4.8 / 5.0",
+      "coursework": ["Analiza procesów biznesowych", "Zarządzanie projektami", "Finanse przedsiębiorstw"]
     },
     {
       "institution": "Politechnika Warszawska",
-      "degree": "Inżynier",
-      "field": "Informatyka",
+      "degree": "Licencjat",
+      "field": "Administracja",
+      "location": "Warszawa",
       "startDate": "2015-10",
-      "endDate": "2018-06"
+      "endDate": "2018-06",
+      "coursework": ["Prawo administracyjne", "Komunikacja w organizacji"]
     }
   ],
   "skills": [
     {
-      "category": "Języki Programowania",
-      "keywords": ["Python (3.11+)", "Rust", "TypeScript", "SQL", "Bash"]
+      "category": "Kompetencje Branżowe",
+      "keywords": ["obsługa klienta B2B", "reklamacje", "koordynacja zgłoszeń", "raportowanie operacyjne"]
     },
     {
-      "category": "Frameworki i Biblioteki",
-      "keywords": ["FastAPI", "Django REST Framework", "Next.js", "React", "Pydantic", "SQLAlchemy", "Asyncio", "Tailwind CSS"]
+      "category": "Narzędzia i Systemy",
+      "keywords": ["Excel", "Google Sheets", "Salesforce CRM", "Jira Service Management", "PowerPoint", "systemy ticketowe"]
     },
     {
-      "category": "Chmura i DevOps",
-      "keywords": ["AWS (EC2, S3, RDS, EKS, Lambda)", "Kubernetes", "Docker", "Terraform", "GitHub Actions", "CI/CD"]
+      "category": "Metodyki i Procesy",
+      "keywords": ["SLA", "mapowanie procesów", "analiza przyczyn źródłowych", "onboarding klienta"]
     },
     {
-      "category": "Bazy Danych i Narzędzia",
-      "keywords": ["PostgreSQL", "Redis", "Apache Kafka", "Git", "Typst", "Linux", "Datadog", "Grafana"]
+      "category": "Analiza i Raportowanie",
+      "keywords": ["tabele przestawne", "dashboardy operacyjne", "analiza trendów", "raporty tygodniowe"]
     }
   ],
   "projects": [
     {
-      "name": "Resume Maxxer (Open Source)",
-      "description": "Generator zoptymalizowanych pod systemy ATS dokumentów CV w formacie PDF, oparty o deterministyczne szablony Typst i uniwersalny standard JSON.",
-      "url": "github.com/jankowalski/resume-maxxer",
-      "keywords": ["Python", "FastAPI", "Typst", "Next.js", "TypeScript", "Tailwind CSS"],
+      "name": "Usprawnienie procesu obsługi reklamacji",
+      "role": "Koordynator projektu",
+      "organization": "CloudScale Solutions",
+      "startDate": "2023-04-01",
+      "endDate": "2023-08-31",
+      "period": "2023-04-01 - 2023-08-31",
+      "description": "Projekt uporządkowania sposobu przyjmowania, kategoryzowania i zamykania reklamacji klientów biznesowych.",
+      "url": "",
+      "keywords": ["SLA", "CRM", "Excel", "reklamacje", "mapowanie procesów"],
       "highlights": [
-        "Zaprojektowałem architekturę rozdzielającą w 100% warstwę danych od warstwy prezentacji, wykluczając problem halucynacji graficznych i błędów parsowania przez ATS.",
-        "Wdrożyłem natywną kompilację Typst w przeglądarce (WebAssembly) oraz integrację z API modeli językowych do automatycznego redagowania treści pod ogłoszenia o pracę."
+        "Skrócenie średniego czasu zamknięcia reklamacji z 5 do 2 dni roboczych.",
+        "Przygotowanie szablonów odpowiedzi i checklisty przekazania spraw dla 8-osobowego zespołu."
       ]
     },
     {
-      "name": "Kafka-Fast-Monitor",
-      "description": "Lekkie narzędzie CLI i interfejs webowy do monitorowania opóźnień (consumer lag) w klastrach Apache Kafka.",
-      "url": "github.com/jankowalski/kafka-fast-monitor",
-      "keywords": ["Rust", "Tokio", "WebSockets", "React"],
+      "name": "Dashboard tygodniowych wyników operacyjnych",
+      "role": "Autor raportu",
+      "organization": "projekt wewnętrzny",
+      "startDate": "2022-10-01",
+      "endDate": "2022-12-31",
+      "period": "2022-10-01 - 2022-12-31",
+      "description": "Raport w arkuszu kalkulacyjnym pokazujący liczbę zgłoszeń, opóźnienia, przyczyny eskalacji i obciążenie zespołu.",
+      "url": "",
+      "keywords": ["Excel", "tabele przestawne", "raportowanie", "analiza danych"],
       "highlights": [
-        "Zapewnia 10-krotnie mniejsze zużycie pamięci RAM w porównaniu do popularnych rozwiązań opartych o JVM."
+        "Ograniczenie ręcznego przygotowania raportu z 3 godzin do 35 minut tygodniowo."
       ]
     }
   ],
   "languages": [
     {
       "language": "Język Polski",
-      "fluency": "Ojczysty"
+      "fluency": "Native or bilingual proficiency"
     },
     {
       "language": "Język Angielski",
-      "fluency": "C1 (Biegły w mowie i piśmie technicznym)"
+      "fluency": "Full professional proficiency",
+      "certificate": "IELTS 7.5"
     }
   ],
   "certifications": [
     {
-      "name": "AWS Certified Solutions Architect – Associate",
-      "issuer": "Amazon Web Services",
-      "date": "2023-08"
+      "name": "PRINCE2 Foundation",
+      "issuer": "PeopleCert",
+      "date": "2023-08",
+      "expires": "bezterminowo",
+      "status": "aktywny",
+      "details": "Podstawy prowadzenia projektów, role projektowe, etapy i kontrola postępów."
     },
     {
-      "name": "Certified Kubernetes Administrator (CKA)",
-      "issuer": "Cloud Native Computing Foundation (CNCF)",
-      "date": "2022-11"
+      "name": "Excel - analiza danych w biznesie",
+      "issuer": "Akademia Online",
+      "date": "2022-11",
+      "status": "ukończony",
+      "details": "Tabele przestawne, funkcje wyszukiwania, podstawy dashboardów i raportowania."
     }
   ]
 }

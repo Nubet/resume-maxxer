@@ -31,7 +31,19 @@
         },
         "title": {
           "type": "string",
-          "example": "Senior Software Engineer"
+          "example": "Specjalista ds. obsługi klienta"
+        },
+        "targetRole": {
+          "type": "string",
+          "example": "Kierownik zespołu obsługi klienta"
+        },
+        "targetCompany": {
+          "type": "string",
+          "example": "Branża finansowa"
+        },
+        "targetJobDescription": {
+          "type": "string",
+          "description": "Full job description used to tailor the resume"
         },
         "email": {
           "type": "string",
@@ -45,6 +57,19 @@
         "location": {
           "type": "string",
           "example": "Warszawa, Polska"
+        },
+        "city": {
+          "type": "string",
+          "example": "Warszawa"
+        },
+        "country": {
+          "type": "string",
+          "example": "Polska"
+        },
+        "remoteFriendly": {
+          "type": "boolean",
+          "example": true,
+          "description": "Whether remote work is acceptable and should be reflected in generated location"
         },
         "urls": {
           "type": "object",
@@ -73,6 +98,10 @@
           "location": { "type": "string" },
           "startDate": { "type": "string", "description": "YYYY-MM format or YYYY" },
           "endDate": { "type": "string", "description": "YYYY-MM format, YYYY, or 'present' / 'obecnie'" },
+          "responsibilities": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
           "highlights": {
             "type": "array",
             "items": { "type": "string" },
@@ -90,10 +119,11 @@
           "institution": { "type": "string" },
           "degree": { "type": "string" },
           "field": { "type": "string" },
+          "location": { "type": "string" },
           "startDate": { "type": "string" },
           "endDate": { "type": "string" },
           "gpa": { "type": "string" },
-          "highlights": {
+          "coursework": {
             "type": "array",
             "items": { "type": "string" }
           }
@@ -122,6 +152,11 @@
         "required": ["name", "description", "keywords"],
         "properties": {
           "name": { "type": "string" },
+          "role": { "type": "string" },
+          "organization": { "type": "string" },
+          "startDate": { "type": "string", "description": "Optional YYYY-MM-DD format" },
+          "endDate": { "type": "string", "description": "Optional YYYY-MM-DD format" },
+          "period": { "type": "string" },
           "description": { "type": "string" },
           "url": { "type": "string" },
           "keywords": {
@@ -142,7 +177,9 @@
         "required": ["language", "fluency"],
         "properties": {
           "language": { "type": "string", "example": "Angielski" },
-          "fluency": { "type": "string", "example": "C1 / Zaawansowany" }
+          "fluency": { "type": "string", "example": "Full professional proficiency" },
+          "certificate": { "type": "string" },
+          "url": { "type": "string" }
         }
       }
     },
@@ -155,6 +192,9 @@
           "name": { "type": "string" },
           "issuer": { "type": "string" },
           "date": { "type": "string" },
+          "expires": { "type": "string" },
+          "status": { "type": "string" },
+          "details": { "type": "string" },
           "url": { "type": "string" }
         }
       }

@@ -17,9 +17,15 @@ export const ResumeUrlsSchema = z
 export const ResumeBasicsSchema = z.object({
   name: z.string().min(1, 'Imię i nazwisko jest wymagane'),
   title: z.string().min(1, 'Tytuł zawodowy jest wymagany'),
+  targetRole: z.string().optional(),
+  targetCompany: z.string().optional(),
+  targetJobDescription: z.string().optional(),
   email: z.string().email('Niepoprawny adres email'),
   phone: z.string().min(1, 'Numer telefonu jest wymagany'),
   location: z.string().min(1, 'Lokalizacja jest wymagana'),
+  city: z.string().optional(),
+  country: z.string().optional(),
+  remoteFriendly: z.boolean().optional().default(false),
   urls: ResumeUrlsSchema.optional().default({}),
   summary: z.string().optional(),
 });
@@ -30,6 +36,7 @@ export const ExperienceItemSchema = z.object({
   location: z.string().optional(),
   startDate: z.string().min(1, 'Data rozpoczęcia jest wymagana (np. 2021-05)'),
   endDate: z.string().min(1, "Data zakończenia lub 'obecnie'"),
+  responsibilities: z.array(z.string()).optional().default([]),
   highlights: z.array(z.string()).default([]),
 });
 
@@ -37,10 +44,11 @@ export const EducationItemSchema = z.object({
   institution: z.string().min(1, 'Nazwa uczelni/szkoły jest wymagana'),
   degree: z.string().min(1, 'Stopień/Tytuł jest wymagany'),
   field: z.string().min(1, 'Kierunek/Specjalizacja jest wymagana'),
+  location: z.string().optional(),
   startDate: z.string().min(1, 'Data rozpoczęcia jest wymagana'),
   endDate: z.string().min(1, 'Data zakończenia jest wymagana'),
   gpa: z.string().optional(),
-  highlights: z.array(z.string()).optional().default([]),
+  coursework: z.array(z.string()).optional().default([]),
 });
 
 export const SkillGroupSchema = z.object({
@@ -50,6 +58,11 @@ export const SkillGroupSchema = z.object({
 
 export const ProjectItemSchema = z.object({
   name: z.string().min(1, 'Nazwa projektu jest wymagana'),
+  role: z.string().optional(),
+  organization: z.string().optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  period: z.string().optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   keywords: z.array(z.string()).default([]),
@@ -59,12 +72,17 @@ export const ProjectItemSchema = z.object({
 export const LanguageItemSchema = z.object({
   language: z.string().min(1, 'Język jest wymagany'),
   fluency: z.string().min(1, 'Poziom zaawansowania jest wymagany (np. C1 / Ojczysty)'),
+  certificate: z.string().optional(),
+  url: z.string().optional(),
 });
 
 export const CertificationItemSchema = z.object({
   name: z.string().min(1, 'Nazwa certyfikatu jest wymagana'),
   issuer: z.string().min(1, 'Wystawca jest wymagany'),
   date: z.string().min(1, 'Data uzyskania jest wymagana'),
+  expires: z.string().optional(),
+  status: z.string().optional(),
+  details: z.string().optional(),
   url: z.string().optional(),
 });
 
