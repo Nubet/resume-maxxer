@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { DEFAULT_TEMPLATE_ID } from '@/lib/templates';
+import { DEFAULT_SKILL_PROFILE } from '@/lib/skillPresets';
 
 const PRESENT_VALUES = ['present', 'Present', 'PRESENT', 'obecnie', 'Obecnie', 'OBECNIE'] as const;
 const CERTIFICATION_STATUSES = ['Bezterminowy', 'Terminowy', 'Wygasły', 'Do odnowienia'] as const;
@@ -104,7 +106,8 @@ const withDateOrder = <T extends z.ZodRawShape>(
 export const ResumeMetadataSchema = z.object({
   language: z.enum(['pl', 'en']).default('pl'),
   schema_version: z.string().trim().default('resume_maxxer.v1'),
-  template_id: text(80, 'Identyfikator szablonu').default('minimalist_ats_v1'),
+  template_id: text(80, 'Identyfikator szablonu').default(DEFAULT_TEMPLATE_ID),
+  skill_profile: z.enum(['general', 'engineering', 'custom']).default(DEFAULT_SKILL_PROFILE),
 });
 
 export const ResumeUrlsSchema = z
@@ -222,7 +225,8 @@ export const ResumeDataSchema = z.object({
   metadata: ResumeMetadataSchema.default({
     language: 'pl',
     schema_version: 'resume_maxxer.v1',
-    template_id: 'minimalist_ats_v1',
+    template_id: DEFAULT_TEMPLATE_ID,
+    skill_profile: DEFAULT_SKILL_PROFILE,
   }),
   basics: ResumeBasicsSchema.default({
     name: '',

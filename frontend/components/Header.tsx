@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Cpu, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
 import { useResume } from '@/context/ResumeContext';
+import { TEMPLATE_FAMILIES } from '@/lib/templates';
 
 interface HeaderProps {
   onOpenAiModal?: () => void;
@@ -12,11 +13,12 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
   const { isGenerating, triggerRefresh, templateId, setTemplateId } = useResume();
 
-  const templates = [
-    { id: 'basic_resume_v1', name: 'Swiss Minimal' },
-    { id: 'harvard_classic_v1', name: 'Harvard Classic' },
-    { id: 'tech_modern_v1', name: 'Tech Modern' },
-  ];
+  const templates = TEMPLATE_FAMILIES.filter((family) => family.available).flatMap((family) =>
+    family.variants.map((variant) => ({
+      id: variant.id,
+      name: `${family.name} ${variant.language === 'pl' ? 'PL' : 'EN'}`,
+    }))
+  );
 
   return (
     <header className="w-full border-b border-border bg-surface px-6 lg:px-10 py-4 transition-all shrink-0">

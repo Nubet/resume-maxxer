@@ -10,6 +10,7 @@ import {
   normalizeResumeData,
   serializeResumeData,
 } from '@/lib/resumeData';
+import { DEFAULT_TEMPLATE_ID, resolveTemplateVariantId } from '@/lib/templates';
 
 export interface SavedVersion {
   id: string;
@@ -48,12 +49,18 @@ const BACKEND_URL = 'http://127.0.0.1:8000/api/v1/cv/generate';
 
 export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   const [resumeData, setResumeData] = useState<ResumeData>(defaultResumeData);
-  const [templateId, setTemplateId] = useState<string>('basic_resume_v1');
+  const [templateId, setTemplateIdState] = useState<string>(DEFAULT_TEMPLATE_ID);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
   const [savedVersions, setSavedVersions] = useState<SavedVersion[]>([]);
+
+  const setTemplateId = useCallback((id: string) => {
+    const nextTemplateId = resolveTemplateVariantId(id);
+    setTemplateIdState(nextTemplateId);
+    setResumeData((prev) => normalizeResumeData(prev, nextTemplateId));
+  }, []);
 
   useEffect(() => {
     try {
@@ -65,7 +72,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           // eslint-disable-next-line react-hooks/set-state-in-effect
           setResumeData(normalized);
           if (normalized.metadata?.template_id) {
-            setTemplateId(normalized.metadata.template_id);
+            setTemplateIdState(normalized.metadata.template_id);
           }
         }
       }
@@ -119,7 +126,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
         const normalized = normalizeResumeData(version.data);
         setResumeData(normalized);
         if (normalized.metadata?.template_id) {
-          setTemplateId(normalized.metadata.template_id);
+          setTemplateIdState(normalized.metadata.template_id);
         }
       }
     },
@@ -263,7 +270,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           serializeResumeData(normalized, normalized.metadata?.template_id);
           setResumeData(normalized);
           if (normalized.metadata?.template_id) {
-            setTemplateId(normalized.metadata.template_id);
+            setTemplateIdState(normalized.metadata.template_id);
           }
           resolve();
         } catch (err) {

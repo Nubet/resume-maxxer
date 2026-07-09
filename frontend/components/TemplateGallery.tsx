@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useResume } from '@/context/ResumeContext';
 import { Search, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
+import { TEMPLATE_FAMILIES } from '@/lib/templates';
 
 interface TemplateGalleryProps {
   onSelectTemplate: (templateId: string) => void;
@@ -21,74 +22,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
     { id: 'exec', label: 'Management' },
   ];
 
-  const templates = [
-    {
-      id: 'basic_resume_v1',
-      name: 'Szwajcarski Rygor',
-      category: 'classic',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Klasyczny układ, który skupia uwagę na Twoich atutach i ułatwia rekruterom szybkie czytanie.',
-      tags: ['Jednokolumnowy', 'Klasyczny', 'Minimalistyczny'],
-      available: true,
-      image: '/images/templates/basic-resume-0.2.9-small.webp',
-    },
-    {
-      id: 'crisp_cv_v1',
-      name: 'Nowoczesny Przejrzysty',
-      category: 'modern',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Przejrzysta forma, która idealnie organizuje treść i prowadzi wzrok czytającego.',
-      tags: ['Nowoczesny', 'Przejrzysty', 'Akcenty'],
-      available: true,
-      image: '/images/templates/modern-resume-1.0.0-small.webp',
-    },
-    {
-      id: 'tech_lead_v1',
-      name: 'Tech Lead & Developer',
-      category: 'tech',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Stworzony dla branży IT. Bezpośrednio komunikuje Twoje kompetencje i zrealizowane projekty.',
-      tags: ['IT', 'Projekty', 'Umiejętności'],
-      available: false,
-      image: '/images/templates/metronic-1.1.0-small.webp',
-    },
-    {
-      id: 'exec_v1',
-      name: 'Executive & Management',
-      category: 'exec',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Skonstruowany dla liderów. Skutecznie prezentuje Twój wpływ na rozwój firmy i wyniki biznesowe.',
-      tags: ['Biznesowy', 'Dla menedżerów', 'Osiągnięcia'],
-      available: false,
-      image: '/images/templates/bamdone-rebuttal-0.1.2-small.webp',
-    },
-    {
-      id: 'academic_v1',
-      name: 'Academic & Research',
-      category: 'classic',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Zaprojektowany do eleganckiej prezentacji Twojego obszernego dorobku, badań i publikacji.',
-      tags: ['Akademicki', 'Rozbudowany', 'Publikacje'],
-      available: false,
-      image: '/images/templates/basic-resume-0.2.9-small.webp',
-    },
-    {
-      id: 'editorial_v1',
-      name: 'Editorial Studio',
-      category: 'modern',
-      author: 'ResumeMaxxer Team',
-      description:
-        'Wyróżniający się układ, który od pierwszej sekundy buduje Twój wizerunek jako estety.',
-      tags: ['Kreatywny', 'Design', 'Unikalna typografia'],
-      available: false,
-      image: '/images/templates/modern-resume-1.0.0-small.webp',
-    },
-  ];
+  const templates = TEMPLATE_FAMILIES;
 
   const filteredTemplates = templates.filter((t) => {
     const matchesCategory = selectedCategory === 'all' || t.category === selectedCategory;
@@ -162,14 +96,14 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
       <div className="mx-auto max-w-[1400px] px-6 sm:px-12 lg:px-20 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {filteredTemplates.map((tpl) => {
-            const isSelected = templateId === tpl.id;
+            const selectedVariant = tpl.variants.find((variant) => variant.id === templateId) ?? null;
+            const isSelected = Boolean(selectedVariant);
 
             return (
               <div
-                key={tpl.id}
-                onClick={() => handleSelect(tpl.id, tpl.available)}
-                className={`group flex flex-col cursor-pointer`}
-              >
+                  key={tpl.id}
+                  className={`group flex flex-col cursor-pointer`}
+                >
                 <div
                   className={`relative w-full aspect-[1/1.414] mb-6 rounded-2xl flex items-center justify-center p-6 sm:p-10 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
                   ${isSelected ? 'bg-surface-secondary/80 border border-border/50 shadow-inner' : 'bg-surface-secondary/30 group-hover:bg-surface-secondary/60'}
@@ -191,7 +125,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     {tpl.available && !isSelected && (
                       <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div className="flex items-center justify-between text-white">
-                          <span className="font-bold text-lg tracking-tight">Wybierz układ</span>
+                            <span className="font-bold text-lg tracking-tight">Wybierz układ i język</span>
                           <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
                             <ArrowRight className="w-5 h-5" />
                           </div>
@@ -209,9 +143,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     )}
                   </div>
 
-                  {isSelected && (
-                    <div className="absolute -top-3 -right-3 bg-content text-surface rounded-full p-2.5 shadow-xl z-10 animate-fade-in">
-                      <CheckCircle2 className="w-6 h-6" />
+                    {isSelected && (
+                      <div className="absolute -top-3 -right-3 bg-content text-surface rounded-full p-2.5 shadow-xl z-10 animate-fade-in">
+                        <CheckCircle2 className="w-6 h-6" />
                     </div>
                   )}
                 </div>
@@ -222,7 +156,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     {isSelected && (
                       <>
                         <span className="w-1 h-1 rounded-full bg-content-muted" />
-                        <span className="text-content">Aktywny</span>
+                        <span className="text-content">{selectedVariant?.language === 'pl' ? 'Aktywny PL' : 'Aktywny EN'}</span>
                       </>
                     )}
                   </div>
@@ -244,6 +178,28 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                         {tag}
                       </span>
                     ))}
+                  </div>
+
+                  <div className="mt-5 flex gap-2">
+                    {tpl.variants.map((variant) => {
+                      const variantSelected = templateId === variant.id;
+
+                      return (
+                        <button
+                          key={variant.id}
+                          type="button"
+                          disabled={!tpl.available}
+                          onClick={() => handleSelect(variant.id, tpl.available)}
+                          className={`rounded-full border px-3 py-2 text-xs font-black transition-all ${
+                            variantSelected
+                              ? 'border-content bg-content text-content-inverse'
+                              : 'border-border bg-surface-secondary text-content hover:border-content'
+                          } ${!tpl.available ? 'cursor-not-allowed opacity-60' : ''}`}
+                        >
+                          {variant.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

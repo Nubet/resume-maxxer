@@ -18,6 +18,7 @@ import {
   ShieldCheck,
   History,
 } from 'lucide-react';
+import { getTemplateDisplayName } from '@/lib/templates';
 
 export type TabType = 'basics' | 'experience' | 'education' | 'skills' | 'projects' | 'extra';
 export type DashboardModule = 'editor' | 'templates' | 'ats' | 'history';
@@ -181,7 +182,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             onClick={() => onModuleChange('templates')}
             className="font-bold text-content hover:underline"
           >
-            {templateId === 'basic_resume_v1' ? 'Klasyczny' : 'Nowoczesny'} ➔
+            {getTemplateDisplayName(templateId)} ➔
           </button>
         </div>
 

@@ -1,10 +1,12 @@
 import type { ResumeData } from '@/types/resume';
 import { normalizeResumeData } from '@/lib/resumeData';
+import { DEFAULT_TEMPLATE_ID } from '@/lib/templates';
 
 export const defaultResumeData: ResumeData = normalizeResumeData({
   metadata: {
     language: 'pl',
-    template_id: 'basic_resume_v1',
+    template_id: DEFAULT_TEMPLATE_ID,
+    skill_profile: 'general',
   },
   basics: {
     name: 'Jan Kowalski',

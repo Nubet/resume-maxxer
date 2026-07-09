@@ -5,6 +5,8 @@ import {
   type ResumeData,
   type ResumeMetadata,
 } from '@/types/resume';
+import { DEFAULT_SKILL_PROFILE, type SkillProfile } from '@/lib/skillPresets';
+import { DEFAULT_TEMPLATE_ID, getTemplateLanguage, resolveTemplateVariantId } from '@/lib/templates';
 
 export const RESUME_SCHEMA_VERSION = 'resume_maxxer.v1';
 
@@ -27,6 +29,9 @@ const asObject = (value: unknown): Record<string, unknown> =>
     : {};
 
 const asLanguage = (value: unknown): ResumeMetadata['language'] => (value === 'en' ? 'en' : 'pl');
+
+const asSkillProfile = (value: unknown): SkillProfile =>
+  value === 'engineering' || value === 'custom' ? value : DEFAULT_SKILL_PROFILE;
 
 const asCertificationStatus = (value: unknown): CertificationItem['status'] => {
   const status = asString(value);
@@ -106,12 +111,17 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
   const city = asString(basics.city);
   const country = asString(basics.country);
   const remoteFriendly = Boolean(basics.remoteFriendly);
+  const normalizedTemplateId = resolveTemplateVariantId(
+    templateId || asString(metadata.template_id),
+    asLanguage(metadata.language)
+  );
 
   return {
     metadata: {
-      language: asLanguage(metadata.language),
+      language: getTemplateLanguage(normalizedTemplateId),
       schema_version: RESUME_SCHEMA_VERSION,
-      template_id: templateId || asString(metadata.template_id) || 'basic_resume_v1',
+      template_id: normalizedTemplateId || DEFAULT_TEMPLATE_ID,
+      skill_profile: asSkillProfile(metadata.skill_profile),
     },
     basics: {
       name: asString(basics.name),
