@@ -2,7 +2,8 @@
   "metadata": {
     "language": "pl",
     "schema_version": "resume_maxxer.v1",
-    "template_id": "basic_resume_v1"
+    "template_id": "basic_resume_v1_pl",
+    "skill_profile": "general"
   },
   "basics": {
     "name": "Jan Kowalski",
