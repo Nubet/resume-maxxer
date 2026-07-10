@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 
 interface AtsStudioProps {
-  onOpenAiModal: () => void;
   onBackToEditor: () => void;
 }
 
@@ -132,7 +131,11 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
     .split(/\s+/)
     .filter(Boolean).length;
 
-  const hasSummary = Boolean(resumeData?.basics?.summary && resumeData.basics.summary.length > 30);
+  const hasSummary = Boolean(
+    resumeData?.basics?.showSummary !== false &&
+      resumeData?.basics?.summary &&
+      resumeData.basics.summary.length > 30
+  );
   const totalSkills =
     resumeData?.skills?.reduce((acc, g) => acc + (g.keywords?.length || 0), 0) || 0;
   const hasSkills = totalSkills >= 5;

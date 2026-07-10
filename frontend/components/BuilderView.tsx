@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useSyncExternalStore, useState } from 'react';
+import React, { useSyncExternalStore } from 'react';
 import { useRouter } from '@/i18n/navigation';
 import type { DashboardModule, TabType } from './DashboardSidebar';
 import { DashboardSidebar } from './DashboardSidebar';
@@ -10,7 +10,6 @@ import { LivePreview } from './LivePreview';
 import { TemplateGallery } from './TemplateGallery';
 import { AtsStudio } from './AtsStudio';
 import { FileManager } from './FileManager';
-import { AiModal } from './AiModal';
 
 interface BuilderViewProps {
   activeModule: DashboardModule;
@@ -69,7 +68,6 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
     () => 'split'
   );
 
-  const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
 
   const handleTabChange = (tab: TabType) => {
     sessionStorage.setItem('builder_activeTab', tab);
@@ -110,7 +108,6 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
           activeTab={activeTab}
           dashboardView={dashboardView}
           onViewChange={handleViewChange}
-          onOpenAiModal={() => setIsAiModalOpen(true)}
         />
 
         <main className="flex flex-1 overflow-hidden bg-surface">
@@ -148,7 +145,6 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
 
           {activeModule === 'ats' && (
             <AtsStudio
-              onOpenAiModal={() => setIsAiModalOpen(true)}
               onBackToEditor={() => handleModuleChange('editor')}
             />
           )}
@@ -157,7 +153,6 @@ export const BuilderView: React.FC<BuilderViewProps> = ({ activeModule }) => {
         </main>
       </div>
 
-      <AiModal isOpen={isAiModalOpen} onClose={() => setIsAiModalOpen(false)} />
     </div>
   );
 };

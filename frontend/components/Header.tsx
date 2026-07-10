@@ -2,17 +2,13 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { Cpu, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Cpu, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useResume } from '@/context/ResumeContext';
 import { TEMPLATE_FAMILIES } from '@/lib/templates';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 
-interface HeaderProps {
-  onOpenAiModal?: () => void;
-}
-
-export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
+export const Header: React.FC = () => {
   const t = useTranslations('Header');
   const { isGenerating, triggerRefresh, templateId, setTemplateId } = useResume();
 
@@ -64,15 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
             <span>{isGenerating ? t('compiling') : t('refreshPdf')}</span>
           </button>
 
-          {onOpenAiModal && (
-            <button
-              onClick={onOpenAiModal}
-              className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98]"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-              <span>{t('aiAssistant')}</span>
-            </button>
-          )}
+
         </div>
       </div>
     </header>

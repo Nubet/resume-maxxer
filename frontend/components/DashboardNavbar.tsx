@@ -21,7 +21,6 @@ interface DashboardNavbarProps {
   activeTab?: TabType;
   dashboardView: 'editor' | 'preview' | 'split';
   onViewChange: (mode: 'editor' | 'preview' | 'split') => void;
-  onOpenAiModal: () => void;
 }
 
 export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
@@ -29,7 +28,6 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   onModuleChange,
   dashboardView,
   onViewChange,
-  onOpenAiModal,
 }) => {
   const t = useTranslations('DashboardNavbar');
   const { downloadPdf, pdfBlobUrl, isGenerating, resumeData } = useResume();
@@ -130,13 +128,6 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           </div>
         )}
 
-        <button
-          onClick={onOpenAiModal}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-tertiary px-4 py-2 text-xs font-bold text-content hover:border-content transition-all active:scale-[0.98] shadow-xs"
-        >
-          <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-          <span>{t('aiAssistant')}</span>
-        </button>
 
         {activeModule !== 'editor' && (
           <button

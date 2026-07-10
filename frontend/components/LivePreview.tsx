@@ -64,7 +64,9 @@ export const LivePreview: React.FC = () => {
 
   const handleRunAtsCheck = () => {
     const hasSummary = Boolean(
-      resumeData?.basics?.summary && resumeData.basics.summary.length > 20
+      resumeData?.basics?.showSummary !== false &&
+        resumeData?.basics?.summary &&
+        resumeData.basics.summary.length > 20
     );
     const hasExp = Boolean(resumeData?.experience && resumeData.experience.length > 0);
     const totalSkills =
