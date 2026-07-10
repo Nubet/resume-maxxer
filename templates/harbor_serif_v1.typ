@@ -90,7 +90,7 @@
   let lines = ()
   if cv.basics.at("phone", default: "") != "" { lines.push(cv.basics.phone) }
   if cv.basics.at("email", default: "") != "" { lines.push(cv.basics.email) }
-  let location_line = compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""))
+  let location_line = compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""), show_country: cv.basics.at("showCountry", default: true))
   if location_line != "" { lines.push(location_line) }
   let website = compact_link_text(cv.basics.at("urls", default: (:)).at("website", default: cv.basics.at("urls", default: (:)).at("portfolio", default: "")))
   if website != none { lines.push(website) }
@@ -134,7 +134,7 @@
 
 #line(length: 100%, stroke: 0.4pt)
 
-#if cv.basics.at("summary", default: "") != "" [
+#if cv.basics.at("showSummary", default: true) and cv.basics.at("summary", default: "") != "" [
   #section-block(
     [#labels.profile],
     [

@@ -125,7 +125,9 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
   const basics = asObject(source.basics);
   const city = asString(basics.city);
   const country = asString(basics.country);
+  const showCountry = basics.showCountry !== false;
   const remoteFriendly = Boolean(basics.remoteFriendly);
+  const showSummary = basics.showSummary !== false;
   const normalizedTemplateId = resolveTemplateVariantId(
     templateId || asString(metadata.template_id),
     language
@@ -148,10 +150,12 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
       phone: asString(basics.phone),
       city,
       country,
+      showCountry,
       remoteFriendly,
-        location: buildLocation(city, country, remoteFriendly, asString(basics.location), language),
+      location: buildLocation(city, showCountry ? country : '', remoteFriendly, asString(basics.location), language),
       urls: normalizeUrls(basics.urls),
       summary: asString(basics.summary),
+      showSummary,
     },
     experience: Array.isArray(source.experience)
       ? source.experience.map((item) => {
@@ -262,11 +266,13 @@ export const serializeResumeData = (
       remoteFriendly: data.basics.remoteFriendly,
       urls: cleanUrls(data.basics.urls || {}),
       summary: data.basics.summary,
+      showSummary: data.basics.showSummary,
       ...withOptionalString('targetRole', data.basics.targetRole || ''),
       ...withOptionalString('targetCompany', data.basics.targetCompany || ''),
       ...withOptionalString('targetJobDescription', data.basics.targetJobDescription || ''),
       ...withOptionalString('city', data.basics.city || ''),
       ...withOptionalString('country', data.basics.country || ''),
+      showCountry: data.basics.showCountry,
     },
     experience: data.experience
       .filter((item) => item.company || item.position || item.highlights.length > 0)

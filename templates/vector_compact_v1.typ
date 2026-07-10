@@ -91,7 +91,7 @@
   personal-info-position: center,
   author-name: cv.basics.at("name", default: labels.candidate),
   phone: cv.basics.at("phone", default: ""),
-  location: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: "")),
+  location: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""), show_country: cv.basics.at("showCountry", default: true)),
   email: cv.basics.at("email", default: ""),
   website: website_value,
   linkedin-user-id: linkedin_value,

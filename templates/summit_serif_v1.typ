@@ -69,9 +69,9 @@
   if normalized == none { none } else { normalized.replace("https://", "").replace("http://", "") }
 }
 
-#let compact_location(city, country, fallback: "") = {
+#let compact_location(city, country, fallback: "", show_country: true) = {
   let parts = ()
-  if country != "" { parts.push(country) }
+  if show_country and country != "" { parts.push(country) }
   if city != "" { parts.push(city) }
   if parts.len() > 0 { parts.join(", ") } else { fallback }
 }
@@ -177,8 +177,8 @@
   location: (
     city: cv.basics.at("city", default: ""),
     region: "",
-    country: cv.basics.at("country", default: ""),
-    label: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: "")),
+    country: if cv.basics.at("showCountry", default: true) { cv.basics.at("country", default: "") } else { "" },
+    label: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""), show_country: cv.basics.at("showCountry", default: true)),
   ),
   profiles: urls_to_profiles(cv.basics.at("urls", default: (:))),
 )
@@ -386,7 +386,7 @@
 #show: doc => cvinit(doc)
 
 #cvheading(info, uservars)
-#cvsummary(cv.basics.at("summary", default: ""))
+#cvsummary(if cv.basics.at("showSummary", default: true) { cv.basics.at("summary", default: "") } else { "" })
 #cvwork(info)
 #cveducation(info)
 #cvprojects(info)

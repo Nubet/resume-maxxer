@@ -352,6 +352,7 @@
         "extra": { "title": "Języki, certyfikaty i dodatki", "description": "Na końcu dodaj informacje, które wzmacniają wiarygodność lub są wymagane w ofercie.", "checklist": "Języki, poziomy, licencje, certyfikaty, linki potwierdzające." }
       }
     },
+    "showOnResume": "Pokaż w CV",
     "Basics": {
       "introEyebrow": "Najpierw",
       "introTitle": "Kim jesteś i na jaką rolę aplikujesz?",

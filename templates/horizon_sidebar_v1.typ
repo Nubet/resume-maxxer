@@ -167,7 +167,7 @@
     #v(4pt)
   ]
 
-  #if cv.basics.at("summary", default: "") != "" [
+  #if cv.basics.at("showSummary", default: true) and cv.basics.at("summary", default: "") != "" [
     #cv.basics.summary
     #v(6pt)
   ]
@@ -177,7 +177,7 @@
     linkedin: linkedin_value,
     github: github_value,
     email: cv.basics.at("email", default: ""),
-    location: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: "")),
+    location: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""), show_country: cv.basics.at("showCountry", default: true)),
     website: website_value,
   )
 

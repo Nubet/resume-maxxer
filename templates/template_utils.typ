@@ -149,9 +149,9 @@
   if normalized == none { none } else { normalized.replace("https://", "").replace("http://", "") }
 }
 
-#let compact_location(city, country, fallback: "") = {
+#let compact_location(city, country, fallback: "", show_country: true) = {
   let parts = ()
-  if country != "" { parts.push(country) }
+  if show_country and country != "" { parts.push(country) }
   if city != "" { parts.push(city) }
   if parts.len() > 0 { parts.join(", ") } else { fallback }
 }

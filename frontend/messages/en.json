@@ -376,6 +376,7 @@
         }
       }
     },
+    "showOnResume": "Show on resume",
     "Basics": {
       "introEyebrow": "Start here",
       "introTitle": "Who are you and what role are you targeting?",

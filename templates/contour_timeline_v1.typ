@@ -119,8 +119,8 @@
   titles: title_list,
   location: (
     city: cv.basics.at("city", default: ""),
-    country: cv.basics.at("country", default: ""),
-    label: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: "")),
+    country: if cv.basics.at("showCountry", default: true) { cv.basics.at("country", default: "") } else { "" },
+    label: compact_location(cv.basics.at("city", default: ""), cv.basics.at("country", default: ""), fallback: cv.basics.at("location", default: ""), show_country: cv.basics.at("showCountry", default: true)),
   ),
   contact: (
     email: if cv.basics.at("email", default: "") != "" { cv.basics.email } else { none },
@@ -138,6 +138,7 @@
 }
 
 #let summary_entries = {
+  if not cv.basics.at("showSummary", default: true) { return () }
   let summary = cv.basics.at("summary", default: "")
   if summary == "" { () } else { (summary,) }
 }

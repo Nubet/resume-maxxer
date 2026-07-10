@@ -8,6 +8,7 @@ import { FormBlock } from '@/components/editor/FormBlock';
 
 export const BasicsForm: React.FC = () => {
   const t = useTranslations('Editor.Basics');
+  const tGlobal = useTranslations('Editor');
   const { resumeData, updateResumeData } = useResume();
   const basics = resumeData?.basics || {
     name: '',
@@ -16,12 +17,14 @@ export const BasicsForm: React.FC = () => {
     location: '',
     city: '',
     country: '',
+    showCountry: true,
     remoteFriendly: false,
     title: '',
     targetRole: '',
     targetCompany: '',
     targetJobDescription: '',
     summary: '',
+    showSummary: true,
     urls: {},
   };
   const urls = Object.entries(basics.urls || {});
@@ -50,19 +53,19 @@ export const BasicsForm: React.FC = () => {
     return remoteFriendly ? `${baseLocation} / ${remoteWord}` : baseLocation;
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: string, value: string | boolean) => {
     updateResumeData((prev) => ({
       ...prev,
       basics: { ...prev.basics, [field]: value },
     }));
   };
 
-  const handleLocationPartChange = (field: 'city' | 'country', value: string) => {
+  const handleLocationPartChange = (field: 'city' | 'country' | 'showCountry', value: string | boolean) => {
     updateResumeData((prev) => {
       const nextBasics = { ...prev.basics, [field]: value };
       const location = buildLocation(
         nextBasics.city,
-        nextBasics.country,
+        nextBasics.showCountry !== false ? nextBasics.country : '',
         nextBasics.remoteFriendly
       );
       return { ...prev, basics: { ...nextBasics, location } };
@@ -72,7 +75,11 @@ export const BasicsForm: React.FC = () => {
   const handleRemoteFriendlyChange = (checked: boolean) => {
     updateResumeData((prev) => {
       const nextBasics = { ...prev.basics, remoteFriendly: checked };
-      const location = buildLocation(nextBasics.city, nextBasics.country, checked);
+      const location = buildLocation(
+        nextBasics.city,
+        nextBasics.showCountry !== false ? nextBasics.country : '',
+        checked
+      );
       return { ...prev, basics: { ...nextBasics, location } };
     });
   };
@@ -229,7 +236,18 @@ export const BasicsForm: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-content mb-2">{t('fields.country.label')}</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs font-bold text-content">{t('fields.country.label')}</label>
+              <label className="flex items-center gap-1.5 cursor-pointer text-[10px] font-bold uppercase tracking-wider text-content-secondary hover:text-content">
+                <input
+                  type="checkbox"
+                  checked={basics.showCountry !== false}
+                  onChange={(e) => handleLocationPartChange('showCountry', e.target.checked)}
+                  className="rounded border-border text-content focus:ring-0 w-3.5 h-3.5"
+                />
+                {tGlobal('showOnResume')}
+              </label>
+            </div>
             <input
               type="text"
               value={basics.country || ''}
@@ -276,6 +294,17 @@ export const BasicsForm: React.FC = () => {
         title={t('summaryTitle')}
         description={t('summaryDescription')}
       >
+        <div className="mb-3 flex justify-end">
+          <label className="flex cursor-pointer items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-content-secondary hover:text-content">
+            <input
+              type="checkbox"
+              checked={basics.showSummary !== false}
+              onChange={(e) => handleChange('showSummary', e.target.checked)}
+              className="h-3.5 w-3.5 rounded border-border text-content focus:ring-0"
+            />
+            {tGlobal('showOnResume')}
+          </label>
+        </div>
         <textarea
           rows={4}
           value={basics.summary || ''}

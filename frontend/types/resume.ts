@@ -232,9 +232,11 @@ const createResumeSchema = (locale: ResumeLocale) => {
     location: text(120, copy.labels.location),
     city: text(80, copy.labels.city),
     country: text(80, copy.labels.country),
+    showCountry: z.boolean().default(true),
     remoteFriendly: z.boolean().default(false),
     urls: ResumeUrlsSchema,
     summary: text(1600, copy.labels.summary),
+    showSummary: z.boolean().default(true),
   });
 
   const ExperienceItemSchema = withDateOrder(
@@ -340,9 +342,11 @@ const createResumeSchema = (locale: ResumeLocale) => {
       location: '',
       city: '',
       country: '',
+      showCountry: true,
       remoteFriendly: false,
       urls: {},
       summary: '',
+      showSummary: true,
     }),
     experience: z.array(ExperienceItemSchema).default([]),
     education: z.array(EducationItemSchema).default([]),
