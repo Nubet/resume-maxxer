@@ -177,9 +177,14 @@ export const EducationForm: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    {t('fields.gpa.label')}
-                  </label>
+                  <div className="mb-2 flex items-center gap-2">
+                    <label className="block text-xs font-bold text-content">
+                      {t('fields.gpa.label')}
+                    </label>
+                    <span className="rounded-full bg-surface-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-content-muted">
+                      {t('fields.gpa.optional')}
+                    </span>
+                  </div>
                   <input
                     type="text"
                     value={edu.gpa || ''}
@@ -187,6 +192,9 @@ export const EducationForm: React.FC = () => {
                     placeholder={t('fields.gpa.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
+                  <p className="mt-2 text-[11px] font-medium leading-relaxed text-content-secondary">
+                    {t('fields.gpa.helper')}
+                  </p>
                 </div>
 
                 <div>

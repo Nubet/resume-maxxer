@@ -427,7 +427,12 @@
         "company": { "label": "Company / organization", "placeholder": "e.g. IKEA / ABC Logistics / self-employed" },
         "startDate": { "label": "From" },
         "endDate": { "label": "To", "current": "Present" },
-        "location": { "label": "Location (city / mode)", "placeholder": "e.g. Chicago, United States" }
+        "location": {
+          "label": "Location (city / mode)",
+          "placeholder": "e.g. Chicago, United States",
+          "optional": "Optional",
+          "helper": "Leave empty if the location is not important. If you fill it in, it will appear on the CV."
+        }
       },
       "responsibilities": {
         "label": "Core responsibilities",
@@ -459,7 +464,12 @@
         "field": { "label": "Field / specialization", "placeholder": "Choose one or enter your own" },
         "institution": { "label": "University / school", "placeholder": "e.g. University of Wisconsin-Madison" },
         "location": { "label": "Location", "placeholder": "e.g. United States, Madison" },
-        "gpa": { "label": "Grade / GPA (optional)", "placeholder": "e.g. 3.8 / 4.0 (Honors)" },
+        "gpa": {
+          "label": "Grade / GPA",
+          "placeholder": "e.g. 3.8 / 4.0 (Honors)",
+          "optional": "Optional",
+          "helper": "Leave empty if the grade does not add value. If you fill it in, it will appear on the CV."
+        },
         "startDate": { "label": "From" },
         "endDate": { "label": "To" }
       },

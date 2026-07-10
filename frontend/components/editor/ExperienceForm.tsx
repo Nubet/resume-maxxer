@@ -178,9 +178,14 @@ export const ExperienceForm: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-content mb-2">
-                    {t('fields.location.label')}
-                  </label>
+                  <div className="mb-2 flex items-center gap-2">
+                    <label className="block text-xs font-bold text-content">
+                      {t('fields.location.label')}
+                    </label>
+                    <span className="rounded-full bg-surface-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-content-muted">
+                      {t('fields.location.optional')}
+                    </span>
+                  </div>
                   <input
                     type="text"
                     value={exp.location || ''}
@@ -188,6 +193,9 @@ export const ExperienceForm: React.FC = () => {
                     placeholder={t('fields.location.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
+                  <p className="mt-2 text-[11px] font-medium leading-relaxed text-content-secondary">
+                    {t('fields.location.helper')}
+                  </p>
                 </div>
 
                 <ListEditorField

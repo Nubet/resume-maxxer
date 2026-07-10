@@ -401,7 +401,12 @@
         "company": { "label": "Nazwa firmy / organizacji", "placeholder": "np. IKEA / ABC Logistics / własna działalność" },
         "startDate": { "label": "Od" },
         "endDate": { "label": "Do", "current": "Obecnie" },
-        "location": { "label": "Lokalizacja (miasto / tryb)", "placeholder": "np. Warszawa, Polska" }
+        "location": {
+          "label": "Lokalizacja (miasto / tryb)",
+          "placeholder": "np. Warszawa, Polska",
+          "optional": "Opcjonalne",
+          "helper": "Zostaw puste, jeśli lokalizacja nie jest istotna. Jeśli wpiszesz wartość, pojawi się w CV."
+        }
       },
       "responsibilities": {
         "label": "Główne obowiązki",
@@ -433,7 +438,12 @@
         "field": { "label": "Kierunek / specjalizacja", "placeholder": "Wybierz lub wpisz własny" },
         "institution": { "label": "Uczelnia / szkoła", "placeholder": "np. Politechnika Warszawska" },
         "location": { "label": "Lokalizacja", "placeholder": "np. Polska, Warszawa" },
-        "gpa": { "label": "Wynik / średnia (opcjonalnie)", "placeholder": "np. 4.8 / 5.0 (Wyróżnienie)" },
+        "gpa": {
+          "label": "Wynik / średnia",
+          "placeholder": "np. 4.8 / 5.0 (Wyróżnienie)",
+          "optional": "Opcjonalne",
+          "helper": "Zostaw puste, jeśli wynik nie wnosi wartości. Jeśli wpiszesz wartość, pojawi się w CV."
+        },
         "startDate": { "label": "Od" },
         "endDate": { "label": "Do" }
       },
