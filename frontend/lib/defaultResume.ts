@@ -26,6 +26,7 @@ export const defaultResumeData: ResumeData = normalizeResumeData({
     },
     summary:
       'Senior software engineer with 8+ years of experience building web applications, internal platforms, and customer-facing SaaS products. Strong track record in TypeScript, React, Node.js, and cloud infrastructure, with consistent results in improving performance, delivery speed, and developer productivity.',
+    showSummary: true,
   },
   experience: [
     {
