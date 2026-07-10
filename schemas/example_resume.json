@@ -22,7 +22,8 @@
       "github": "github.com/johndoe-dev",
       "portfolio": "johndoe.dev"
     },
-    "summary": "Senior software engineer with 8+ years of experience building web applications, internal platforms, and customer-facing products in SaaS environments. Strong track record in TypeScript, React, Node.js, and cloud infrastructure, with consistent results in improving product performance, delivery speed, and developer productivity. Combines hands-on engineering with pragmatic system design and close collaboration across product, design, and data teams."
+    "summary": "Senior software engineer with 8+ years of experience building web applications, internal platforms, and customer-facing products in SaaS environments. Strong track record in TypeScript, React, Node.js, and cloud infrastructure, with consistent results in improving product performance, delivery speed, and developer productivity. Combines hands-on engineering with pragmatic system design and close collaboration across product, design, and data teams.",
+    "showSummary": true
   },
   "experience": [
     {

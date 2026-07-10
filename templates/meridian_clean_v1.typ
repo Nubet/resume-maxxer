@@ -115,7 +115,7 @@
   ))
 )
 
-#if cv.basics.at("summary", default: "") != "" [
+#if cv.basics.at("showSummary", default: true) and cv.basics.at("summary", default: "") != "" [
   = #i18n.summary
   #pad(left: 0.4em, bottom: 0.6em, cv.basics.summary)
 ]

@@ -94,6 +94,11 @@
         "summary": {
           "type": "string",
           "description": "Professional summary optimized for ATS keywords"
+        },
+        "showSummary": {
+          "type": "boolean",
+          "example": true,
+          "description": "Whether the professional summary should be rendered on the resume"
         }
       }
     },

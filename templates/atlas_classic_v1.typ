@@ -113,7 +113,7 @@
   ]
 )
 
-#if cv.basics.at("summary", default: "") != "" [
+#if cv.basics.at("showSummary", default: true) and cv.basics.at("summary", default: "") != "" [
   == #i18n.summary
   #cv.basics.summary
 ]
