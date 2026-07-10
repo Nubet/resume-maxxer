@@ -1,10 +1,10 @@
 #let cv = json(sys.inputs.at("data_path", default: "../schemas/example_resume.json"))
+#let lang = cv.metadata.at("language", default: "pl")
 #set document(
-  author: cv.basics.at("name", default: "Kandydat"),
-  title: "CV - " + cv.basics.at("name", default: "Kandydat")
+  author: cv.basics.at("name", default: if lang == "en" { "Candidate" } else { "Kandydat" }),
+  title: (if lang == "en" { "Resume - " } else { "CV - " }) + cv.basics.at("name", default: if lang == "en" { "Candidate" } else { "Kandydat" })
 )
 
-#let lang = cv.metadata.at("language", default: "pl")
 #let i18n = (
   pl: (
     summary: "Podsumowanie zawodowe",
@@ -15,7 +15,8 @@
     certifications: "Certyfikaty",
     languages: "Języki obce",
     present: "obecnie",
-    technologies: "Technologie"
+    technologies: "Technologie",
+    coursework: "Kursy / przedmioty"
   ),
   en: (
     summary: "Professional Summary",
@@ -26,7 +27,8 @@
     certifications: "Certifications",
     languages: "Languages",
     present: "Present",
-    technologies: "Technologies"
+    technologies: "Technologies",
+    coursework: "Coursework"
   )
 ).at(lang, default: (
   summary: "Podsumowanie zawodowe",
@@ -37,7 +39,8 @@
   certifications: "Certyfikaty",
   languages: "Języki obce",
   present: "obecnie",
-  technologies: "Technologie"
+  technologies: "Technologie",
+  coursework: "Kursy / przedmioty"
 ))
 
 #set text(
@@ -143,7 +146,7 @@
       timespan: dates-helper(edu.at("startDate", default: ""), edu.at("endDate", default: "")),
       location: edu.at("gpa", default: ""),
       if edu.at("coursework", default: ()).len() > 0 [
-        *Kursy / przedmioty*: #edu.coursework.join(", ")
+        *#i18n.coursework*: #edu.coursework.join(", ")
       ] else [ [] ]
     )
   ]

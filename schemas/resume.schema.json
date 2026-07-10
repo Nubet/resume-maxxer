@@ -21,7 +21,7 @@
         },
         "template_id": {
           "type": "string",
-          "default": "basic_resume_v1_pl",
+          "default": "atlas_classic_v1_pl",
           "description": "ID of the Typst template to use for rendering"
         },
         "skill_profile": {

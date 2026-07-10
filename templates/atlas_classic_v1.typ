@@ -1,10 +1,10 @@
 #let cv = json(sys.inputs.at("data_path", default: "../schemas/example_resume.json"))
+#let lang = cv.metadata.at("language", default: "pl")
 #set document(
-  author: cv.basics.at("name", default: "Kandydat"),
-  title: "CV - " + cv.basics.at("name", default: "Kandydat")
+  author: cv.basics.at("name", default: if lang == "en" { "Candidate" } else { "Kandydat" }),
+  title: (if lang == "en" { "Resume - " } else { "CV - " }) + cv.basics.at("name", default: if lang == "en" { "Candidate" } else { "Kandydat" })
 )
 
-#let lang = cv.metadata.at("language", default: "pl")
 #let i18n = (
   pl: (
     summary: "Podsumowanie zawodowe",
@@ -15,7 +15,9 @@
     certifications: "Certyfikaty",
     languages: "Języki obce",
     present: "obecnie",
-    technologies: "Technologie"
+    technologies: "Technologie",
+    coursework: "Kursy / przedmioty",
+    role_context: "Rola / kontekst"
   ),
   en: (
     summary: "Professional Summary",
@@ -26,7 +28,9 @@
     certifications: "Certifications",
     languages: "Languages",
     present: "Present",
-    technologies: "Technologies"
+    technologies: "Technologies",
+    coursework: "Coursework",
+    role_context: "Role / context"
   )
 ).at(lang, default: (
   summary: "Podsumowanie zawodowe",
@@ -37,7 +41,9 @@
   certifications: "Certyfikaty",
   languages: "Języki obce",
   present: "obecnie",
-  technologies: "Technologie"
+  technologies: "Technologie",
+  coursework: "Kursy / przedmioty",
+  role_context: "Rola / kontekst"
 ))
 
 #set text(
@@ -135,7 +141,7 @@
       #emph(edu.at("degree", default: "") + if edu.at("field", default: "") != "" { " – " + edu.at("field", default: "") } else { "" }) #h(1fr) #emph(edu.at("gpa", default: ""))
     ]
     #if edu.at("coursework", default: ()).len() > 0 [
-      - *Kursy / przedmioty*: #edu.coursework.join(", ")
+      - *#i18n.coursework*: #edu.coursework.join(", ")
     ]
   ]
 ]
@@ -152,7 +158,7 @@
       ] #h(1fr) #emph(proj.at("period", default: ""))
     ]
     #if proj.at("role", default: "") != "" or proj.at("organization", default: "") != "" [
-      - *Rola / kontekst*: #proj.at("role", default: "")#if proj.at("role", default: "") != "" and proj.at("organization", default: "") != "" { " - " } else { "" }#proj.at("organization", default: "")
+      - *#i18n.role_context*: #proj.at("role", default: "")#if proj.at("role", default: "") != "" and proj.at("organization", default: "") != "" { " - " } else { "" }#proj.at("organization", default: "")
     ]
     #if proj.at("description", default: "") != "" [
       - #proj.description
