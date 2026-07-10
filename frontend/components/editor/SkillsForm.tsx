@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { Wrench, Plus, Trash2 } from 'lucide-react';
 import type { SkillGroup } from '@/types/resume';
@@ -13,17 +14,21 @@ import {
 } from '@/lib/skillPresets';
 
 export const SkillsForm: React.FC = () => {
+  const t = useTranslations('Editor.Skills');
   const { resumeData, updateResumeData } = useResume();
   const skills: SkillGroup[] = resumeData?.skills || [];
   const skillProfile = resumeData?.metadata?.skill_profile || DEFAULT_SKILL_PROFILE;
   const activePreset = getSkillPreset(skillProfile);
+  const translatedCategories = activePreset.categoryIds.map((categoryId) =>
+    t(`categories.${categoryId}`)
+  );
   const existingCategories = skills.map((group) => group.category).filter(Boolean);
   const selectableCategories = Array.from(
-    new Set([...activePreset.categories, ...existingCategories].filter(Boolean))
+    new Set([...translatedCategories, ...existingCategories].filter(Boolean))
   );
 
   const [newSkillName, setNewSkillName] = useState('');
-  const [newSkillCategory, setNewSkillCategory] = useState(activePreset.categories[0] || '');
+  const [newSkillCategory, setNewSkillCategory] = useState(translatedCategories[0] || '');
   const [customCategoryName, setCustomCategoryName] = useState('');
 
   const resolvedCategory = newSkillCategory === '__custom__' ? customCategoryName.trim() : newSkillCategory;
@@ -38,7 +43,7 @@ export const SkillsForm: React.FC = () => {
     }));
 
     const preset = getSkillPreset(profile);
-    setNewSkillCategory(preset.categories[0] || '__custom__');
+    setNewSkillCategory((preset.categoryIds[0] && t(`categories.${preset.categoryIds[0]}`)) || '__custom__');
     if (profile !== 'custom') {
       setCustomCategoryName('');
     }
@@ -173,9 +178,9 @@ export const SkillsForm: React.FC = () => {
   return (
     <div className="space-y-5 animate-fade-in">
       <FormBlock
-        eyebrow="Słowa kluczowe"
-        title="Dodawaj tylko kompetencje, które umiesz obronić"
-        description="Wybierz układ kategorii pod swoją branżę. Template tylko pokaże dane, a preset pomaga Ci je sensownie uporządkować."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        description={t('description')}
       >
         <div className="mb-4 grid gap-3 sm:grid-cols-3">
           {SKILL_PRESETS.map((preset) => {
@@ -192,34 +197,34 @@ export const SkillsForm: React.FC = () => {
                     : 'border-border bg-surface text-content hover:border-content'
                 }`}
               >
-                <div className="text-sm font-black tracking-tight">{preset.label}</div>
+                <div className="text-sm font-black tracking-tight">{t(`presets.${preset.id}.label`)}</div>
                 <p
                   className={`mt-2 text-xs leading-relaxed ${
                     isActive ? 'text-content-inverse/85' : 'text-content-secondary'
                   }`}
                 >
-                  {preset.description}
+                  {t(`presets.${preset.id}.description`)}
                 </p>
               </button>
             );
           })}
         </div>
 
-        {activePreset.categories.length > 0 && (
+        {activePreset.categoryIds.length > 0 && (
           <div className="mb-4 rounded-3xl border border-border bg-surface p-4 shadow-xs sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h4 className="text-xs font-black uppercase tracking-widest text-content-muted">
-                  Sugerowane grupy
+                  {t('suggestedTitle')}
                 </h4>
                 <p className="mt-1 text-xs leading-relaxed text-content-secondary">
-                  Kliknij kategorię, żeby od razu dodać do niej skille albo utworzyć pustą grupę.
+                  {t('suggestedDescription')}
                 </p>
               </div>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {activePreset.categories.map((category) => {
+              {translatedCategories.map((category) => {
                 const exists = existingCategories.includes(category);
 
                 return (
@@ -260,7 +265,7 @@ export const SkillsForm: React.FC = () => {
                     {cat}
                   </option>
                 ))}
-                <option value="__custom__">Własna kategoria...</option>
+                <option value="__custom__">{t('customCategory')}</option>
               </select>
             </div>
 
@@ -270,12 +275,12 @@ export const SkillsForm: React.FC = () => {
                   type="text"
                   value={customCategoryName}
                   onChange={(e) => setCustomCategoryName(e.target.value)}
-                  placeholder="np. Tooling, Security, Embedded, ERP"
+                  placeholder={t('customCategoryPlaceholder')}
                   className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                 />
               ) : (
                 <div className="flex h-full items-center rounded-2xl border border-border bg-surface-secondary px-4 py-3.5 text-xs font-bold text-content-secondary">
-                  {resolvedCategory || 'Wybierz kategorię'}
+                  {resolvedCategory || t('chooseCategory')}
                 </div>
               )}
             </div>
@@ -285,7 +290,7 @@ export const SkillsForm: React.FC = () => {
                 type="text"
                 value={newSkillName}
                 onChange={(e) => setNewSkillName(e.target.value)}
-                placeholder={activePreset.placeholder}
+                placeholder={t(`presets.${activePreset.id}.placeholder`)}
                 className="w-full rounded-2xl border border-border bg-surface px-4 py-3.5 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
               />
             </div>
@@ -297,7 +302,7 @@ export const SkillsForm: React.FC = () => {
                 className="w-full h-full inline-flex items-center justify-center gap-1.5 rounded-2xl bg-content px-4 py-3.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
               >
                 <Plus className="h-4 w-4" />
-                <span>Dodaj</span>
+                <span>{t('add')}</span>
               </button>
             </div>
           </div>
@@ -307,9 +312,9 @@ export const SkillsForm: React.FC = () => {
       {skills.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-3 bg-surface-secondary">
           <Wrench className="h-8 w-8 text-content-muted mx-auto" />
-          <p className="text-sm font-bold text-content">Brak wpisów o umiejętnościach</p>
+          <p className="text-sm font-bold text-content">{t('emptyTitle')}</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj 6-12 najważniejszych umiejętności pasujących do docelowej roli i ogłoszenia.
+            {t('emptyDescription')}
           </p>
         </div>
       ) : (
@@ -322,13 +327,13 @@ export const SkillsForm: React.FC = () => {
                   value={group.category}
                   onChange={(e) => handleRenameCategory(groupIdx, e.target.value)}
                   onBlur={() => handleCategoryBlur(groupIdx)}
-                  placeholder="Nazwa grupy"
+                  placeholder={t('groupPlaceholder')}
                   className="flex-1 rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-black tracking-tight text-content focus:border-content focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => handleRemoveGroup(groupIdx)}
-                  title="Usuń grupę"
+                  title={t('removeGroup')}
                   className="rounded-full p-2 text-content-muted transition-colors hover:bg-surface hover:text-red-600"
                 >
                   <Trash2 className="h-4 w-4" />

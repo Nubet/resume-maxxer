@@ -1,0 +1,625 @@
+{
+  "Metadata": {
+    "title": "Resume Maxxer | ATS-Friendly Resume Builder",
+    "description": "Build polished resumes in a clean client-side editor with Typst-powered PDF generation, ATS-safe layouts, and fast template switching."
+  },
+  "LocaleSwitcher": {
+    "label": "Choose language",
+    "locales": {
+      "pl": "PL",
+      "en": "EN"
+    }
+  },
+  "Header": {
+    "template": "Template:",
+    "compiling": "Compiling...",
+    "refreshPdf": "Refresh PDF",
+    "aiAssistant": "AI Assistant"
+  },
+  "Footer": {
+    "sections": {
+      "product": "Product",
+      "aboutProject": "About",
+      "legal": "Privacy & legal"
+    },
+    "description": "Create a professional resume that gets recruiter attention and passes ATS screening without formatting issues.",
+    "home": "Home",
+    "builder": "Resume Builder",
+    "about": "About",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "All rights reserved."
+  },
+  "SubpageLayout": {
+    "backHome": "Back to home",
+    "openBuilder": "Open resume builder"
+  },
+  "DashboardNavbar": {
+    "newResumeTitle": "New Professional Resume",
+    "editorSubtitle": "Fill in the sections on the left to generate your PDF.",
+    "templatesTitle": "Template Gallery",
+    "templatesSubtitle": "Choose the layout and style of your resume.",
+    "atsTitle": "ATS & AI Audit",
+    "atsSubtitle": "Check resume readability and optimize the content.",
+    "historyTitle": "Saved Resume History",
+    "historySubtitle": "Manage document versions and exported JSON source data.",
+    "editorOnly": "Editor only",
+    "editor": "Editor",
+    "splitView": "Split view",
+    "previewOnly": "PDF preview only",
+    "pdfPreview": "PDF preview",
+    "aiAssistant": "AI Assistant",
+    "backToEditing": "Back to editing",
+    "compiling": "Compiling...",
+    "downloadPdf": "Download PDF"
+  },
+  "DashboardSidebar": {
+    "backHome": "Back to home",
+    "navigation": "Navigation",
+    "resumeSections": "Resume sections",
+    "template": "Template:",
+    "importTitle": "Import from file",
+    "import": "Import",
+    "exportTitle": "Save to file",
+    "export": "Export",
+    "modules": {
+      "editor": "Resume Editor",
+      "templates": "Template Gallery",
+      "ats": "ATS & AI Audit",
+      "history": "Version History"
+    },
+    "steps": {
+      "basics": "Profile & Contact",
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "projects": "Projects",
+      "extra": "Languages & Extras"
+    },
+    "alerts": {
+      "importSuccess": "Resume data imported successfully.",
+      "importError": "Import failed: {message}"
+    }
+  },
+  "Pages": {
+    "Faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "How the platform works, how data is handled, and why the Typst engine improves document quality.",
+      "items": [
+        {
+          "num": "01",
+          "q": "Why is this resume builder better than typical graphic tools and text editors?",
+          "a": "Traditional editors often break columns, spacing, and structure, especially when files are opened elsewhere or parsed by ATS software. Resume Maxxer generates a clean PDF that keeps the structure intact and remains machine-readable."
+        },
+        {
+          "num": "02",
+          "q": "What is the benefit of separating resume content from presentation?",
+          "a": "The work history is entered once. After that, the template can change freely in the gallery while the content automatically adapts to margins, hierarchy, and spacing."
+        },
+        {
+          "num": "03",
+          "q": "Do I need to pay to download the generated PDF?",
+          "a": "No. The builder is free to use. There is no required account, no credit card, and no forced registration for the core workflow."
+        },
+        {
+          "num": "04",
+          "q": "How does Typst improve ATS readability?",
+          "a": "Typst is a modern typesetting engine that produces a clean stream of text and vector instructions rather than deeply nested layout markup. That helps preserve structure for ATS and keeps the final document visually consistent."
+        }
+      ],
+      "contactTitle": "Have technical questions or a new template idea?",
+      "contactDescription": "Feedback from engineers, designers, and power users is always welcome.",
+      "contactCta": "Contact the team"
+    },
+    "Authors": {
+      "title": "About Us",
+      "subtitle": "Meet the mission behind a resume builder focused on clarity, ATS safety, and practical outcomes.",
+      "manifestLabel": "Manifesto",
+      "manifestTitle": "Why was Resume Maxxer built?",
+      "manifestBody1": "Most resume tools on the web still rely on decorative layouts packed with sidebars, tables, and visual tricks. They may look polished on screen, but they often become fragile in real hiring workflows where ATS systems expect clean structure and predictable text flow.",
+      "manifestBody2": "Resume Maxxer was built as a practical response to that problem. The goal is simple: help people create resumes that look sharp, stay readable, and survive automated screening without sacrificing editorial quality.",
+      "founderLabel": "Lead architect and creator",
+      "founderRole": "Founder & Lead Software Engineer",
+      "founderDescription": "Engineer and product builder focused on creating practical tools that help people move faster in their careers while keeping control over their private data.",
+      "visitPortfolio": "Visit portfolio",
+      "linkedinTitle": "LinkedIn",
+      "githubTitle": "GitHub"
+    },
+    "Privacy": {
+      "title": "Privacy Policy",
+      "subtitle": "How Resume Maxxer handles personal data, local storage, PDF generation, and optional integrations.",
+      "sections": [
+        {
+          "title": "1. General provisions",
+          "paragraphs": [
+            "This Privacy Policy explains how personal data is handled when using Resume Maxxer.",
+            "The core editor does not require account creation or identity verification to access the main features."
+          ]
+        },
+        {
+          "title": "2. Local-first data processing",
+          "paragraphs": [
+            "The application is designed with a client-side architecture. Resume content entered in the editor is stored locally in the browser using local storage.",
+            "The platform does not maintain a central database of user resumes and does not archive editor content by default."
+          ]
+        },
+        {
+          "title": "3. PDF generation and API usage",
+          "paragraphs": [
+            "When a PDF is generated, the resume JSON is sent temporarily to the compilation service required to render the document.",
+            "That transfer is technical and short-lived. The payload is only used to compile the file and is not meant to persist beyond the processing window.",
+            "If optional AI features are used, selected text fragments may be sent to language model providers in a stateless request flow."
+          ]
+        },
+        {
+          "title": "4. Cookies and analytics",
+          "paragraphs": [
+            "The platform does not rely on third-party tracking cookies, marketing pixels, or invasive profiling systems for the core experience.",
+            "Only essential browser mechanisms needed to preserve application state in a session may be used."
+          ]
+        },
+        {
+          "title": "5. User rights",
+          "paragraphs": [
+            "Because the main resume data is stored locally, users retain direct control over that data at all times."
+          ],
+          "bullets": [
+            "Review and edit the resume directly inside the application.",
+            "Export the full data set to JSON at any time.",
+            "Delete locally stored resume data by clearing browser storage."
+          ]
+        },
+        {
+          "title": "6. Policy updates",
+          "paragraphs": [
+            "This policy may be updated as the product evolves or legal requirements change. The current version is always published on this page."
+          ]
+        }
+      ]
+    },
+    "Terms": {
+      "title": "Terms of Service",
+      "subtitle": "Terms governing the electronic delivery of Resume Maxxer features.",
+      "sections": [
+        {
+          "title": "Section 1. General provisions",
+          "paragraphs": [
+            "These Terms define the legal and technical rules for using Resume Maxxer.",
+            "The service provides tooling for creating, editing, validating, and exporting resume documents, including ATS-oriented formatting and Typst-based PDF generation.",
+            "Using the service means accepting these Terms from the first interaction with the interface."
+          ]
+        },
+        {
+          "title": "Section 2. Service conditions",
+          "paragraphs": [
+            "Access to the core editor, live preview, ATS checks, and PDF or JSON export is available without mandatory registration.",
+            "Proper use of the service requires a modern browser with JavaScript and local storage enabled, plus internet access during PDF compilation.",
+            "The service must not be used for unlawful, harmful, or misleading document generation."
+          ]
+        },
+        {
+          "title": "Section 3. Intellectual property and candidate data",
+          "paragraphs": [
+            "Copyright in the resume content entered by the user remains with the user.",
+            "Users retain the right to use generated PDFs and exported JSON for private, commercial, or recruiting purposes.",
+            "The application code, interface, validation logic, and templates remain the intellectual property of the service creators."
+          ]
+        },
+        {
+          "title": "Section 4. Disclaimer",
+          "paragraphs": [
+            "The service is provided on an 'as is' basis without warranties of a specific recruiting outcome.",
+            "Every effort is made to produce ATS-friendly documents, but no guarantee can be made for every third-party hiring system or screening workflow.",
+            "The operators are not responsible for employer decisions made on the basis of generated documents."
+          ]
+        },
+        {
+          "title": "Section 5. Final provisions",
+          "paragraphs": [
+            "The service may be temporarily unavailable due to maintenance, upgrades, or infrastructure work.",
+            "Where these Terms do not address a matter directly, applicable law governs."
+          ]
+        }
+      ]
+    }
+  },
+  "Landing": {
+    "Navbar": {
+      "comparison": "Why it works",
+      "workflow": "How it works",
+      "faq": "FAQ",
+      "cta": "Create resume online"
+    },
+    "Hero": {
+      "title": "A resume that passes ATS screening",
+      "rotating": [
+        "and earns interview invites.",
+        "and helps you stand out.",
+        "and sharpens your professional brand."
+      ],
+      "description": "Enter your details in a straightforward form. The builder takes care of layout, spacing, and a clean PDF that HR systems can read without trouble.",
+      "cta": "Create your resume now for free"
+    },
+    "Comparison": {
+      "title": "Why do regular editors <br></br><underline>make job search harder?</underline>",
+      "description": "Strong candidates often lose momentum because of broken files. See how to save time and stay confident in every application.",
+      "traditionalTitle": "Regular tools and editors",
+      "traditionalSubtitle": "Popular graphic builders and text editors",
+      "maxxerSubtitle": "A modern builder built to avoid formatting failures",
+      "cta": "Create your resume now",
+      "traditionalFlaws": [
+        {
+          "title": "Layouts that break",
+          "desc": "Columns, spacing, and margins often shift when the file is opened on another machine."
+        },
+        {
+          "title": "Poor ATS readability",
+          "desc": "Recruiting systems struggle with decorative templates and can miss key parts of the content."
+        },
+        {
+          "title": "Manual layout fixes",
+          "desc": "Adding one sentence can break the page and force a round of tedious visual edits."
+        },
+        {
+          "title": "Repeated data entry",
+          "desc": "Changing the resume design often means rebuilding the same work history from scratch."
+        }
+      ],
+      "maxxerAdvantages": [
+        {
+          "title": "ATS-safe output",
+          "desc": "Clean PDF output helps applicant tracking systems read the full content of your resume."
+        },
+        {
+          "title": "Automatic layout control",
+          "desc": "Spacing, hierarchy, and margins stay aligned as the content changes."
+        },
+        {
+          "title": "Switch designs in one click",
+          "desc": "Enter the data once and swap templates without losing content or structure."
+        },
+        {
+          "title": "Tailored to the job",
+          "desc": "The builder helps highlight the skills and signals employers expect to see."
+        }
+      ]
+    },
+    "Workflow": {
+      "title": "How does <br></br><underline>the resume builder work?</underline>",
+      "description": "From the first sentence to a finished PDF in just a few minutes.",
+      "cta": "Create your resume now for free",
+      "steps": [
+        {
+          "title": "Add or paste your details",
+          "desc": "Fill in work history and skills in a focused form without fighting the layout."
+        },
+        {
+          "title": "Choose the document style",
+          "desc": "Switch templates in one click while the content stays aligned automatically."
+        },
+        {
+          "title": "Download the final PDF",
+          "desc": "Get a professional document that is ready to send right away."
+        }
+      ]
+    },
+    "Faq": {
+      "title": "Everything you need to know about <br></br><underline>the resume builder</underline>",
+      "description": "Answers to the most common questions about building a strong resume.",
+      "items": [
+        {
+          "question": "Why is this builder better than regular design tools?",
+          "answer": "Traditional tools often break layout consistency across devices and make ATS parsing less reliable. This builder produces a clean PDF that keeps formatting stable."
+        },
+        {
+          "question": "What is the benefit of separating content from layout?",
+          "answer": "The work history is entered once, then the design can change without rewriting or manually rebuilding the document."
+        },
+        {
+          "question": "Is the builder free to use?",
+          "answer": "Yes. The core builder is free and does not require a credit card or mandatory account creation."
+        }
+      ],
+      "moreQuestionsTitle": "Have more questions about your resume?",
+      "moreQuestionsDescription": "Open the builder and see how quickly a professional, submission-ready document comes together."
+    },
+    "Cta": {
+      "title": "Ready for an <underline>easy-to-read resume</underline> without formatting headaches?",
+      "description": "Join people who build resumes in a modern editor and know employers will open a clear, professional document every time.",
+      "cta": "Create your resume now for free"
+    }
+  },
+  "Editor": {
+    "Shared": {
+      "addPoint": "Add point",
+      "removePoint": "Remove point"
+    },
+    "Wizard": {
+      "stepCounter": "Step {current} of {total}",
+      "stepFooterPrefix": "Step",
+      "stepFooterSuffix": "of {total}",
+      "back": "Back",
+      "next": "Next",
+      "finish": "Finish and review PDF",
+      "completedAlert": "All sections are filled in. You can now review the PDF preview or check the ATS audit.",
+      "steps": {
+        "basics": {
+          "title": "Profile, contact, and target role",
+          "description": "Start with the information that sets the direction for the whole resume.",
+          "checklist": "Contact details, target role, job post, short summary."
+        },
+        "experience": {
+          "title": "Experience and outcomes",
+          "description": "Separate responsibilities from results so it is easier to build strong resume bullets later.",
+          "checklist": "Roles, company context, responsibilities, metrics, achievements."
+        },
+        "education": {
+          "title": "Education, courses, and achievements",
+          "description": "This section matters most for students, junior candidates, and career changers.",
+          "checklist": "Schools, fields, courses, academic projects, honors."
+        },
+        "skills": {
+          "title": "Skills and keywords",
+          "description": "Add only concrete skills that match the role and that you can defend in conversation or through experience.",
+          "checklist": "Tools, systems, domain skills, certified capabilities."
+        },
+        "projects": {
+          "title": "Projects, initiatives, and portfolio",
+          "description": "Add work that shows practical application of your skills beyond the job title itself.",
+          "checklist": "Project goal, role, tools, scope, outcome."
+        },
+        "extra": {
+          "title": "Languages, certifications, and extras",
+          "description": "Add details that strengthen credibility or are explicitly required by the role.",
+          "checklist": "Languages, levels, licenses, certifications, proof links."
+        }
+      }
+    },
+    "Basics": {
+      "introEyebrow": "Start here",
+      "introTitle": "Who are you and what role are you targeting?",
+      "introDescription": "These details help tailor the resume tone, headline, and keywords to a specific hiring process.",
+      "contactEyebrow": "Contact",
+      "contactTitle": "How should a recruiter reach you?",
+      "contactDescription": "Include only the details a recruiter needs. The resume location will be built from country, city, and optional remote availability.",
+      "summaryEyebrow": "Snapshot",
+      "summaryTitle": "Professional summary",
+      "summaryDescription": "Write 2-4 lines in third person: years of experience, specialization, strongest achievements, and fit for the role.",
+      "linksEyebrow": "Online",
+      "linksTitle": "Profiles and portfolio",
+      "linksDescription": "Choose the platforms that matter. The right links differ for designers, engineers, salespeople, creators, or researchers.",
+      "empty": "No links yet. Add only profiles that genuinely strengthen the application.",
+      "addLink": "Add link",
+      "linkTypes": {
+        "other": "custom type"
+      },
+      "fields": {
+        "name": { "label": "Full name", "placeholder": "e.g. Jane Doe" },
+        "title": { "label": "Current professional title", "placeholder": "e.g. Customer Support Specialist, Accountant, Electrician" },
+        "targetRole": { "label": "Target role", "placeholder": "e.g. Shift Manager, Junior Analyst, Warehouse Associate" },
+        "targetCompany": { "label": "Target company / industry", "placeholder": "e.g. logistics, banking, education, specific company" },
+        "targetJobDescription": { "label": "Job description", "helper": "If you have the job post, paste it here. If not, leave it empty and fill in the rest of the resume normally.", "placeholder": "Requirements, responsibilities, role title, keywords from the posting..." },
+        "email": { "label": "Email address", "placeholder": "e.g. jane.doe@example.com" },
+        "phone": { "label": "Phone number", "placeholder": "e.g. +1 312 555 0147" },
+        "country": { "label": "Country", "placeholder": "e.g. United States" },
+        "city": { "label": "City", "placeholder": "e.g. Chicago" },
+        "remoteFriendly": { "label": "Are you open to remote work too?", "helper": "If checked, the generated resume may format the location as `city / Remote`.", "remoteWord": "Remote" },
+        "summary": { "placeholder": "Customer support specialist with 4 years of experience working with business clients, complaint handling, and CRM systems..." },
+        "customLabel": { "placeholder": "label" },
+        "url": { "placeholder": "profile or website URL" }
+      }
+    },
+    "Experience": {
+      "eyebrow": "Core rule",
+      "title": "Describe each role the way it should appear on the resume",
+      "description": "Add company, role, dates, location, responsibilities, and concrete outcomes. Nothing else is needed here.",
+      "add": "Add role",
+      "emptyTitle": "No experience entries yet",
+      "emptyDescription": "Add full-time work, freelance work, internships, self-employment, or other domain experience. The strongest entries show impact, not just responsibilities.",
+      "newItem": "New role",
+      "at": "at",
+      "remove": "Remove role",
+      "tip": "Fill this in top to bottom: company and role, dates, responsibilities, then concrete outcomes with numbers.",
+      "fields": {
+        "position": { "label": "Position / role", "placeholder": "e.g. Sales Specialist, Maintenance Technician" },
+        "company": { "label": "Company / organization", "placeholder": "e.g. IKEA / ABC Logistics / self-employed" },
+        "startDate": { "label": "From" },
+        "endDate": { "label": "To", "current": "Present" },
+        "location": { "label": "Location (city / mode)", "placeholder": "e.g. Chicago, United States" }
+      },
+      "responsibilities": {
+        "label": "Core responsibilities",
+        "placeholder": "e.g. Managed business customer accounts in a CRM system",
+        "helper": "Add the most important work areas. One bullet should describe one concrete responsibility.",
+        "add": "Add responsibility"
+      },
+      "highlights": {
+        "label": "Achievements and results",
+        "placeholder": "e.g. Reduced complaint handling time from 5 days to 2 business days",
+        "helper": "Add 2-5 strongest outcomes. Ideally one bullet = one action and one result.",
+        "add": "Add result"
+      }
+    },
+    "Education": {
+      "eyebrow": "When it matters",
+      "title": "Education can be the main proof of competence",
+      "description": "If you have limited experience or are changing industries, add schools, fields, and relevant courses that support the target role.",
+      "add": "Add school / university",
+      "emptyTitle": "No education entries yet",
+      "emptyDescription": "Add schools, studies, vocational courses, or training that support the target role.",
+      "newItem": "New school",
+      "remove": "Remove entry",
+      "tip": "Start with formal details, then add only the courses and subjects that truly support the application.",
+      "degreeOptions": ["High school","Technical school","Bachelor's","Engineering degree","Master's","Master of Engineering","Postgraduate studies","Vocational course","Industry training"],
+      "fieldOptions": ["Administration","Economics","Finance and accounting","Computer science","Logistics","Marketing","Mechanical engineering","Education","Sales","Management"],
+      "fields": {
+        "degree": { "label": "Degree / title", "placeholder": "Choose one or enter your own" },
+        "field": { "label": "Field / specialization", "placeholder": "Choose one or enter your own" },
+        "institution": { "label": "University / school", "placeholder": "e.g. University of Wisconsin-Madison" },
+        "location": { "label": "Location", "placeholder": "e.g. United States, Madison" },
+        "gpa": { "label": "Grade / GPA (optional)", "placeholder": "e.g. 3.8 / 4.0 (Honors)" },
+        "startDate": { "label": "From" },
+        "endDate": { "label": "To" }
+      },
+      "coursework": {
+        "label": "Relevant courses and subjects",
+        "placeholder": "e.g. Financial analysis",
+        "helper": "Add only items that genuinely support the role you are applying for.",
+        "add": "Add item"
+      }
+    },
+    "Skills": {
+      "eyebrow": "Keywords",
+      "title": "Add only skills you can defend",
+      "description": "Choose a category structure that fits your field. The template only displays the data, while the preset helps you organize it sensibly.",
+      "suggestedTitle": "Suggested groups",
+      "suggestedDescription": "Click a category to add skills there right away or create an empty group.",
+      "customCategory": "Custom category...",
+      "customCategoryPlaceholder": "e.g. Tooling, Security, Embedded, ERP",
+      "chooseCategory": "Choose a category",
+      "add": "Add",
+      "emptyTitle": "No skill entries yet",
+      "emptyDescription": "Add 6-12 of the most relevant skills for the target role and job post.",
+      "groupPlaceholder": "Group name",
+      "removeGroup": "Remove group",
+      "categories": {
+        "industryExpertise": "Industry expertise",
+        "toolsAndSystems": "Tools and systems",
+        "processesAndMethods": "Processes and methods",
+        "technicalSkills": "Technical skills",
+        "languages": "Languages",
+        "frameworks": "Frameworks",
+        "testing": "Testing",
+        "databases": "Databases",
+        "devops": "DevOps",
+        "cloud": "Cloud",
+        "tooling": "Tooling",
+        "architecture": "Architecture"
+      },
+      "presets": {
+        "general": {
+          "label": "General",
+          "description": "Good for most business, operations, administrative, and service roles.",
+          "placeholder": "e.g. Salesforce, Excel, complaint handling, AutoCAD, HACCP"
+        },
+        "engineering": {
+          "label": "IT / Engineering",
+          "description": "A split designed for technical resumes: languages, frameworks, testing, data, DevOps, and tooling.",
+          "placeholder": "e.g. Python, TypeScript, FastAPI, React, Pytest, Ruff, PostgreSQL, Docker"
+        },
+        "custom": {
+          "label": "Custom",
+          "description": "Full freedom. Build your own groups exactly around your field and your resume narrative.",
+          "placeholder": "e.g. enter your own category and add concrete skills to it"
+        }
+      }
+    },
+    "Projects": {
+      "eyebrow": "Proof",
+      "title": "Add projects that show practical skills",
+      "description": "These can be work projects, school projects, personal work, volunteer efforts, or process improvements. Your role and the outcome matter most.",
+      "add": "Add project",
+      "emptyTitle": "No project entries yet",
+      "emptyDescription": "Add work projects, academic work, portfolio pieces, process improvements, or meaningful side initiatives.",
+      "newItem": "New project",
+      "remove": "Remove project",
+      "tip": "This entry should answer four questions: what it was, what your role was, what tools were used, and what the result was.",
+      "fields": {
+        "name": { "label": "Project / initiative name", "placeholder": "e.g. CRM rollout, warehouse audit, sales campaign" },
+        "url": { "label": "Link / online asset", "placeholder": "e.g. portfolio, publication, repository, case study" },
+        "role": { "label": "Your role", "placeholder": "e.g. Coordinator, Analyst, Designer, Contributor" },
+        "organization": { "label": "Organization / context", "placeholder": "e.g. university, company, client, personal project" },
+        "startDate": { "label": "Project start (optional)" },
+        "endDate": { "label": "Project end (optional)" },
+        "keywords": { "label": "Tools / methods / keywords (comma-separated)", "placeholder": "e.g. Excel, CRM, data analysis, Figma, AutoCAD, Lean, SQL" },
+        "description": { "label": "Project goal and scope", "placeholder": "Describe why the project existed, what problem it solved, who it served, and what your responsibility was." }
+      },
+      "highlights": {
+        "label": "Project outcomes",
+        "placeholder": "e.g. Reduced reporting time from 3 hours to 30 minutes",
+        "helper": "Add the most important project results. Each bullet should describe what improved or what was delivered.",
+        "add": "Add outcome"
+      }
+    },
+    "Extra": {
+      "eyebrow": "Final layer",
+      "title": "Add only information that strengthens the application",
+      "description": "Languages, licenses, and certifications are strongest when they matter for the role or confirm a concrete skill.",
+      "fluencyLevels": ["Elementary proficiency","Limited working proficiency","Professional working proficiency","Full professional proficiency","Native or bilingual proficiency"],
+      "statuses": {
+        "permanent": "Permanent",
+        "expiring": "Time-limited",
+        "expired": "Expired",
+        "renewal": "Needs renewal"
+      },
+      "tips": {
+        "languages": "Use standard language levels without stars or progress bars.",
+        "certifications": "Add certifications with issuer, date, and validity status."
+      },
+      "languages": {
+        "title": "Languages",
+        "add": "Add language",
+        "emptyTitle": "No languages added",
+        "emptyDescription": "Add only languages that matter for the role or that you can genuinely use professionally.",
+        "fields": {
+          "language": { "placeholder": "Language (e.g. English)" },
+          "fluency": { "placeholder": "Choose level" },
+          "certificate": { "placeholder": "Certificate / test, if relevant" },
+          "url": { "placeholder": "Link to result or certificate" }
+        }
+      },
+      "certifications": {
+        "title": "Certifications, licenses, and awards",
+        "add": "Add certification",
+        "emptyTitle": "No certifications added",
+        "emptyDescription": "Add certifications, licenses, training, and awards relevant to the target role.",
+        "itemLabel": "Certification #{index}",
+        "fields": {
+          "name": { "label": "Certification / award name", "placeholder": "e.g. AWS Certified Solutions Architect - Associate" },
+          "date": { "label": "Issue date" },
+          "status": { "label": "Status", "helper": "Most certifications are permanent. The expiry date is shown only for time-limited certifications." },
+          "expires": { "label": "Expiry date" },
+          "issuer": { "label": "Issuer / organization", "placeholder": "e.g. Amazon Web Services (AWS) / Scrum.org" },
+          "url": { "label": "Certification link", "placeholder": "e.g. credential.net/..." },
+          "details": { "label": "Scope / confirmed skills (optional)", "placeholder": "e.g. process auditing, accounting basics, project management, operation of a specific system" }
+        }
+      }
+    }
+  },
+  "TemplateGallery": {
+    "title": "Template Gallery",
+    "description": "Choose the layout that fits your profession best. Every template is designed to stay readable and highlight your strengths clearly.",
+    "searchPlaceholder": "Search by name or tag...",
+    "previewAlt": "Preview of {name}",
+    "selectVariant": "Choose layout and language",
+    "comingSoon": "Coming soon",
+    "comingSoonAlert": "This template will be available in an upcoming library update.",
+    "activePl": "Active PL",
+    "activeEn": "Active EN",
+    "variantPl": "Polish",
+    "variantEn": "English",
+    "emptyTitle": "Nothing found",
+    "emptyDescription": "Try a different query or choose another category.",
+    "categories": {
+      "all": "All",
+      "classic": "Classic",
+      "modern": "Modern",
+      "tech": "IT & Engineering",
+      "exec": "Management"
+    },
+    "templates": {
+      "atlas-classic": { "description": "The most formal active template: single-column, calm, and conservative, with simple section lines and a layout optimized for ATS readability.", "tags": ["Classic", "ATS", "One Column", "Formal"] },
+      "meridian-clean": { "description": "A clean sans-serif layout with light section rhythm, structured entries, and a more contemporary tone than classic resume layouts.", "tags": ["Clean", "Sans Serif", "Structured", "Modern"] },
+      "summit-serif": { "description": "A serif template with an engineering feel: centered header, strong section hierarchy, and a slightly more academic tone without losing business readability.", "tags": ["Serif", "Engineering", "Centered Header", "Structured"] },
+      "contour-timeline": { "description": "The most academic active template: wide margins, calm serif typography, and sections arranged like a well-ordered timeline.", "tags": ["Timeline", "Serif", "Academic", "Spacious"] },
+      "vector-compact": { "description": "A dense technical one-pager designed to maximize space: minimal margins, tight rhythm, and fast experience scanning.", "tags": ["Compact", "Technical", "One Page", "Dense"] },
+      "horizon-sidebar": { "description": "The most expressive template in the catalog: colorful sidebar, skill tags, and a modern split between primary and supporting content.", "tags": ["Sidebar", "Color", "Expressive", "Modern"] },
+      "harbor-serif": { "description": "An elegant, slightly editorial serif layout with left-side section labels. Works well when the resume should feel more organized than technical.", "tags": ["Serif", "Editorial", "Elegant", "Two Column Header"] },
+      "beacon-technical": { "description": "A planned family for a technical resume with stronger emphasis on ownership, architecture, and projects. Not available in the app yet.", "tags": ["Planned", "Technical", "Projects", "Leadership"] },
+      "north-executive": { "description": "A planned family for executive and leadership roles with more emphasis on responsibility scope, results, and business impact. Not available yet.", "tags": ["Planned", "Executive", "Business", "Leadership"] },
+      "strata-academic": { "description": "A planned family for a full academic CV with publications, grants, and research work. Not available in the current catalog yet.", "tags": ["Planned", "Academic", "Research", "Publications"] },
+      "delta-editorial": { "description": "A planned family for a more magazine-like, visually bold resume. The direction is defined, but the template itself is not implemented yet.", "tags": ["Planned", "Editorial", "Creative", "Design"] }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { FolderGit2, Plus, Trash2 } from 'lucide-react';
 import { FormBlock } from '@/components/editor/FormBlock';
@@ -8,6 +9,7 @@ import { ListEditorField } from '@/components/editor/ListEditorField';
 import type { ProjectItem } from '@/types/resume';
 
 export const ProjectsForm: React.FC = () => {
+  const t = useTranslations('Editor.Projects');
   const { resumeData, updateResumeData } = useResume();
   const projects = resumeData?.projects || [];
 
@@ -78,26 +80,25 @@ export const ProjectsForm: React.FC = () => {
   return (
     <div className="space-y-5 animate-fade-in">
       <FormBlock
-        eyebrow="Dowody"
-        title="Dodaj projekty, które pokazują praktyczne umiejętności"
-        description="To mogą być projekty zawodowe, szkolne, własne, wolontariackie albo usprawnienia procesów. Najważniejsze są Twoja rola i rezultat."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        description={t('description')}
       >
         <button
           onClick={handleAdd}
           className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
         >
           <Plus className="h-4 w-4" />
-          <span>Dodaj Projekt</span>
+          <span>{t('add')}</span>
         </button>
       </FormBlock>
 
       {projects.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-3 bg-surface-secondary">
           <FolderGit2 className="h-8 w-8 text-content-muted mx-auto" />
-          <p className="text-sm font-bold text-content">Brak wpisów o projektach</p>
+          <p className="text-sm font-bold text-content">{t('emptyTitle')}</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj projekty zawodowe, akademickie, portfolio, usprawnienia procesów albo ważne
-            inicjatywy pozaetatowe.
+            {t('emptyDescription')}
           </p>
         </div>
       ) : (
@@ -113,12 +114,12 @@ export const ProjectsForm: React.FC = () => {
                     {index + 1}
                   </span>
                   <span className="font-bold text-base text-content">
-                    {proj.name || 'Nowy Projekt'}
+                      {proj.name || t('newItem')}
                   </span>
                 </div>
                 <button
                   onClick={() => handleRemove(index)}
-                  title="Usuń projekt"
+                  title={t('remove')}
                   className="text-content-muted hover:text-red-600 transition-all p-2 rounded-full hover:bg-surface"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -126,64 +127,63 @@ export const ProjectsForm: React.FC = () => {
               </div>
 
               <div className="rounded-2xl border border-border bg-surface px-4 py-3 text-[11px] font-semibold leading-relaxed text-content-secondary">
-                Wpis powinien odpowiedzieć na cztery pytania: co to było, jaka była Twoja rola,
-                jakich narzędzi użyto i jaki był efekt.
+                {t('tip')}
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Nazwa Projektu / Inicjatywy
+                    {t('fields.name.label')}
                   </label>
                   <input
                     type="text"
                     value={proj.name || ''}
                     onChange={(e) => handleChange(index, 'name', e.target.value)}
-                    placeholder="np. Wdrożenie CRM, Audyt magazynu, Kampania sprzedażowa"
+                    placeholder={t('fields.name.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Link / Materiał Online
+                    {t('fields.url.label')}
                   </label>
                   <input
                     type="text"
                     value={proj.url || ''}
                     onChange={(e) => handleChange(index, 'url', e.target.value)}
-                    placeholder="np. portfolio, publikacja, repozytorium, case study"
+                    placeholder={t('fields.url.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Twoja Rola</label>
+                  <label className="block text-xs font-bold text-content mb-2">{t('fields.role.label')}</label>
                   <input
                     type="text"
                     value={proj.role || ''}
                     onChange={(e) => handleChange(index, 'role', e.target.value)}
-                    placeholder="np. Koordynator, Analityk, Projektant, Wykonawca"
+                    placeholder={t('fields.role.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Organizacja / Kontekst
+                    {t('fields.organization.label')}
                   </label>
                   <input
                     type="text"
                     value={proj.organization || ''}
                     onChange={(e) => handleChange(index, 'organization', e.target.value)}
-                    placeholder="np. uczelnia, firma, klient, projekt własny"
+                    placeholder={t('fields.organization.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Start projektu (opcjonalnie)
+                    {t('fields.startDate.label')}
                   </label>
                   <input
                     type="date"
@@ -195,7 +195,7 @@ export const ProjectsForm: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Koniec projektu (opcjonalnie)
+                    {t('fields.endDate.label')}
                   </label>
                   <input
                     type="date"
@@ -207,37 +207,37 @@ export const ProjectsForm: React.FC = () => {
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-content mb-2">
-                    Narzędzia / Metody / Słowa Kluczowe (oddzielone przecinkami)
+                    {t('fields.keywords.label')}
                   </label>
                   <input
                     type="text"
                     value={(proj.keywords || []).join(', ')}
                     onChange={(e) => handleKeywordsChange(index, e.target.value)}
-                    placeholder="np. Excel, CRM, analiza danych, Figma, AutoCAD, Lean, SQL"
+                    placeholder={t('fields.keywords.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-content mb-2">
-                    Cel i Zakres Projektu
+                    {t('fields.description.label')}
                   </label>
                   <textarea
                     rows={4}
                     value={proj.description || ''}
                     onChange={(e) => handleChange(index, 'description', e.target.value)}
-                    placeholder="Opisz po co projekt powstał, jaki problem rozwiązywał, dla kogo był realizowany i jaka była Twoja odpowiedzialność."
+                    placeholder={t('fields.description.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono transition-colors"
                   />
                 </div>
 
                 <ListEditorField
-                  label="Rezultaty projektu"
+                  label={t('highlights.label')}
                   items={proj.highlights || []}
                   onChange={(items) => handleChange(index, 'highlights', items)}
-                  placeholder="np. Skrócenie czasu raportowania z 3 godzin do 30 minut"
-                  helperText="Dodaj najważniejsze rezultaty projektu. Każdy punkt powinien mówić, co realnie się poprawiło albo powstało."
-                  addLabel="Dodaj rezultat"
+                  placeholder={t('highlights.placeholder')}
+                  helperText={t('highlights.helper')}
+                  addLabel={t('highlights.add')}
                 />
               </div>
             </div>

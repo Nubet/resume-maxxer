@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { Search, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
 import { TEMPLATE_FAMILIES } from '@/lib/templates';
@@ -10,31 +11,35 @@ interface TemplateGalleryProps {
 }
 
 export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTemplate }) => {
+  const t = useTranslations('TemplateGallery');
   const { templateId, setTemplateId } = useResume();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
-    { id: 'all', label: 'Wszystkie' },
-    { id: 'classic', label: 'Klasyczne' },
-    { id: 'modern', label: 'Nowoczesne' },
-    { id: 'tech', label: 'IT & Inżynieria' },
-    { id: 'exec', label: 'Management' },
+    { id: 'all', label: t('categories.all') },
+    { id: 'classic', label: t('categories.classic') },
+    { id: 'modern', label: t('categories.modern') },
+    { id: 'tech', label: t('categories.tech') },
+    { id: 'exec', label: t('categories.exec') },
   ];
 
   const templates = TEMPLATE_FAMILIES;
 
-  const filteredTemplates = templates.filter((t) => {
-    const matchesCategory = selectedCategory === 'all' || t.category === selectedCategory;
+  const filteredTemplates = templates.filter((template) => {
+    const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory;
+    const templateDescription = t(`templates.${template.id}.description`);
+    const templateTags = t.raw(`templates.${template.id}.tags`) as string[];
     const matchesSearch =
-      t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.description.toLowerCase().includes(searchQuery.toLowerCase());
+      template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      templateDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      templateTags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
   const handleSelect = (id: string, available: boolean) => {
     if (!available) {
-      alert('Ten szablon będzie dostępny w nadchodzącej aktualizacji biblioteki!');
+      alert(t('comingSoonAlert'));
       return;
     }
     setTemplateId(id);
@@ -48,11 +53,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
       <div className="pt-24 pb-16 px-6 sm:px-12 lg:px-20 mx-auto max-w-[1400px]">
         <div className="max-w-3xl space-y-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-content leading-tight">
-            Galeria Szablonów
+            {t('title')}
           </h1>
           <p className="text-lg text-content-secondary max-w-xl font-medium leading-relaxed">
-            Wybierz układ, który najlepiej pasuje do Twojej profesji. Wszystkie szablony są
-            zaprojektowane tak, aby ułatwić czytanie i wyeksponować Twoje kompetencje.
+            {t('description')}
           </p>
         </div>
       </div>
@@ -84,7 +88,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
             </div>
             <input
               type="text"
-              placeholder="Wyszukaj po nazwie lub tagu..."
+              placeholder={t('searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-surface-secondary/50 border border-transparent group-hover:bg-surface-secondary group-focus-within:bg-surface focus:border-border rounded-xl py-2.5 pl-11 pr-4 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-content/5 transition-all"
@@ -118,14 +122,14 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                   >
                     <img
                       src={tpl.image}
-                      alt={`Podgląd ${tpl.name}`}
+                       alt={t('previewAlt', { name: tpl.name })}
                       className="w-full h-full object-cover object-top origin-top transition-transform duration-700 group-hover:scale-[1.02]"
                     />
 
                     {tpl.available && !isSelected && (
                       <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                         <div className="flex items-center justify-between text-white">
-                            <span className="font-bold text-lg tracking-tight">Wybierz układ i język</span>
+                            <span className="font-bold text-lg tracking-tight">{t('selectVariant')}</span>
                           <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
                             <ArrowRight className="w-5 h-5" />
                           </div>
@@ -137,7 +141,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                       <div className="absolute inset-0 bg-surface/20 backdrop-blur-[2px] flex items-center justify-center">
                         <div className="bg-surface/90 px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold tracking-wide text-content shadow-xl border border-white/10">
                           <Lock className="w-4 h-4" />
-                          <span>Wkrótce</span>
+                          <span>{t('comingSoon')}</span>
                         </div>
                       </div>
                     )}
@@ -156,7 +160,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     {isSelected && (
                       <>
                         <span className="w-1 h-1 rounded-full bg-content-muted" />
-                        <span className="text-content">{selectedVariant?.language === 'pl' ? 'Aktywny PL' : 'Aktywny EN'}</span>
+                        <span className="text-content">
+                          {selectedVariant?.language === 'pl' ? t('activePl') : t('activeEn')}
+                        </span>
                       </>
                     )}
                   </div>
@@ -166,11 +172,11 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                   </h3>
 
                   <p className="text-sm text-content-secondary font-medium leading-relaxed mb-5 line-clamp-2">
-                    {tpl.description}
+                    {t(`templates.${tpl.id}.description`)}
                   </p>
 
                   <div className="flex flex-wrap gap-2">
-                    {tpl.tags.map((tag, i) => (
+                    {((t.raw(`templates.${tpl.id}.tags`) as string[]) || []).map((tag, i) => (
                       <span
                         key={i}
                         className="text-xs font-bold text-content-muted bg-surface-secondary/60 border border-border/40 px-3 py-1 rounded-lg group-hover:border-border/80 transition-colors"
@@ -196,7 +202,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                               : 'border-border bg-surface-secondary text-content hover:border-content'
                           } ${!tpl.available ? 'cursor-not-allowed opacity-60' : ''}`}
                         >
-                          {variant.label}
+                          {variant.language === 'pl' ? t('variantPl') : t('variantEn')}
                         </button>
                       );
                     })}
@@ -213,10 +219,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
               <Search className="h-8 w-8 text-content-muted" />
             </div>
             <h3 className="text-2xl font-black tracking-tight text-content mb-2">
-              Nic nie znaleziono
+              {t('emptyTitle')}
             </h3>
             <p className="text-content-secondary font-medium">
-              Spróbuj wpisać inne zapytanie lub wybierz inną kategorię.
+              {t('emptyDescription')}
             </p>
           </div>
         )}

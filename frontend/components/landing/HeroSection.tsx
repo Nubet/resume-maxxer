@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { LayoutGroup, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { TextRotate } from '../ui/text-rotate';
@@ -10,6 +11,8 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onStartBuilder }) => {
+  const t = useTranslations('Landing.Hero');
+
   return (
     <section className="relative pt-16 pb-24 md:pt-28 md:pb-36 overflow-hidden bg-surface">
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -20,15 +23,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartBuilder }) => {
               className="text-4xl sm:text-6xl lg:text-[76px] font-bold tracking-[-0.045em] text-content leading-[1.15] flex flex-col items-center justify-center gap-2 sm:gap-4"
             >
               <motion.span layout className="text-center">
-                CV, które przechodzi przez systemy ATS
+                {t('title')}
               </motion.span>
 
               <TextRotate
-                texts={[
-                  'i zdobywa zaproszenia.',
-                  'i wyróżnia Cię z tłumu.',
-                  'i buduje Twój wizerunek.',
-                ]}
+                texts={t.raw('rotating') as string[]}
                 splitBy="words"
                 animatePresenceMode="wait"
                 mainClassName="text-content border-b-2 border-border-strong pb-2 flex justify-center text-center relative"
@@ -45,9 +44,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartBuilder }) => {
           </LayoutGroup>
 
           <p className="text-lg sm:text-xl text-content-secondary max-w-2xl mx-auto leading-relaxed font-normal">
-            Wpisz swoje dane w prostym formularzu. Nasz kreator automatycznie zadba o czytelny
-            układ, właściwe marginesy i wygeneruje plik PDF, który bezbłędnie odczyta każdy system
-            HR.
+            {t('description')}
           </p>
 
           <div className="pt-4 flex justify-center">
@@ -55,7 +52,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartBuilder }) => {
               onClick={onStartBuilder}
               className="group inline-flex items-center justify-center gap-3 rounded-full bg-content px-9 py-4 text-base sm:text-lg font-bold text-content-inverse shadow-xl hover:bg-neutral-800 transition-all duration-200 active:scale-[0.98]"
             >
-              <span>Stwórz swoje CV teraz — Za darmo</span>
+              <span>{t('cta')}</span>
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black group-hover:translate-x-0.5 transition-transform">
                 <ArrowRight className="h-3.5 w-3.5 stroke-3" />
               </span>

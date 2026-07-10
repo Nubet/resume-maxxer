@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Cpu, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import { Footer } from './Footer';
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 interface SubpageLayoutProps {
   children: React.ReactNode;
@@ -12,6 +14,8 @@ interface SubpageLayoutProps {
 }
 
 export const SubpageLayout: React.FC<SubpageLayoutProps> = ({ children, title, subtitle }) => {
+  const t = useTranslations('SubpageLayout');
+
   return (
     <div className="min-h-dvh bg-surface text-content flex flex-col font-sans selection:bg-content selection:text-content-inverse">
       <header className="sticky top-4 sm:top-6 z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300">
@@ -27,19 +31,21 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({ children, title, s
           </Link>
 
           <div className="flex items-center space-x-4">
+            <LocaleSwitcher />
+
             <Link
               href="/"
               className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-content-secondary hover:text-content transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Powrót na stronę główną</span>
+              <span>{t('backHome')}</span>
             </Link>
 
             <Link
-              href="/#builder"
+              href="/builder"
               className="inline-flex items-center gap-2 rounded-full bg-content px-5 py-2 text-xs sm:text-sm font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
             >
-              <span>Otwórz Edytor CV</span>
+              <span>{t('openBuilder')}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

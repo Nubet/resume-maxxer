@@ -1,173 +1,188 @@
 {
   "metadata": {
-    "language": "pl",
+    "language": "en",
     "schema_version": "resume_maxxer.v1",
     "template_id": "atlas_classic_v1_pl",
-    "skill_profile": "general"
+    "skill_profile": "software_engineer"
   },
   "basics": {
-    "name": "Jan Kowalski",
-    "title": "Specjalista ds. operacji i obsługi klienta",
-    "targetRole": "Koordynator zespołu obsługi klienta",
-    "targetCompany": "Firmy usługowe i e-commerce",
+    "name": "John Doe",
+    "title": "Senior Software Engineer",
+    "targetRole": "Senior Full-Stack Engineer",
+    "targetCompany": "Product-led SaaS companies",
     "targetJobDescription": "",
-    "email": "jan.kowalski@example.com",
-    "phone": "+48 500 600 700",
-    "location": "Polska, Warszawa / Remote",
-    "city": "Warszawa",
-    "country": "Polska",
+    "email": "john.doe@example.com",
+    "phone": "+1 312 555 0147",
+    "location": "Chicago, IL / Remote",
+    "city": "Chicago",
+    "country": "United States",
     "remoteFriendly": true,
     "urls": {
-      "linkedin": "linkedin.com/in/jankowalski-dev",
-      "github": "github.com/jankowalski",
-      "portfolio": "jankowalski.dev"
+      "linkedin": "linkedin.com/in/johndoe-dev",
+      "github": "github.com/johndoe-dev",
+      "portfolio": "johndoe.dev"
     },
-    "summary": "Specjalista ds. operacji i obsługi klienta z ponad 6-letnim doświadczeniem w pracy z klientami biznesowymi, reklamacjami i usprawnianiem procesów. Łączy praktyczną znajomość systemów CRM, analizy danych i koordynacji międzyzespołowej z udokumentowanymi efektami w skracaniu czasu obsługi oraz poprawie jakości raportowania."
+    "summary": "Senior software engineer with 8+ years of experience building web applications, internal platforms, and customer-facing products in SaaS environments. Strong track record in TypeScript, React, Node.js, and cloud infrastructure, with consistent results in improving product performance, delivery speed, and developer productivity. Combines hands-on engineering with pragmatic system design and close collaboration across product, design, and data teams."
   },
   "experience": [
     {
-      "company": "CloudScale Solutions",
-      "position": "Koordynator ds. operacji klienta",
-      "location": "Warszawa / Hybrydowo",
-      "startDate": "2022-03",
-      "endDate": "obecnie",
+      "company": "Northstar Labs",
+      "position": "Senior Software Engineer",
+      "location": "Chicago, IL / Remote",
+      "startDate": "2022-04",
+      "endDate": "present",
       "responsibilities": [
-        "Koordynacja zgłoszeń klientów biznesowych w systemie CRM i współpraca z zespołami sprzedaży, finansów oraz logistyki.",
-        "Przygotowywanie raportów operacyjnych, analiza przyczyn opóźnień i rekomendowanie usprawnień procesu obsługi."
+        "Built and maintained customer-facing product features across a React and Node.js stack.",
+        "Led backend and frontend delivery for workflow automation, analytics, and platform reliability initiatives."
       ],
       "highlights": [
-        "Skrócił średni czas obsługi reklamacji z 5 do 2 dni roboczych dzięki uporządkowaniu priorytetów i wdrożeniu szablonów odpowiedzi.",
-        "Zwiększył terminowość realizacji zgłoszeń z 82% do 94% przez cotygodniową analizę przyczyn opóźnień i lepsze przekazywanie spraw między działami.",
-        "Przygotował dashboard raportowy w Excelu, który ograniczył ręczne raportowanie z 3 godzin do 35 minut tygodniowo."
+        "Reduced average page load time by 38% after redesigning critical dashboard queries, introducing server-side caching, and trimming unused client bundles.",
+        "Delivered a self-serve workflow builder used by more than 1,200 accounts within the first year, contributing to a 17% increase in expansion revenue.",
+        "Cut production incident volume by 29% by tightening observability, standardizing alert thresholds, and improving release checklists.",
+        "Mentored 4 engineers through design reviews and pairing sessions, helping the team shorten median pull request cycle time from 2.6 days to 1.4 days."
       ]
     },
     {
-      "company": "FinTech Innovations Sp. z o.o.",
-      "position": "Specjalista ds. obsługi klienta biznesowego",
-      "location": "Kraków",
-      "startDate": "2019-07",
-      "endDate": "2022-02",
+      "company": "BrightWave Software",
+      "position": "Software Engineer",
+      "location": "Austin, TX",
+      "startDate": "2019-01",
+      "endDate": "2022-03",
       "responsibilities": [
-        "Obsługa zapytań klientów, weryfikacja dokumentów i koordynacja spraw wymagających udziału działu ryzyka.",
-        "Prowadzenie dokumentacji spraw w CRM oraz przygotowywanie podsumowań dla przełożonych."
+        "Developed product features, APIs, and internal tooling for a B2B analytics platform.",
+        "Worked with product managers and designers to ship roadmap items from discovery through production rollout."
       ],
       "highlights": [
-        "Utrzymał średnią ocenę satysfakcji klienta na poziomie 4.8/5 przez 6 kolejnych kwartałów.",
-        "Ograniczył liczbę powtarzających się pytań o 22% po przygotowaniu bazy odpowiedzi dla najczęstszych spraw.",
-        "Wsparł wdrożenie nowego procesu weryfikacji dokumentów, skracając czas akceptacji spraw o 30%."
+        "Launched a new reporting module that increased weekly active usage among admin users by 24% within 6 months.",
+        "Replaced a legacy CSV import pipeline with a queue-based ingestion service, reducing failed imports by 63%.",
+        "Introduced shared TypeScript contracts between frontend and backend services, cutting integration defects during QA by 31%.",
+        "Built internal deployment tooling that reduced rollback time from roughly 20 minutes to under 5 minutes."
       ]
     },
     {
-      "company": "StartUp Labs",
-      "position": "Asystent biura obsługi",
-      "location": "Warszawa",
-      "startDate": "2018-06",
-      "endDate": "2019-06",
+      "company": "Cedar Stack",
+      "position": "Junior Software Engineer",
+      "location": "Madison, WI",
+      "startDate": "2017-06",
+      "endDate": "2018-12",
       "responsibilities": [
-        "Rejestrowanie zgłoszeń klientów, uzupełnianie dokumentacji i wsparcie administracyjne zespołu."
+        "Supported development of web applications and internal tools for small and mid-sized clients.",
+        "Implemented UI components, REST endpoints, bug fixes, and automated tests in an agile delivery environment."
       ],
       "highlights": [
-        "Uporządkował bazę kontaktów obejmującą ponad 2 000 rekordów, poprawiając kompletność danych kontaktowych.",
-        "Przygotował prosty szablon raportu dziennego, który ujednolicił przekazywanie informacji między zmianami."
+        "Shipped reusable React form components that shortened implementation time for new client workflows by about 30%.",
+        "Improved test coverage across core modules from 41% to 68% over three release cycles.",
+        "Resolved long-standing performance issues in an internal admin tool, reducing average search response time from 1.8s to 700ms."
       ]
     }
   ],
   "education": [
     {
-      "institution": "Politechnika Warszawska",
-      "degree": "Magister",
-      "field": "Zarządzanie",
-      "location": "Warszawa",
-      "startDate": "2018-10",
-      "endDate": "2020-06",
-      "gpa": "4.8 / 5.0",
-      "coursework": ["Analiza procesów biznesowych", "Zarządzanie projektami", "Finanse przedsiębiorstw"]
-    },
-    {
-      "institution": "Politechnika Warszawska",
-      "degree": "Licencjat",
-      "field": "Administracja",
-      "location": "Warszawa",
-      "startDate": "2015-10",
-      "endDate": "2018-06",
-      "coursework": ["Prawo administracyjne", "Komunikacja w organizacji"]
+      "institution": "University of Wisconsin-Madison",
+      "degree": "Bachelor of Science",
+      "field": "Computer Science",
+      "location": "Madison, WI",
+      "startDate": "2013-09",
+      "endDate": "2017-05",
+      "gpa": "3.7 / 4.0",
+      "coursework": ["Data Structures", "Database Systems", "Operating Systems", "Human-Computer Interaction"]
     }
   ],
   "skills": [
     {
-      "category": "Kompetencje Branżowe",
-      "keywords": ["obsługa klienta B2B", "reklamacje", "koordynacja zgłoszeń", "raportowanie operacyjne"]
+      "category": "Programming Languages",
+      "keywords": ["TypeScript", "JavaScript", "Python", "SQL", "Bash"]
     },
     {
-      "category": "Narzędzia i Systemy",
-      "keywords": ["Excel", "Google Sheets", "Salesforce CRM", "Jira Service Management", "PowerPoint", "systemy ticketowe"]
+      "category": "Frontend",
+      "keywords": ["React", "Next.js", "HTML", "CSS", "Tailwind CSS", "Vite"]
     },
     {
-      "category": "Metodyki i Procesy",
-      "keywords": ["SLA", "mapowanie procesów", "analiza przyczyn źródłowych", "onboarding klienta"]
+      "category": "Backend",
+      "keywords": ["Node.js", "Express", "NestJS", "REST APIs", "PostgreSQL", "Redis"]
     },
     {
-      "category": "Analiza i Raportowanie",
-      "keywords": ["tabele przestawne", "dashboardy operacyjne", "analiza trendów", "raporty tygodniowe"]
+      "category": "Cloud & DevOps",
+      "keywords": ["AWS", "Docker", "GitHub Actions", "Terraform", "Sentry", "Datadog"]
+    },
+    {
+      "category": "Engineering Practices",
+      "keywords": ["System Design", "CI/CD", "Automated Testing", "Code Review", "Agile Delivery"]
     }
   ],
   "projects": [
     {
-      "name": "Usprawnienie procesu obsługi reklamacji",
-      "role": "Koordynator projektu",
-      "organization": "CloudScale Solutions",
-      "startDate": "2023-04-01",
-      "endDate": "2023-08-31",
-      "period": "2023-04-01 - 2023-08-31",
-      "description": "Projekt uporządkowania sposobu przyjmowania, kategoryzowania i zamykania reklamacji klientów biznesowych.",
+      "name": "PulseOps Incident Dashboard",
+      "role": "Lead Engineer",
+      "organization": "Northstar Labs",
+      "startDate": "2023-02-01",
+      "endDate": "2023-09-30",
+      "period": "2023-02-01 - 2023-09-30",
+      "description": "Operational dashboard for incident visibility, service health tracking, and on-call reporting across engineering teams.",
       "url": "",
-      "keywords": ["SLA", "CRM", "Excel", "reklamacje", "mapowanie procesów"],
+      "keywords": ["React", "Node.js", "PostgreSQL", "Sentry", "Charting"],
       "highlights": [
-        "Skrócenie średniego czasu zamknięcia reklamacji z 5 do 2 dni roboczych.",
-        "Przygotowanie szablonów odpowiedzi i checklisty przekazania spraw dla 8-osobowego zespołu."
+        "Unified incident, alerting, and uptime data into one internal product used weekly by engineering and support leadership.",
+        "Reduced manual status reporting from about 4 hours to less than 45 minutes per week."
       ]
     },
     {
-      "name": "Dashboard tygodniowych wyników operacyjnych",
-      "role": "Autor raportu",
-      "organization": "projekt wewnętrzny",
-      "startDate": "2022-10-01",
-      "endDate": "2022-12-31",
-      "period": "2022-10-01 - 2022-12-31",
-      "description": "Raport w arkuszu kalkulacyjnym pokazujący liczbę zgłoszeń, opóźnienia, przyczyny eskalacji i obciążenie zespołu.",
+      "name": "Multi-tenant Data Import Pipeline",
+      "role": "Backend Engineer",
+      "organization": "BrightWave Software",
+      "startDate": "2020-05-01",
+      "endDate": "2020-11-30",
+      "period": "2020-05-01 - 2020-11-30",
+      "description": "Scalable ingestion service for customer CSV and API imports with validation, retry handling, and tenant-aware processing.",
       "url": "",
-      "keywords": ["Excel", "tabele przestawne", "raportowanie", "analiza danych"],
+      "keywords": ["Node.js", "Queues", "PostgreSQL", "AWS SQS", "Observability"],
       "highlights": [
-        "Ograniczenie ręcznego przygotowania raportu z 3 godzin do 35 minut tygodniowo."
+        "Lowered failed import rates by 63% and improved support turnaround by exposing clear validation feedback to customers.",
+        "Handled peak import batches of more than 500,000 records without blocking the primary application database."
+      ]
+    },
+    {
+      "name": "Developer Starter Kit",
+      "role": "Creator",
+      "organization": "Personal Project",
+      "startDate": "2024-01-01",
+      "endDate": "2024-03-31",
+      "period": "2024-01-01 - 2024-03-31",
+      "description": "Opinionated starter template for TypeScript services with auth, logging, testing, and deployment defaults.",
+      "url": "",
+      "keywords": ["TypeScript", "Node.js", "Docker", "Testing", "GitHub Actions"],
+      "highlights": [
+        "Packaged common service patterns into a reusable internal reference that accelerated new project setup for side projects and prototypes.",
+        "Documented conventions for environment setup, testing, and release automation in a concise engineering playbook."
       ]
     }
   ],
   "languages": [
     {
-      "language": "Język Polski",
+      "language": "English",
       "fluency": "Native or bilingual proficiency"
     },
     {
-      "language": "Język Angielski",
-      "fluency": "Full professional proficiency",
-      "certificate": "IELTS 7.5"
+      "language": "Spanish",
+      "fluency": "Professional working proficiency"
     }
   ],
   "certifications": [
     {
-      "name": "PRINCE2 Foundation",
-      "issuer": "PeopleCert",
-      "date": "2023-08",
-      "expires": "bezterminowo",
-      "status": "aktywny",
-      "details": "Podstawy prowadzenia projektów, role projektowe, etapy i kontrola postępów."
+      "name": "AWS Certified Developer - Associate",
+      "issuer": "Amazon Web Services",
+      "date": "2023-07",
+      "expires": "2026-07",
+      "status": "active",
+      "details": "Application development, deployment, monitoring, and security on AWS."
     },
     {
-      "name": "Excel - analiza danych w biznesie",
-      "issuer": "Akademia Online",
-      "date": "2022-11",
-      "status": "ukończony",
-      "details": "Tabele przestawne, funkcje wyszukiwania, podstawy dashboardów i raportowania."
+      "name": "Professional Scrum Master I",
+      "issuer": "Scrum.org",
+      "date": "2021-10",
+      "expires": "does not expire",
+      "status": "active",
+      "details": "Scrum principles, facilitation, and delivery practices for cross-functional teams."
     }
   ]
 }

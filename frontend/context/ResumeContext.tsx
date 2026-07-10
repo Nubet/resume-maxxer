@@ -11,6 +11,7 @@ import {
   serializeResumeData,
 } from '@/lib/resumeData';
 import { DEFAULT_TEMPLATE_ID, resolveTemplateVariantId } from '@/lib/templates';
+import type { ResumeLocale } from '@/types/resume';
 
 export interface SavedVersion {
   id: string;
@@ -47,6 +48,27 @@ const LOCAL_STORAGE_KEY = 'resume_maxxer_data_v1';
 const HISTORY_STORAGE_KEY = 'resume_maxxer_history_v1';
 const BACKEND_URL = 'http://127.0.0.1:8000/api/v1/cv/generate';
 
+const getResumeMessages = (locale: ResumeLocale) =>
+  locale === 'pl'
+    ? {
+        defaultVersionName: 'Nowa wersja',
+        serverError: (status: number, errorText: string) => `Błąd serwera (${status}): ${errorText}`,
+        validationError: (details: string) => `Błąd walidacji danych CV:\n${details}`,
+        backendUnavailable: 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?',
+        exportError: 'Nie udało się wyeksportować danych CV.',
+        invalidJson: 'Nieprawidłowy format pliku JSON CV.',
+        readError: 'Błąd odczytu pliku.',
+      }
+    : {
+        defaultVersionName: 'New version',
+        serverError: (status: number, errorText: string) => `Server error (${status}): ${errorText}`,
+        validationError: (details: string) => `Resume data validation error:\n${details}`,
+        backendUnavailable: 'Could not connect to the backend. Is the server running on port 8000?',
+        exportError: 'Could not export resume data.',
+        invalidJson: 'Invalid resume JSON file format.',
+        readError: 'Failed to read the file.',
+      };
+
 export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   const [resumeData, setResumeData] = useState<ResumeData>(defaultResumeData);
   const [templateId, setTemplateIdState] = useState<string>(DEFAULT_TEMPLATE_ID);
@@ -55,6 +77,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   const [serverError, setServerError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
   const [savedVersions, setSavedVersions] = useState<SavedVersion[]>([]);
+  const locale = resumeData.metadata.language;
 
   const setTemplateId = useCallback((id: string) => {
     const nextTemplateId = resolveTemplateVariantId(id);
@@ -106,17 +129,18 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
   const saveCurrentVersion = useCallback(
     (name: string) => {
+      const messages = getResumeMessages(locale);
       setSavedVersions((prev) => [
         {
           id: crypto.randomUUID(),
-          name: name || 'Nowa wersja',
+          name: name || messages.defaultVersionName,
           date: new Date().toISOString(),
           data: normalizeResumeData(resumeData, templateId),
         },
         ...prev,
       ]);
     },
-    [resumeData, templateId]
+    [locale, resumeData, templateId]
   );
 
   const loadVersion = useCallback(
@@ -141,7 +165,11 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
     (id: string) => {
       const version = savedVersions.find((v) => v.id === id);
       if (!version) return;
-      const payload = serializeResumeData(version.data, version.data.metadata?.template_id);
+      const payload = serializeResumeData(
+        version.data,
+        version.data.metadata?.template_id,
+        version.data.metadata?.language
+      );
       const dataStr =
         'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(payload, null, 2));
       const downloadAnchor = document.createElement('a');
@@ -168,12 +196,13 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
+    const messages = getResumeMessages(locale);
 
     const generatePdf = async () => {
       setIsGenerating(true);
       setServerError(null);
       try {
-        const payload = serializeResumeData(resumeData, templateId);
+        const payload = serializeResumeData(resumeData, templateId, resumeData.metadata.language);
 
         const response = await fetch(`${BACKEND_URL}?template_id=${templateId}`, {
           method: 'POST',
@@ -186,7 +215,7 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
 
         if (!response.ok) {
           const errorText = await response.text();
-          throw new Error(`Błąd serwera (${response.status}): ${errorText}`);
+          throw new Error(messages.serverError(response.status, errorText));
         }
 
         const blob = await response.blob();
@@ -203,13 +232,11 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           if (isMounted) {
             const message =
               err instanceof ZodError
-                ? `Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`
+                ? messages.validationError(formatResumeValidationError(err))
                 : err instanceof Error
                   ? err.message
-                  : 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?';
-            setServerError(
-              message || 'Nie udało się połączyć z backendem. Czy serwer działa na porcie 8000?'
-            );
+                  : messages.backendUnavailable;
+            setServerError(message || messages.backendUnavailable);
           }
         }
       } finally {
@@ -228,15 +255,16 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
       controller.abort();
       clearTimeout(timer);
     };
-  }, [resumeData, templateId, refreshTrigger]);
+  }, [locale, refreshTrigger, resumeData, templateId]);
 
   const triggerRefresh = useCallback(() => {
     setRefreshTrigger((prev) => prev + 1);
   }, []);
 
   const exportJson = useCallback(() => {
+    const messages = getResumeMessages(locale);
     try {
-      const payload = serializeResumeData(resumeData, templateId);
+      const payload = serializeResumeData(resumeData, templateId, resumeData.metadata.language);
       const dataStr =
         'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(payload, null, 2));
       const downloadAnchor = document.createElement('a');
@@ -250,13 +278,14 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
     } catch (err) {
       const message =
         err instanceof ZodError
-          ? `Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`
-          : 'Nie udało się wyeksportować danych CV.';
+          ? messages.validationError(formatResumeValidationError(err))
+          : messages.exportError;
       setServerError(message);
     }
-  }, [resumeData, templateId]);
+  }, [locale, resumeData, templateId]);
 
   const importJson = useCallback(async (file: File) => {
+    const messages = getResumeMessages(locale);
     return new Promise<void>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -264,10 +293,14 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           const content = event.target?.result as string;
           const parsed = JSON.parse(content);
           if (!parsed.basics) {
-            throw new Error('Nieprawidłowy format pliku JSON CV.');
+            throw new Error(messages.invalidJson);
           }
           const normalized = normalizeResumeData(parsed);
-          serializeResumeData(normalized, normalized.metadata?.template_id);
+          serializeResumeData(
+            normalized,
+            normalized.metadata?.template_id,
+            normalized.metadata?.language
+          );
           setResumeData(normalized);
           if (normalized.metadata?.template_id) {
             setTemplateIdState(normalized.metadata.template_id);
@@ -275,16 +308,16 @@ export const ResumeProvider = ({ children }: { children: ReactNode }) => {
           resolve();
         } catch (err) {
           if (err instanceof ZodError) {
-            reject(new Error(`Błąd walidacji danych CV:\n${formatResumeValidationError(err)}`));
+            reject(new Error(messages.validationError(formatResumeValidationError(err))));
             return;
           }
           reject(err);
         }
       };
-      reader.onerror = () => reject(new Error('Błąd odczytu pliku.'));
+      reader.onerror = () => reject(new Error(messages.readError));
       reader.readAsText(file);
     });
-  }, []);
+  }, [locale]);
 
   const downloadPdf = useCallback(() => {
     if (!pdfBlobUrl) return;

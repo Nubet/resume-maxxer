@@ -1,29 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
+  const t = useTranslations('Landing.Faq');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const faqs = [
-    {
-      question: 'Dlaczego nasz kreator jest lepszy od zwykłych programów graficznych?',
-      answer:
-        'Zwykłe programy często psują układ strony na innych komputerach i są nieczytelne dla rekrutacyjnych systemów HR. Nasze narzędzie generuje czysty plik PDF, który zawsze zachowuje idealne formatowanie.',
-    },
-    {
-      question: 'Co zyskuję dzięki oddzieleniu treści od wyglądu?',
-      answer:
-        'Wpisujesz swoją historię pracy tylko raz. Potem możesz dowolnie zmieniać szablony graficzne jednym kliknięciem, bez ryzyka, że tekst się przesunie lub skasuje.',
-    },
-    {
-      question: 'Czy korzystanie z kreatora jest bezpłatne?',
-      answer:
-        'Tak, narzędzie jest w pełni darmowe. Nie wymagamy zakładania konta ani podawania karty płatniczej.',
-    },
-  ];
+  const faqs = t.raw('items') as Array<{ question: string; answer: string }>;
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -40,13 +25,17 @@ export const FaqSection: React.FC = () => {
       >
         <div className="text-center space-y-4">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-content">
-            Wszystko, co musisz wiedzieć o <br />
-            <span className="underline decoration-border-strong decoration-2 underline-offset-8">
-              naszym kreatorze CV
-            </span>
+            {t.rich('title', {
+              br: () => <br />,
+              underline: (chunks) => (
+                <span className="underline decoration-border-strong decoration-2 underline-offset-8">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h2>
           <p className="text-base text-content-secondary leading-relaxed">
-            Odpowiadamy na najczęstsze pytania dotyczące tworzenia skutecznego życiorysu.
+            {t('description')}
           </p>
         </div>
 
@@ -105,12 +94,9 @@ export const FaqSection: React.FC = () => {
 
         <div className="p-8 rounded-3xl border border-border bg-surface-tertiary text-center space-y-4 shadow-sm">
           <FileText className="h-8 w-8 text-content mx-auto" />
-          <h3 className="text-xl font-bold text-content">
-            Masz inne pytania dotyczące swojego CV?
-          </h3>
+          <h3 className="text-xl font-bold text-content">{t('moreQuestionsTitle')}</h3>
           <p className="text-sm text-content-secondary max-w-md mx-auto">
-            Otwórz kreator i sprawdź, jak łatwo przygotujesz profesjonalny dokument gotowy do
-            wysyłki.
+            {t('moreQuestionsDescription')}
           </p>
         </div>
       </motion.div>

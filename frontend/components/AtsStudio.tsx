@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { useLocale } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import {
   ShieldCheck,
@@ -17,11 +18,107 @@ interface AtsStudioProps {
 }
 
 export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
+  const locale = useLocale();
+  const isPl = locale === 'pl';
   const { resumeData } = useResume();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [analysisState, setAnalysisState] = useState<'idle' | 'analyzing' | 'results'>('idle');
   const [fileName, setFileName] = useState<string | null>(null);
+
+  const text = isPl
+    ? {
+        checks: {
+          readabilityTitle: 'Czytelność pliku (Parsowanie tekstu)',
+          readabilityDesc:
+            'Wykryto poprawną warstwę tekstową w pliku PDF. Systemy ATS bez problemu odczytają z niego poszczególne słowa.',
+          structureTitle: 'Struktura blokowa dokumentu',
+          structureDesc:
+            'Zidentyfikowano czytelny układ. Nie wykryto skomplikowanych tabel ani ukrytych grafik, które mogłyby zaburzyć kolejność czytania.',
+          keywordsTitle: 'Wykryte słowa kluczowe (Umiejętności)',
+          keywordsPass: (count: number) => `Zidentyfikowano ${count} kluczowych umiejętności.`,
+          keywordsWarn:
+            'Nie wykryto wystarczającej liczby wyraźnych słów kluczowych. Algorytm HR może zignorować ten plik przy automatycznym filtrowaniu.',
+          summaryTitle: 'Sekcja profilu / podsumowania',
+          summaryPass: 'Wykryto sekcję z podsumowaniem zawodowym na początku dokumentu.',
+          summaryWarn:
+            'Nie zidentyfikowano wyraźnego podsumowania zawodowego (Executive Summary) na górze strony.',
+          lengthTitle: 'Odpowiednia długość i gęstość tekstu',
+          lengthDesc: (count: number) =>
+            `Zliczono około ${count} słów w treści dokumentu. Rekomendowana długość dla optymalnego skanowania to między 250 a 500 słów.`,
+        },
+        idleTitle: 'Sprawdź swoje obecne CV',
+        idleDescription:
+          'Wgraj plik PDF, aby upewnić się, że automatyczne systemy rekrutacyjne potrafią z niego poprawnie odczytać Twoje dane.',
+        uploadCta: 'Upuść plik tutaj lub kliknij, aby wybrać',
+        uploadFormats: 'Obsługiwane formaty: PDF (do 5 MB)',
+        analyzingTitle: 'Trwa analiza pliku...',
+        analyzingDescription:
+          'Skanowanie warstwy tekstowej, ekstrakcja słów kluczowych i weryfikacja algorytmów ATS.',
+        resultEyebrow: 'Wynik Audytu ATS',
+        resultTitle: 'Raport z analizy pliku',
+        resultDescription: (name: string) =>
+          `Zakończono skanowanie pliku ${name}. Zobacz, jak Twój dokument został zinterpretowany przez nasz system.`,
+        analyzeAnother: 'Sprawdź inny plik PDF',
+        scoreLabel: 'Czytelność dla skanerów',
+        identifiedData: 'Zidentyfikowane dane',
+        words: 'Liczba słów',
+        keywords: 'Słowa kluczowe',
+        unhappy: 'Niezadowolony z wyniku?',
+        buildProper: 'Zbuduj poprawne CV',
+        buildProperDescription:
+          'Skorzystaj z naszego kreatora, aby wygenerować dokument w 100% zoptymalizowany pod kątem systemów HR.',
+        backToBuilder: 'Przejdź do kreatora CV',
+        checksTitle: 'Wyniki sprawdzenia',
+        ok: 'Wykryto (OK)',
+        missing: 'Brak danych / Błąd',
+      }
+    : {
+        checks: {
+          readabilityTitle: 'File readability (text parsing)',
+          readabilityDesc:
+            'A valid text layer was detected in the PDF. ATS systems should be able to read individual words without trouble.',
+          structureTitle: 'Document block structure',
+          structureDesc:
+            'A clear structure was detected. No complex tables or hidden graphics were found that could break reading order.',
+          keywordsTitle: 'Detected keywords (skills)',
+          keywordsPass: (count: number) => `Detected ${count} key skills.`,
+          keywordsWarn:
+            'Not enough clear keywords were detected. An HR screening algorithm may ignore this file during automated filtering.',
+          summaryTitle: 'Profile / summary section',
+          summaryPass: 'A professional summary section was detected near the top of the document.',
+          summaryWarn:
+            'No clear professional summary (Executive Summary) was detected near the top of the page.',
+          lengthTitle: 'Appropriate length and text density',
+          lengthDesc: (count: number) =>
+            `About ${count} words were counted in the document. The recommended length for efficient scanning is between 250 and 500 words.`,
+        },
+        idleTitle: 'Check your current resume',
+        idleDescription:
+          'Upload a PDF file to verify that automated hiring systems can correctly read your information.',
+        uploadCta: 'Drop a file here or click to choose',
+        uploadFormats: 'Supported formats: PDF (up to 5 MB)',
+        analyzingTitle: 'Analyzing file...',
+        analyzingDescription:
+          'Scanning the text layer, extracting keywords, and verifying ATS-oriented signals.',
+        resultEyebrow: 'ATS Audit Result',
+        resultTitle: 'File analysis report',
+        resultDescription: (name: string) =>
+          `Finished scanning ${name}. See how your document was interpreted by our system.`,
+        analyzeAnother: 'Check another PDF file',
+        scoreLabel: 'Scanner readability',
+        identifiedData: 'Detected data',
+        words: 'Word count',
+        keywords: 'Keywords',
+        unhappy: 'Not happy with the result?',
+        buildProper: 'Build a correct resume',
+        buildProperDescription:
+          'Use the builder to generate a document optimized for HR systems from the start.',
+        backToBuilder: 'Go to the resume builder',
+        checksTitle: 'Audit results',
+        ok: 'Detected (OK)',
+        missing: 'Missing data / Error',
+      };
 
   const totalWords = [
     resumeData?.basics?.summary || '',
@@ -42,33 +139,29 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
 
   const checks = [
     {
-      title: 'Czytelność pliku (Parsowanie tekstu)',
+      title: text.checks.readabilityTitle,
       status: 'pass',
-      desc: 'Wykryto poprawną warstwę tekstową w pliku PDF. Systemy ATS bez problemu odczytają z niego poszczególne słowa.',
+      desc: text.checks.readabilityDesc,
     },
     {
-      title: 'Struktura blokowa dokumentu',
+      title: text.checks.structureTitle,
       status: 'pass',
-      desc: 'Zidentyfikowano czytelny układ. Nie wykryto skomplikowanych tabel ani ukrytych grafik, które mogłyby zaburzyć kolejność czytania.',
+      desc: text.checks.structureDesc,
     },
     {
-      title: 'Wykryte słowa kluczowe (Umiejętności)',
+      title: text.checks.keywordsTitle,
       status: hasSkills ? 'pass' : 'warn',
-      desc: hasSkills
-        ? `Zidentyfikowano ${totalSkills} kluczowych umiejętności.`
-        : 'Nie wykryto wystarczającej liczby wyraźnych słów kluczowych. Algorytm HR może zignorować ten plik przy automatycznym filtrowaniu.',
+      desc: hasSkills ? text.checks.keywordsPass(totalSkills) : text.checks.keywordsWarn,
     },
     {
-      title: 'Sekcja profilu / podsumowania',
+      title: text.checks.summaryTitle,
       status: hasSummary ? 'pass' : 'warn',
-      desc: hasSummary
-        ? 'Wykryto sekcję z podsumowaniem zawodowym na początku dokumentu.'
-        : 'Nie zidentyfikowano wyraźnego podsumowania zawodowego (Executive Summary) na górze strony.',
+      desc: hasSummary ? text.checks.summaryPass : text.checks.summaryWarn,
     },
     {
-      title: 'Odpowiednia długość i gęstość tekstu',
+      title: text.checks.lengthTitle,
       status: totalWords > 150 ? 'pass' : 'warn',
-      desc: `Zliczono około ${totalWords} słów w treści dokumentu. Rekomendowana długość dla optymalnego skanowania to między 250 a 500 słów.`,
+      desc: text.checks.lengthDesc(totalWords),
     },
   ];
 
@@ -94,11 +187,10 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
         <div className="max-w-2xl w-full space-y-10 text-center">
           <div className="space-y-3">
             <h2 className="text-4xl font-black tracking-tight text-content">
-              Sprawdź swoje obecne CV
+              {text.idleTitle}
             </h2>
             <p className="text-base text-content-secondary max-w-md mx-auto font-medium">
-              Wgraj plik PDF, aby upewnić się, że automatyczne systemy rekrutacyjne potrafią z niego
-              poprawnie odczytać Twoje dane.
+              {text.idleDescription}
             </p>
           </div>
 
@@ -117,10 +209,10 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
 
             <div className="space-y-2 text-center relative z-10">
               <span className="text-lg font-bold text-content block">
-                Upuść plik tutaj lub kliknij, aby wybrać
+                {text.uploadCta}
               </span>
               <span className="text-sm font-medium text-content-muted">
-                Obsługiwane formaty: PDF (do 5 MB)
+                {text.uploadFormats}
               </span>
             </div>
 
@@ -149,9 +241,9 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
             </div>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-bold tracking-tight">Trwa analiza pliku...</h3>
+            <h3 className="text-xl font-bold tracking-tight">{text.analyzingTitle}</h3>
             <p className="text-xs text-content-secondary font-medium">
-              Skanowanie warstwy tekstowej, ekstrakcja słów kluczowych i weryfikacja algorytmów ATS.
+              {text.analyzingDescription}
             </p>
           </div>
         </div>
@@ -169,23 +261,21 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
                 <ShieldCheck className="h-3.5 w-3.5" />
               </span>
               <span className="text-xs font-black uppercase tracking-widest text-content-muted">
-                Wynik Audytu ATS
+                {text.resultEyebrow}
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-content">
-              Raport z analizy pliku
+              {text.resultTitle}
             </h2>
             <p className="text-sm sm:text-base text-content-secondary max-w-2xl leading-relaxed font-medium">
-              Zakończono skanowanie pliku{' '}
-              <span className="font-bold text-content">{fileName || 'CV.pdf'}</span>. Zobacz, jak
-              Twój dokument został zinterpretowany przez nasz system.
+              {text.resultDescription(fileName || 'CV.pdf')}
             </p>
           </div>
           <button
             onClick={() => setAnalysisState('idle')}
             className="shrink-0 text-xs font-bold text-content hover:underline decoration-content underline-offset-4"
           >
-            Sprawdź inny plik PDF
+            {text.analyzeAnother}
           </button>
         </div>
 
@@ -193,7 +283,7 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
           <div className="rounded-3xl border border-border bg-surface-secondary p-8 flex flex-col justify-between shadow-xs relative overflow-hidden">
             <div className="relative z-10 space-y-2">
               <span className="text-xs font-black uppercase tracking-widest text-content-muted block">
-                Czytelność dla skanerów
+                {text.scoreLabel}
               </span>
               <div className="text-6xl font-black tracking-tight text-content">{score}%</div>
             </div>
@@ -202,19 +292,19 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
           <div className="rounded-3xl border border-border bg-surface-secondary p-8 flex flex-col justify-between shadow-xs">
             <div className="space-y-4">
               <span className="text-xs font-black uppercase tracking-widest text-content-muted block">
-                Zidentyfikowane Dane
+                {text.identifiedData}
               </span>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-2xl font-black text-content">{totalWords}</div>
                   <div className="text-[11px] font-semibold text-content-secondary">
-                    Liczba słów
+                    {text.words}
                   </div>
                 </div>
                 <div>
                   <div className="text-2xl font-black text-content">{totalSkills}</div>
                   <div className="text-[11px] font-semibold text-content-secondary">
-                    Słowa kluczowe
+                    {text.keywords}
                   </div>
                 </div>
               </div>
@@ -225,26 +315,25 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-xs font-black uppercase tracking-widest text-amber-400">
                 <Sparkles className="h-4 w-4" />
-                <span>Niezadowolony z wyniku?</span>
+                <span>{text.unhappy}</span>
               </div>
-              <h3 className="text-xl font-bold tracking-tight">Zbuduj poprawne CV</h3>
+              <h3 className="text-xl font-bold tracking-tight">{text.buildProper}</h3>
               <p className="text-xs text-neutral-300 leading-relaxed font-medium">
-                Skorzystaj z naszego kreatora, aby wygenerować dokument w 100% zoptymalizowany pod
-                kątem systemów HR.
+                {text.buildProperDescription}
               </p>
             </div>
             <button
               onClick={onBackToEditor}
               className="w-full mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-surface py-3 text-xs font-black text-content hover:bg-neutral-200 transition-all shadow-md active:scale-[0.98]"
             >
-              <span>Przejdź do kreatora CV</span>
+              <span>{text.backToBuilder}</span>
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-xl font-black text-content tracking-tight">Wyniki sprawdzenia</h3>
+          <h3 className="text-xl font-black text-content tracking-tight">{text.checksTitle}</h3>
           <div className="space-y-4">
             {checks.map((chk, idx) => (
               <div
@@ -279,7 +368,7 @@ export const AtsStudio: React.FC<AtsStudioProps> = ({ onBackToEditor }) => {
                       : 'bg-amber-500 text-white'
                   }`}
                 >
-                  {chk.status === 'pass' ? 'Wykryto (OK)' : 'Brak danych / Błąd'}
+                  {chk.status === 'pass' ? text.ok : text.missing}
                 </span>
               </div>
             ))}

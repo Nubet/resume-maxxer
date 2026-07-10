@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import {
   User,
@@ -38,6 +39,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   onTabChange,
   onBackToLanding,
 }) => {
+  const t = useTranslations('DashboardSidebar');
   const { resumeData, templateId, importJson, exportJson } = useResume();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -51,25 +53,25 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   );
 
   const modules = [
-    { id: 'editor', label: 'Edytor CV', icon: Edit3 },
-    { id: 'templates', label: 'Galeria Szablonów', icon: LayoutTemplate },
-    { id: 'ats', label: 'Audyt ATS & AI', icon: ShieldCheck },
-    { id: 'history', label: 'Historia Wersji', icon: History },
+    { id: 'editor', label: t('modules.editor'), icon: Edit3 },
+    { id: 'templates', label: t('modules.templates'), icon: LayoutTemplate },
+    { id: 'ats', label: t('modules.ats'), icon: ShieldCheck },
+    { id: 'history', label: t('modules.history'), icon: History },
   ];
 
   const steps = [
-    { id: 'basics', number: 1, label: 'Profil i Kontakt', icon: User, completed: hasBasics },
-    { id: 'experience', number: 2, label: 'Doświadczenie', icon: Briefcase, completed: hasExp },
-    { id: 'education', number: 3, label: 'Edukacja', icon: GraduationCap, completed: hasEdu },
-    { id: 'skills', number: 4, label: 'Umiejętności', icon: Wrench, completed: hasSkills },
+    { id: 'basics', number: 1, label: t('steps.basics'), icon: User, completed: hasBasics },
+    { id: 'experience', number: 2, label: t('steps.experience'), icon: Briefcase, completed: hasExp },
+    { id: 'education', number: 3, label: t('steps.education'), icon: GraduationCap, completed: hasEdu },
+    { id: 'skills', number: 4, label: t('steps.skills'), icon: Wrench, completed: hasSkills },
     {
       id: 'projects',
       number: 5,
-      label: 'Projekty',
+      label: t('steps.projects'),
       icon: FolderGit2,
       completed: Boolean(resumeData?.projects && resumeData.projects.length > 0),
     },
-    { id: 'extra', number: 6, label: 'Języki i Dodatki', icon: Globe2, completed: hasExtra },
+    { id: 'extra', number: 6, label: t('steps.extra'), icon: Globe2, completed: hasExtra },
   ];
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,9 +79,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     if (file) {
       try {
         await importJson(file);
-        alert('Pomyślnie wczytano dane z pliku!');
+        alert(t('alerts.importSuccess'));
       } catch (err: any) {
-        alert(`Błąd wczytywania: ${err.message}`);
+        alert(t('alerts.importError', { message: err.message }));
       }
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
@@ -90,7 +92,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       <div className="space-y-8">
         <button
           onClick={onBackToLanding}
-          title="Powrót na stronę główną"
+          title={t('backHome')}
           className="flex items-center space-x-3 text-left transition-all hover:opacity-80 active:scale-[0.98] group w-full"
         >
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-content text-content-inverse group-hover:scale-105 transition-transform shadow-sm">
@@ -104,9 +106,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         </button>
 
         <div className="space-y-2">
-          <div className="px-3 text-[11px] font-black uppercase tracking-widest text-content-muted mb-2">
-            Nawigacja
-          </div>
+            <div className="px-3 text-[11px] font-black uppercase tracking-widest text-content-muted mb-2">
+              {t('navigation')}
+            </div>
           <nav className="space-y-1.5">
             {modules.map((mod) => {
               const isActive = activeModule === mod.id;
@@ -134,7 +136,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         {activeModule === 'editor' && (
           <div className="space-y-2 pt-4 border-t border-border animate-fade-in">
             <div className="px-3 text-[11px] font-black uppercase tracking-widest text-content-muted mb-2">
-              Sekcje Życiorysu
+              {t('resumeSections')}
             </div>
             <nav className="space-y-1">
               {steps.map((step) => {
@@ -177,7 +179,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 
       <div className="mt-8 pt-6 border-t border-border space-y-4">
         <div className="flex items-center justify-between text-xs text-content-secondary">
-          <span className="font-semibold">Szablon:</span>
+          <span className="font-semibold">{t('template')}</span>
           <button
             onClick={() => onModuleChange('templates')}
             className="font-bold text-content hover:underline"
@@ -196,19 +198,19 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            title="Wczytaj z pliku"
+            title={t('importTitle')}
             className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2 text-xs font-bold text-content-secondary hover:border-content hover:text-content transition-all active:scale-[0.98] shadow-xs"
           >
             <Upload className="h-3.5 w-3.5" />
-            <span>Wczytaj</span>
+            <span>{t('import')}</span>
           </button>
           <button
             onClick={exportJson}
-            title="Zapisz do pliku"
+            title={t('exportTitle')}
             className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2 text-xs font-bold text-content-secondary hover:border-content hover:text-content transition-all active:scale-[0.98] shadow-xs"
           >
             <FileJson className="h-3.5 w-3.5" />
-            <span>Zapisz</span>
+            <span>{t('export')}</span>
           </button>
         </div>
       </div>

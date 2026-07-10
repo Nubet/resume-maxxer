@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { GraduationCap, Plus, Trash2 } from 'lucide-react';
 import type { EducationItem } from '@/types/resume';
@@ -8,6 +9,7 @@ import { FormBlock } from '@/components/editor/FormBlock';
 import { ListEditorField } from '@/components/editor/ListEditorField';
 
 export const EducationForm: React.FC = () => {
+  const t = useTranslations('Editor.Education');
   const { resumeData, updateResumeData } = useResume();
   const education: EducationItem[] = resumeData?.education || [];
 
@@ -17,29 +19,8 @@ export const EducationForm: React.FC = () => {
     if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
     return '';
   };
-  const degreeOptions = [
-    'Szkoła średnia',
-    'Technik',
-    'Licencjat',
-    'Inżynier',
-    'Magister',
-    'Magister Inżynier',
-    'Studia podyplomowe',
-    'Kurs zawodowy',
-    'Szkolenie branżowe',
-  ];
-  const fieldOptions = [
-    'Administracja',
-    'Ekonomia',
-    'Finanse i rachunkowość',
-    'Informatyka',
-    'Logistyka',
-    'Marketing',
-    'Mechanika',
-    'Pedagogika',
-    'Sprzedaż',
-    'Zarządzanie',
-  ];
+  const degreeOptions = t.raw('degreeOptions') as string[];
+  const fieldOptions = t.raw('fieldOptions') as string[];
 
   const handleAdd = () => {
     updateResumeData((prev) => ({
@@ -82,16 +63,16 @@ export const EducationForm: React.FC = () => {
   return (
     <div className="space-y-5 animate-fade-in">
       <FormBlock
-        eyebrow="Kiedy to ważne"
-        title="Edukacja może być głównym dowodem kompetencji"
-        description="Jeśli masz mało doświadczenia albo zmieniasz branżę, dodaj szkoły, kierunki i ważne kursy pasujące do docelowej roli."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        description={t('description')}
       >
         <button
           onClick={handleAdd}
           className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
         >
           <Plus className="h-4 w-4" />
-          <span>Dodaj Szkołę / Uczelnię</span>
+          <span>{t('add')}</span>
         </button>
         <datalist id="degree-options">
           {degreeOptions.map((option) => (
@@ -108,9 +89,9 @@ export const EducationForm: React.FC = () => {
       {education.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-3 bg-surface-secondary">
           <GraduationCap className="h-8 w-8 text-content-muted mx-auto" />
-          <p className="text-sm font-bold text-content">Brak wpisów o edukacji</p>
+          <p className="text-sm font-bold text-content">{t('emptyTitle')}</p>
           <p className="text-xs text-content-muted max-w-xs mx-auto leading-relaxed">
-            Dodaj szkoły, studia, kursy zawodowe albo szkolenia, które wspierają docelową rolę.
+            {t('emptyDescription')}
           </p>
         </div>
       ) : (
@@ -126,12 +107,12 @@ export const EducationForm: React.FC = () => {
                     {index + 1}
                   </span>
                   <span className="font-bold text-base text-content">
-                    {edu.institution || 'Nowa Uczelnia'}
+                      {edu.institution || t('newItem')}
                   </span>
                 </div>
                 <button
                   onClick={() => handleRemove(index)}
-                  title="Usuń wpis"
+                  title={t('remove')}
                   className="text-content-muted hover:text-red-600 transition-all p-2 rounded-full hover:bg-surface"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -139,78 +120,77 @@ export const EducationForm: React.FC = () => {
               </div>
 
               <div className="rounded-2xl border border-border bg-surface px-4 py-3 text-[11px] font-semibold leading-relaxed text-content-secondary">
-                Zacznij od formalnych danych, a niżej dodaj tylko te kursy i przedmioty, które
-                wspierają aplikację.
+                {t('tip')}
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Stopień / Tytuł
+                    {t('fields.degree.label')}
                   </label>
                   <input
                     type="text"
                     list="degree-options"
                     value={edu.degree || ''}
                     onChange={(e) => handleChange(index, 'degree', e.target.value)}
-                    placeholder="Wybierz lub wpisz własny"
+                    placeholder={t('fields.degree.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Kierunek / Specjalizacja
+                    {t('fields.field.label')}
                   </label>
                   <input
                     type="text"
                     list="field-options"
                     value={edu.field || ''}
                     onChange={(e) => handleChange(index, 'field', e.target.value)}
-                    placeholder="Wybierz lub wpisz własny"
+                    placeholder={t('fields.field.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-content mb-2">
-                    Uczelnia / Szkoła
+                    {t('fields.institution.label')}
                   </label>
                   <input
                     type="text"
                     value={edu.institution || ''}
                     onChange={(e) => handleChange(index, 'institution', e.target.value)}
-                    placeholder="np. Politechnika Warszawska"
+                    placeholder={t('fields.institution.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Lokalizacja</label>
+                  <label className="block text-xs font-bold text-content mb-2">{t('fields.location.label')}</label>
                   <input
                     type="text"
                     value={edu.location || ''}
                     onChange={(e) => handleChange(index, 'location', e.target.value)}
-                    placeholder="np. Polska, Warszawa"
+                    placeholder={t('fields.location.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold text-content mb-2">
-                    Wynik / Średnia (opcjonalnie)
+                    {t('fields.gpa.label')}
                   </label>
                   <input
                     type="text"
                     value={edu.gpa || ''}
                     onChange={(e) => handleChange(index, 'gpa', e.target.value)}
-                    placeholder="np. 4.8 / 5.0 (Wyróżnienie)"
+                    placeholder={t('fields.gpa.placeholder')}
                     className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none transition-colors font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Od</label>
+                  <label className="block text-xs font-bold text-content mb-2">{t('fields.startDate.label')}</label>
                   <input
                     type="date"
                     value={toDateInputValue(edu.startDate)}
@@ -220,7 +200,7 @@ export const EducationForm: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-content mb-2">Do</label>
+                  <label className="block text-xs font-bold text-content mb-2">{t('fields.endDate.label')}</label>
                   <input
                     type="date"
                     value={toDateInputValue(edu.endDate)}
@@ -230,12 +210,12 @@ export const EducationForm: React.FC = () => {
                 </div>
 
                 <ListEditorField
-                  label="Ważne kursy i przedmioty"
+                  label={t('coursework.label')}
                   items={edu.coursework || []}
                   onChange={(items) => handleChange(index, 'coursework', items)}
-                  placeholder="np. Analiza finansowa"
-                  helperText="Dodaj tylko te pozycje, które realnie wspierają rolę, na którą aplikujesz."
-                  addLabel="Dodaj pozycję"
+                  placeholder={t('coursework.placeholder')}
+                  helperText={t('coursework.helper')}
+                  addLabel={t('coursework.add')}
                 />
               </div>
             </div>

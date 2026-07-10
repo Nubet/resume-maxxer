@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { Briefcase, Mail, Phone, Plus, Trash2, User } from 'lucide-react';
 import { FormBlock } from '@/components/editor/FormBlock';
 
 export const BasicsForm: React.FC = () => {
+  const t = useTranslations('Editor.Basics');
   const { resumeData, updateResumeData } = useResume();
   const basics = resumeData?.basics || {
     name: '',
@@ -39,10 +41,13 @@ export const BasicsForm: React.FC = () => {
     'other',
   ];
 
+  const linkTypeLabel = (type: string) => (type === 'other' ? t('linkTypes.other') : type);
+  const remoteWord = t('fields.remoteFriendly.remoteWord');
+
   const buildLocation = (city?: string, country?: string, remoteFriendly?: boolean) => {
     const baseLocation = [country, city].filter(Boolean).join(', ');
-    if (!baseLocation) return remoteFriendly ? 'Remote' : '';
-    return remoteFriendly ? `${baseLocation} / Remote` : baseLocation;
+    if (!baseLocation) return remoteFriendly ? remoteWord : '';
+    return remoteFriendly ? `${baseLocation} / ${remoteWord}` : baseLocation;
   };
 
   const handleChange = (field: string, value: string) => {
@@ -116,21 +121,21 @@ export const BasicsForm: React.FC = () => {
   return (
     <div className="space-y-5 animate-fade-in">
       <FormBlock
-        eyebrow="Najpierw"
-        title="Kim jesteś i na jaką rolę aplikujesz?"
-        description="Te dane pomagają dopasować ton CV, nagłówek i słowa kluczowe do konkretnej rekrutacji."
+        eyebrow={t('introEyebrow')}
+        title={t('introTitle')}
+        description={t('introDescription')}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="flex items-center gap-2 text-xs font-bold text-content mb-2">
               <User className="h-4 w-4 text-content-muted" />
-              <span>Imię i Nazwisko</span>
+              <span>{t('fields.name.label')}</span>
             </label>
             <input
               type="text"
               value={basics.name || ''}
               onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="np. Jan Kowalski"
+              placeholder={t('fields.name.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
@@ -138,52 +143,51 @@ export const BasicsForm: React.FC = () => {
           <div>
             <label className="flex items-center gap-2 text-xs font-bold text-content mb-2">
               <Briefcase className="h-4 w-4 text-content-muted" />
-              <span>Aktualny Tytuł Zawodowy</span>
+              <span>{t('fields.title.label')}</span>
             </label>
             <input
               type="text"
               value={basics.title || ''}
               onChange={(e) => handleChange('title', e.target.value)}
-              placeholder="np. Specjalista ds. obsługi klienta, Księgowa, Elektryk"
+              placeholder={t('fields.title.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-content mb-2">Docelowe Stanowisko</label>
+            <label className="block text-xs font-bold text-content mb-2">{t('fields.targetRole.label')}</label>
             <input
               type="text"
               value={basics.targetRole || ''}
               onChange={(e) => handleChange('targetRole', e.target.value)}
-              placeholder="np. Kierownik zmiany, Junior Analityk, Magazynier"
+              placeholder={t('fields.targetRole.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-content mb-2">
-              Firma / Branża Docelowa
+              {t('fields.targetCompany.label')}
             </label>
             <input
               type="text"
               value={basics.targetCompany || ''}
               onChange={(e) => handleChange('targetCompany', e.target.value)}
-              placeholder="np. logistyka, bankowość, edukacja, konkretna firma"
+              placeholder={t('fields.targetCompany.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs font-bold text-content mb-2">Opis Oferty Pracy</label>
+            <label className="block text-xs font-bold text-content mb-2">{t('fields.targetJobDescription.label')}</label>
             <p className="text-xs text-content-secondary mb-3 leading-relaxed">
-              Jeśli masz ogłoszenie, wklej je tutaj. Jeśli nie, zostaw puste i uzupełnij resztę CV
-              normalnie.
+              {t('fields.targetJobDescription.helper')}
             </p>
             <textarea
               rows={5}
               value={basics.targetJobDescription || ''}
               onChange={(e) => handleChange('targetJobDescription', e.target.value)}
-              placeholder="Wymagania, obowiązki, nazwa stanowiska, słowa kluczowe z ogłoszenia..."
+              placeholder={t('fields.targetJobDescription.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-medium leading-relaxed text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
@@ -191,21 +195,21 @@ export const BasicsForm: React.FC = () => {
       </FormBlock>
 
       <FormBlock
-        eyebrow="Kontakt"
-        title="Jak rekruter ma się z Tobą skontaktować?"
-        description="Podaj tylko dane potrzebne rekruterowi. Lokalizacja w CV zostanie złożona z kraju, miasta i ewentualnej informacji o pracy zdalnej."
+        eyebrow={t('contactEyebrow')}
+        title={t('contactTitle')}
+        description={t('contactDescription')}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="flex items-center gap-2 text-xs font-bold text-content mb-2">
               <Mail className="h-4 w-4 text-content-muted" />
-              <span>Adres E-mail</span>
+              <span>{t('fields.email.label')}</span>
             </label>
             <input
               type="email"
               value={basics.email || ''}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="np. jan.kowalski@example.com"
+              placeholder={t('fields.email.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
@@ -213,42 +217,42 @@ export const BasicsForm: React.FC = () => {
           <div>
             <label className="flex items-center gap-2 text-xs font-bold text-content mb-2">
               <Phone className="h-4 w-4 text-content-muted" />
-              <span>Numer Telefonu</span>
+              <span>{t('fields.phone.label')}</span>
             </label>
             <input
               type="tel"
               value={basics.phone || ''}
               onChange={(e) => handleChange('phone', e.target.value)}
-              placeholder="np. +48 123 456 789"
+              placeholder={t('fields.phone.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-content mb-2">Kraj</label>
+            <label className="block text-xs font-bold text-content mb-2">{t('fields.country.label')}</label>
             <input
               type="text"
               value={basics.country || ''}
               onChange={(e) => handleLocationPartChange('country', e.target.value)}
-              placeholder="np. Polska"
+              placeholder={t('fields.country.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-content mb-2">Miasto</label>
+            <label className="block text-xs font-bold text-content mb-2">{t('fields.city.label')}</label>
             <input
               type="text"
               value={basics.city || ''}
               onChange={(e) => handleLocationPartChange('city', e.target.value)}
-              placeholder="np. Warszawa"
+              placeholder={t('fields.city.placeholder')}
               className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
             />
           </div>
 
           <div className="sm:col-span-2">
             <label className="block text-xs font-bold text-content mb-2">
-              Czy praca zdalna też wchodzi w grę?
+              {t('fields.remoteFriendly.label')}
             </label>
             <div className="rounded-2xl border border-border bg-surface px-4 py-3">
               <label className="flex cursor-pointer items-start gap-3">
@@ -259,8 +263,7 @@ export const BasicsForm: React.FC = () => {
                   className="mt-0.5 h-4 w-4 rounded border-border text-content focus:ring-0"
                 />
                 <span className="text-xs font-semibold leading-relaxed text-content-secondary">
-                  Jeśli zaznaczone, w wygenerowanym CV lokalizacja może zostać zapisana jako `miasto
-                  / Zdalnie`.
+                  {t('fields.remoteFriendly.helper')}
                 </span>
               </label>
             </div>
@@ -269,28 +272,28 @@ export const BasicsForm: React.FC = () => {
       </FormBlock>
 
       <FormBlock
-        eyebrow="Wizytówka"
-        title="Podsumowanie zawodowe"
-        description="Napisz 2-4 linie w trzeciej osobie: lata doświadczenia, specjalizacja, najmocniejsze osiągnięcia i dopasowanie do roli."
+        eyebrow={t('summaryEyebrow')}
+        title={t('summaryTitle')}
+        description={t('summaryDescription')}
       >
         <textarea
           rows={4}
           value={basics.summary || ''}
           onChange={(e) => handleChange('summary', e.target.value)}
-          placeholder="Specjalista ds. obsługi klienta z 4-letnim doświadczeniem w pracy z klientem biznesowym, reklamacjami i systemami CRM..."
+          placeholder={t('fields.summary.placeholder')}
           className="w-full rounded-2xl border border-border bg-surface p-5 text-sm font-medium leading-relaxed text-content placeholder-content-muted transition-colors focus:border-content focus:bg-surface focus:outline-none"
         />
       </FormBlock>
 
       <FormBlock
-        eyebrow="Online"
-        title="Profile i portfolio"
-        description="Sam wybierz portale. Inne linki mają sens dla grafika, inne dla programisty, sprzedawcy, twórcy lub naukowca."
+        eyebrow={t('linksEyebrow')}
+        title={t('linksTitle')}
+        description={t('linksDescription')}
       >
         <div className="space-y-3">
           {urls.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-border bg-surface px-4 py-5 text-center text-xs font-semibold text-content-muted">
-              Brak linków. Dodaj tylko te profile, które realnie wspierają aplikację.
+              {t('empty')}
             </div>
           ) : (
             urls.map(([key, value]) => (
@@ -307,7 +310,7 @@ export const BasicsForm: React.FC = () => {
                 >
                   {linkTypes.map((type) => (
                     <option key={type} value={type}>
-                      {type === 'other' ? 'własny typ' : type}
+                      {linkTypeLabel(type)}
                     </option>
                   ))}
                 </select>
@@ -315,14 +318,14 @@ export const BasicsForm: React.FC = () => {
                   type="text"
                   value={key}
                   onChange={(e) => handleUrlKeyChange(key, e.target.value)}
-                  placeholder="etykieta"
+                  placeholder={t('fields.customLabel.placeholder')}
                   className="rounded-xl border border-border bg-surface-secondary px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none sm:col-span-3"
                 />
                 <input
                   type="text"
                   value={value || ''}
                   onChange={(e) => handleUrlChange(key, e.target.value)}
-                  placeholder="adres profilu lub strony"
+                  placeholder={t('fields.url.placeholder')}
                   className="rounded-xl border border-border bg-surface-secondary px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none sm:col-span-5"
                 />
                 <button
@@ -341,7 +344,7 @@ export const BasicsForm: React.FC = () => {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-xs font-bold text-content transition-all hover:border-content active:scale-[0.98]"
           >
             <Plus className="h-4 w-4" />
-            Dodaj link
+            {t('addLink')}
           </button>
         </div>
       </FormBlock>

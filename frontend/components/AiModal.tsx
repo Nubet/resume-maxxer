@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useLocale } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import {
   Sparkles,
@@ -20,6 +21,8 @@ interface AiModalProps {
 }
 
 export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
+  const locale = useLocale();
+  const isPl = locale === 'pl';
   const { resumeData, updateResumeData } = useResume();
   const [activeTab, setActiveTab] = useState<'summary' | 'experience' | 'tailor'>('summary');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -38,18 +41,122 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
     match_percentage: number;
   } | null>(null);
 
+  const text = isPl
+    ? {
+        targetRoleRequired: 'Wpisz docelowe stanowisko, np. Senior Frontend Developer',
+        summaryFallback: 'nowoczesnych technologiach',
+        generatedSummary: (role: string, skills: string) =>
+          `Doświadczony ${role} z udokumentowanymi sukcesami w projektowaniu i wdrażaniu skalowalnych rozwiązań. Specjalizuję się w ${skills}. Skupiony na optymalizacji wydajności, czystości architektury i dostarczaniu realnej wartości biznesowej w zwinnym środowisku.`,
+        summaryApplied: 'Zastosowano nowe podsumowanie w CV!',
+        experienceRequired: 'Dodaj najpierw stanowisko pracy w sekcji Doświadczenie!',
+        improvedExperience: (company: string, highlights: string) =>
+          `• Zwiększono wydajność kluczowych modułów o 35% poprzez optymalizację algorytmów i redukcję długu technologicznego.\n• Wdrożono nowoczesne praktyki CI/CD w projekcie "${company}", co skróciło czas wdrożenia nowych funkcji o połowę.\n• ${highlights} (zoptymalizowano pod kątem rezultatu biznesowego i słów kluczowych ATS).`,
+        experienceApplied: 'Zastosowano zoptymalizowane osiągnięcia w CV!',
+        jobDescriptionRequired: 'Wklej pełną treść ogłoszenia o pracę (minimum 50 znaków)!',
+        fallbackMissing: ['KOMUNIKATYWNOŚĆ', 'ZARZĄDZANIE CZASEM', 'PROAKTYWNOŚĆ'],
+        fallbackPresent: ['PRACA W ZESPOLE', 'ROZWIĄZYWANIE PROBLEMÓW'],
+        suggestions: [
+          'Wpleć brakujące słowa kluczowe w sekcji Umiejętności lub w opisie ostatniego projektu.',
+          "Upewnij się, że używasz dokładnych nazw technologii (np. 'TypeScript' zamiast 'TS'), aby przejść automatyczne filtry ATS.",
+          'Dodaj w podsumowaniu zawodowym wzmiankę o kluczowym wymogu z ogłoszenia.',
+        ],
+        title: 'Asystent CV AI Studio',
+        subtitle: 'Inteligentna pomoc i analiza słów kluczowych',
+        tabs: {
+          summary: 'Generator podsumowania',
+          experience: 'Optymalizator osiągnięć',
+          tailor: 'Skaner ATS (pod ofertę)',
+        },
+        summaryRoleLabel: 'Twoje docelowe stanowisko / rola:',
+        summaryRolePlaceholder: 'np. Senior Product Designer, Tech Lead, Marketing Manager',
+        generatedSummaryLabel: 'Wygenerowana propozycja (zgodna z zasadami ATS):',
+        ready: 'Gotowe do wklejenia w CV!',
+        applySummary: 'Zastosuj w moim CV',
+        generating: 'Generowanie...',
+        generateSummary: 'Generuj profesjonalne podsumowanie',
+        experienceSelectLabel: 'Wybierz pozycję zawodową do zoptymalizowania:',
+        companyFallback: 'Firma',
+        noPositions: 'Brak dodanych stanowisk',
+        improvedLabel: 'Zoptymalizowane osiągnięcia (język korzyści i liczby):',
+        replaceDescription: 'Zastąp stary opis',
+        optimizing: 'Optymalizowanie...',
+        optimizeExperience: 'Przekształć w mocne osiągnięcia (Action Verbs)',
+        jobDescriptionLabel: 'Wklej treść ogłoszenia o pracę (Job Description):',
+        jobDescriptionPlaceholder: 'Wklej tutaj wymagania z oferty pracy z LinkedIn, Pracuj.pl czy JustJoinIT...',
+        gapTitle: 'Dopasowanie słów kluczowych',
+        gapSubtitle: 'Analiza porównawcza z ofertą pracy',
+        presentTitle: 'Wykryte w Twoim CV:',
+        presentEmpty: 'Brak dopasowań bezpośrednich',
+        missingTitle: 'Brakujące w CV (dodaj je!):',
+        missingEmpty: 'Brak! Masz wszystkie słowa.',
+        recommendations: 'Rekomendacje dla tego ogłoszenia:',
+        analyzingJob: 'Analizowanie ogłoszenia...',
+        analyzeJob: 'Przeanalizuj luki w słowach kluczowych',
+      }
+    : {
+        targetRoleRequired: 'Enter a target role, for example Senior Frontend Developer',
+        summaryFallback: 'modern technologies',
+        generatedSummary: (role: string, skills: string) =>
+          `Experienced ${role} with a proven track record of designing and shipping scalable solutions. Specialized in ${skills}. Focused on performance, clean architecture, and delivering measurable business value in fast-moving teams.`,
+        summaryApplied: 'Applied the new summary to the resume.',
+        experienceRequired: 'Add at least one role in the Experience section first.',
+        improvedExperience: (company: string, highlights: string) =>
+          `• Improved performance of core modules by 35% through algorithm optimization and reduction of technical debt.\n• Introduced modern CI/CD practices in the "${company}" project, cutting feature delivery time by half.\n• ${highlights} (rewritten to emphasize business outcomes and ATS keywords).`,
+        experienceApplied: 'Applied the optimized achievements to the resume.',
+        jobDescriptionRequired: 'Paste the full job description first (minimum 50 characters).',
+        fallbackMissing: ['COMMUNICATION', 'TIME MANAGEMENT', 'PROACTIVITY'],
+        fallbackPresent: ['TEAMWORK', 'PROBLEM SOLVING'],
+        suggestions: [
+          'Weave missing keywords into the Skills section or the description of your latest project.',
+          "Use exact technology names (for example 'TypeScript' instead of 'TS') to pass automated ATS filters.",
+          'Mention a key requirement from the job post in your professional summary.',
+        ],
+        title: 'AI Resume Assistant',
+        subtitle: 'Smart help and keyword analysis',
+        tabs: {
+          summary: 'Summary generator',
+          experience: 'Achievement optimizer',
+          tailor: 'ATS scanner (for the job)',
+        },
+        summaryRoleLabel: 'Target role:',
+        summaryRolePlaceholder: 'e.g. Senior Product Designer, Tech Lead, Marketing Manager',
+        generatedSummaryLabel: 'Generated draft (ATS-friendly):',
+        ready: 'Ready to paste into your resume.',
+        applySummary: 'Apply to my resume',
+        generating: 'Generating...',
+        generateSummary: 'Generate a professional summary',
+        experienceSelectLabel: 'Choose a role to optimize:',
+        companyFallback: 'Company',
+        noPositions: 'No roles added yet',
+        improvedLabel: 'Optimized achievements (benefit-driven, with numbers):',
+        replaceDescription: 'Replace old description',
+        optimizing: 'Optimizing...',
+        optimizeExperience: 'Turn this into strong achievements (Action Verbs)',
+        jobDescriptionLabel: 'Paste the job description:',
+        jobDescriptionPlaceholder: 'Paste requirements from LinkedIn, Indeed, or another job board here...',
+        gapTitle: 'Keyword match',
+        gapSubtitle: 'Comparison against the job posting',
+        presentTitle: 'Detected in your resume:',
+        presentEmpty: 'No direct matches found',
+        missingTitle: 'Missing from your resume (add these):',
+        missingEmpty: 'None. You already have all of them.',
+        recommendations: 'Recommendations for this posting:',
+        analyzingJob: 'Analyzing job post...',
+        analyzeJob: 'Analyze keyword gaps',
+      };
+
   if (!isOpen) return null;
 
   const handleGenerateSummary = () => {
     if (!targetRole) {
-      alert('Wpisz docelowe stanowisko, np. Senior Frontend Developer');
+      alert(text.targetRoleRequired);
       return;
     }
     setIsProcessing(true);
     setTimeout(() => {
       const allSkills = resumeData?.skills?.flatMap((group) => group.keywords) || [];
-      const skillsText = allSkills.slice(0, 5).join(', ') || 'nowoczesnych technologiach';
-      const sample = `Doświadczony ${targetRole} z udokumentowanymi sukcesami w projektowaniu i wdrażaniu skalowalnych rozwiązań. Specjalizuję się w ${skillsText}. Skupiony na optymalizacji wydajności, czystości architektury i dostarczaniu realnej wartości biznesowej w zwinnym środowisku.`;
+      const skillsText = allSkills.slice(0, 5).join(', ') || text.summaryFallback;
+      const sample = text.generatedSummary(targetRole, skillsText);
       setGeneratedSummary(sample);
       setIsProcessing(false);
     }, 1200);
@@ -64,20 +171,20 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
         summary: generatedSummary,
       },
     }));
-    alert('Zastosowano nowe podsumowanie w CV!');
+    alert(text.summaryApplied);
     onClose();
   };
 
   const handleImproveExperience = () => {
     const exp = resumeData?.experience?.[selectedExpIndex];
     if (!exp) {
-      alert('Dodaj najpierw stanowisko pracy w sekcji Doświadczenie!');
+      alert(text.experienceRequired);
       return;
     }
     setIsProcessing(true);
     setTimeout(() => {
       const currentHighlights = exp.highlights?.join(' ') || exp.position;
-      const improved = `• Zwiększono wydajność kluczowych modułów o 35% poprzez optymalizację algorytmów i redukcję długu technologicznego.\n• Wdrożono nowoczesne praktyki CI/CD w projekcie "${exp.company}", co skróciło czas wdrożenia nowych funkcji o połowę.\n• ${currentHighlights} (zoptymalizowano pod kątem rezultatu biznesowego i słów kluczowych ATS).`;
+      const improved = text.improvedExperience(exp.company, currentHighlights);
       setImprovedExp(improved);
       setIsProcessing(false);
     }, 1400);
@@ -99,13 +206,13 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
       }
       return { ...prev, experience: updatedExp };
     });
-    alert('Zastosowano zoptymalizowane osiągnięcia w CV!');
+    alert(text.experienceApplied);
     onClose();
   };
 
   const handleAnalyzeJob = () => {
     if (!jobDescription || jobDescription.length < 50) {
-      alert('Wklej pełną treść ogłoszenia o pracę (minimum 50 znaków)!');
+      alert(text.jobDescriptionRequired);
       return;
     }
     setIsProcessing(true);
@@ -145,10 +252,10 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
         }
       });
 
-      if (missing.length === 0 && present.length === 0) {
-        missing.push('KOMUNIKATYWNOŚĆ', 'ZARZĄDZANIE CZASEM', 'PROAKTYWNOŚĆ');
-        present.push('PRACA W ZESPOLE', 'ROZWIĄZYWANIE PROBLEMÓW');
-      }
+        if (missing.length === 0 && present.length === 0) {
+        missing.push(...text.fallbackMissing);
+        present.push(...text.fallbackPresent);
+        }
 
       const totalFound = missing.length + present.length;
       const matchPct = totalFound > 0 ? Math.round((present.length / totalFound) * 100) : 70;
@@ -156,11 +263,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
       setGapReport({
         missing_keywords: missing,
         present_keywords: present,
-        suggestions: [
-          'Wpleć brakujące słowa kluczowe w sekcji Umiejętności lub w opisie ostatniego projektu.',
-          "Upewnij się, że używasz dokładnych nazw technologii (np. 'TypeScript' zamiast 'TS'), aby przejść automatyczne filtry ATS.",
-          'Dodaj w podsumowaniu zawodowym wzmiankę o kluczowym wymogu z ogłoszenia.',
-        ],
+          suggestions: text.suggestions,
         match_percentage: matchPct,
       });
       setIsProcessing(false);
@@ -176,9 +279,9 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
               <Sparkles className="h-5 w-5 text-amber-600" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-content">Asystent CV AI Studio</h3>
+              <h3 className="text-base font-bold text-content">{text.title}</h3>
               <p className="text-xs text-content-secondary">
-                Inteligentna pomoc i analiza słów kluczowych
+                {text.subtitle}
               </p>
             </div>
           </div>
@@ -200,7 +303,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             }`}
           >
             <Wand2 className="h-3.5 w-3.5" />
-            <span>Generator Podsumowania</span>
+            <span>{text.tabs.summary}</span>
           </button>
 
           <button
@@ -212,7 +315,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             }`}
           >
             <FileText className="h-3.5 w-3.5" />
-            <span>Optymalizator Osiągnięć</span>
+            <span>{text.tabs.experience}</span>
           </button>
 
           <button
@@ -224,7 +327,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             }`}
           >
             <Lightbulb className="h-3.5 w-3.5 text-amber-500" />
-            <span>Skaner ATS (Pod Ofertę)</span>
+            <span>{text.tabs.tailor}</span>
           </button>
         </div>
 
@@ -233,13 +336,13 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             <div className="space-y-4 animate-fade-in">
               <div>
                 <label className="block text-xs font-bold text-content mb-1.5">
-                  Twoje docelowe stanowisko / rola:
+                  {text.summaryRoleLabel}
                 </label>
                 <input
                   type="text"
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
-                  placeholder="np. Senior Product Designer, Tech Lead, Marketing Manager"
+                  placeholder={text.summaryRolePlaceholder}
                   className="w-full rounded-2xl border border-border bg-surface-secondary px-4 py-3 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none"
                 />
               </div>
@@ -247,7 +350,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
               {generatedSummary && (
                 <div className="space-y-2 pt-2 animate-fade-in">
                   <label className="block text-xs font-bold text-content">
-                    Wygenerowana propozycja (zgodna z zasadami ATS):
+                    {text.generatedSummaryLabel}
                   </label>
                   <textarea
                     rows={4}
@@ -258,13 +361,13 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                   <div className="flex items-center justify-between pt-2">
                     <div className="rounded-2xl border border-border bg-surface-tertiary p-4 text-xs text-content font-semibold flex items-center gap-2.5">
                       <CheckCircle2 className="h-4 w-4 text-content shrink-0" />
-                      <span>Gotowe do wklejenia w CV!</span>
+                       <span>{text.ready}</span>
                     </div>
                     <button
                       onClick={handleApplySummary}
                       className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse shadow-md hover:bg-neutral-800 disabled:opacity-50 transition-all active:scale-[0.98]"
                     >
-                      <span>Zastosuj w moim CV</span>
+                       <span>{text.applySummary}</span>
                       <ArrowRight className="h-4 w-4" />
                     </button>
                   </div>
@@ -282,7 +385,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                   <Wand2 className="h-4 w-4" />
                 )}
                 <span>
-                  {isProcessing ? 'Generowanie...' : 'Generuj profesjonalne podsumowanie'}
+                    {isProcessing ? text.generating : text.generateSummary}
                 </span>
               </button>
             </div>
@@ -292,7 +395,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             <div className="space-y-4 animate-fade-in">
               <div>
                 <label className="block text-xs font-bold text-content mb-1.5">
-                  Wybierz pozycję zawodową do zoptymalizowania:
+                  {text.experienceSelectLabel}
                 </label>
                 <select
                   value={selectedExpIndex}
@@ -301,11 +404,11 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                 >
                   {(resumeData?.experience || []).map((exp, idx) => (
                     <option key={idx} value={idx}>
-                      {exp.position} w {exp.company || 'Firma'}
+                      {exp.position} {isPl ? 'w' : 'at'} {exp.company || text.companyFallback}
                     </option>
                   ))}
                   {(resumeData?.experience || []).length === 0 && (
-                    <option value={0}>Brak dodanych stanowisk</option>
+                     <option value={0}>{text.noPositions}</option>
                   )}
                 </select>
               </div>
@@ -313,7 +416,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
               {improvedExp && (
                 <div className="space-y-2 pt-2 animate-fade-in">
                   <label className="block text-xs font-bold text-content">
-                    Zoptymalizowane osiągnięcia (język korzyści i liczby):
+                    {text.improvedLabel}
                   </label>
                   <textarea
                     rows={5}
@@ -326,7 +429,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                       onClick={handleApplyExperience}
                       className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse shadow-md hover:bg-neutral-800 disabled:opacity-50 transition-all active:scale-[0.98]"
                     >
-                      <span>Zastąp stary opis</span>
+                      <span>{text.replaceDescription}</span>
                       <ArrowRight className="h-4 w-4" />
                     </button>
                   </div>
@@ -345,8 +448,8 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                 )}
                 <span>
                   {isProcessing
-                    ? 'Optymalizowanie...'
-                    : 'Przekształć w mocne osiągnięcia (Action Verbs)'}
+                      ? text.optimizing
+                      : text.optimizeExperience}
                 </span>
               </button>
             </div>
@@ -356,13 +459,13 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
             <div className="space-y-4 animate-fade-in">
               <div>
                 <label className="block text-xs font-bold text-content mb-1.5">
-                  Wklej treść ogłoszenia o pracę (Job Description):
+                  {text.jobDescriptionLabel}
                 </label>
                 <textarea
                   rows={4}
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
-                  placeholder="Wklej tutaj wymagania z oferty pracy z LinkedIn, Pracuj.pl czy JustJoinIT..."
+                  placeholder={text.jobDescriptionPlaceholder}
                   className="w-full rounded-2xl border border-border bg-surface-secondary p-4 text-xs text-content placeholder-content-muted focus:border-content focus:outline-none leading-relaxed font-mono shadow-inner"
                 />
               </div>
@@ -372,10 +475,10 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                   <div className="flex items-center justify-between border-b border-border pb-3.5">
                     <div>
                       <h4 className="text-sm font-bold text-content">
-                        Dopasowanie Słów Kluczowych
+                        {text.gapTitle}
                       </h4>
                       <p className="text-xs text-content-secondary">
-                        Analiza porównawcza z ofertą pracy
+                        {text.gapSubtitle}
                       </p>
                     </div>
                     <span
@@ -393,7 +496,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                     <div className="rounded-2xl bg-surface border border-border p-4 space-y-2.5 shadow-sm">
                       <div className="font-bold text-content flex items-center gap-1.5">
                         <CheckCircle2 className="h-4 w-4 text-content" />
-                        <span>Wykryte w Twoim CV:</span>
+                        <span>{text.presentTitle}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {gapReport.present_keywords.length > 0 ? (
@@ -407,7 +510,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                           ))
                         ) : (
                           <span className="text-content-muted text-[11px]">
-                            Brak dopasowań bezpośrednich
+                            {text.presentEmpty}
                           </span>
                         )}
                       </div>
@@ -416,7 +519,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                     <div className="rounded-2xl bg-surface border border-border p-4 space-y-2.5 shadow-sm">
                       <div className="font-bold text-content-secondary flex items-center gap-1.5">
                         <AlertCircle className="h-4 w-4 text-content-secondary" />
-                        <span>Brakujące w CV (Dodaj je!):</span>
+                        <span>{text.missingTitle}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {gapReport.missing_keywords.length > 0 ? (
@@ -430,7 +533,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                           ))
                         ) : (
                           <span className="text-content-muted text-[11px]">
-                            Brak! Masz wszystkie słowa.
+                            {text.missingEmpty}
                           </span>
                         )}
                       </div>
@@ -440,7 +543,7 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                   <div className="rounded-2xl bg-surface border border-border p-4 space-y-2.5 shadow-sm">
                     <div className="font-bold text-content text-xs flex items-center gap-1.5">
                       <Lightbulb className="h-4 w-4 text-content" />
-                      <span>Rekomendacje dla tego ogłoszenia:</span>
+                        <span>{text.recommendations}</span>
                     </div>
                     <ul className="space-y-1.5 text-xs text-content-secondary">
                       {gapReport.suggestions.map((sug, idx) => (
@@ -466,8 +569,8 @@ export const AiModal: React.FC<AiModalProps> = ({ isOpen, onClose }) => {
                 )}
                 <span>
                   {isProcessing
-                    ? 'Analizowanie ogłoszenia...'
-                    : 'Przeanalizuj luki w słowach kluczowych'}
+                    ? text.analyzingJob
+                    : text.analyzeJob}
                 </span>
               </button>
             </div>

@@ -1,23 +1,26 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Cpu, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import { useResume } from '@/context/ResumeContext';
 import { TEMPLATE_FAMILIES } from '@/lib/templates';
+import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 
 interface HeaderProps {
   onOpenAiModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
+  const t = useTranslations('Header');
   const { isGenerating, triggerRefresh, templateId, setTemplateId } = useResume();
 
   const templates = TEMPLATE_FAMILIES.filter((family) => family.available).flatMap((family) =>
-    family.variants.map((variant) => ({
-      id: variant.id,
-      name: `${family.name} ${variant.language === 'pl' ? 'PL' : 'EN'}`,
-    }))
+      family.variants.map((variant) => ({
+        id: variant.id,
+        name: `${family.name} ${variant.language.toUpperCase()}`,
+      }))
   );
 
   return (
@@ -31,8 +34,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
         </Link>
 
         <div className="flex items-center space-x-3">
+          <LocaleSwitcher />
+
           <div className="hidden sm:flex items-center space-x-2 rounded-full border border-border bg-surface-secondary px-4 py-1.5 text-xs">
-            <span className="font-bold text-content-muted">Szablon:</span>
+            <span className="font-bold text-content-muted">{t('template')}</span>
             <select
               value={templateId}
               onChange={(e) => setTemplateId(e.target.value)}
@@ -56,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
             ) : (
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
             )}
-            <span>{isGenerating ? 'Kompilacja...' : 'Odśwież PDF'}</span>
+            <span>{isGenerating ? t('compiling') : t('refreshPdf')}</span>
           </button>
 
           {onOpenAiModal && (
@@ -65,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAiModal }) => {
               className="inline-flex items-center gap-2 rounded-full bg-content px-6 py-2 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98]"
             >
               <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-              <span>AI Asystent</span>
+              <span>{t('aiAssistant')}</span>
             </button>
           )}
         </div>

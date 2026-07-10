@@ -1,26 +1,22 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { Globe, Award, Plus, Trash2 } from 'lucide-react';
 import { FormBlock } from '@/components/editor/FormBlock';
 
 export const ExtraForm: React.FC = () => {
+  const t = useTranslations('Editor.Extra');
   const { resumeData, updateResumeData } = useResume();
   const languages = resumeData?.languages || [];
   const certifications = resumeData?.certifications || [];
-  const fluencyLevels = [
-    'Elementary proficiency',
-    'Limited working proficiency',
-    'Professional working proficiency',
-    'Full professional proficiency',
-    'Native or bilingual proficiency',
-  ];
+  const fluencyLevels = t.raw('fluencyLevels') as string[];
   const certificationStatuses = [
-    { value: 'Bezterminowy', label: 'Bezterminowy' },
-    { value: 'Terminowy', label: 'Terminowy' },
-    { value: 'Wygasły', label: 'Wygasły' },
-    { value: 'Do odnowienia', label: 'Do odnowienia' },
+    { value: 'Bezterminowy', label: t('statuses.permanent') },
+    { value: 'Terminowy', label: t('statuses.expiring') },
+    { value: 'Wygasły', label: t('statuses.expired') },
+    { value: 'Do odnowienia', label: t('statuses.renewal') },
   ];
 
   const toDateInputValue = (value?: string) => {
@@ -98,16 +94,16 @@ export const ExtraForm: React.FC = () => {
   return (
     <div className="space-y-5 animate-fade-in">
       <FormBlock
-        eyebrow="Na koniec"
-        title="Dodaj tylko informacje, które wzmacniają aplikację"
-        description="Języki, licencje i certyfikaty są mocne wtedy, gdy są istotne dla roli albo potwierdzają konkretną umiejętność."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        description={t('description')}
       >
         <div className="grid grid-cols-1 gap-3 text-xs font-semibold text-content-secondary sm:grid-cols-2">
           <div className="rounded-2xl border border-border bg-surface px-4 py-3">
-            Języki wpisuj standardowym poziomem, bez gwiazdek i pasków.
+            {t('tips.languages')}
           </div>
           <div className="rounded-2xl border border-border bg-surface px-4 py-3">
-            Certyfikaty dodawaj z wystawcą, datą i statusem ważności.
+            {t('tips.certifications')}
           </div>
         </div>
       </FormBlock>
@@ -116,23 +112,22 @@ export const ExtraForm: React.FC = () => {
         <div className="flex items-center justify-between border-b border-border pb-5">
           <div className="flex items-center space-x-2.5">
             <Globe className="h-5 w-5 text-content" />
-            <h3 className="text-xl font-bold tracking-tight text-content">Języki Obce</h3>
+            <h3 className="text-xl font-bold tracking-tight text-content">{t('languages.title')}</h3>
           </div>
           <button
             onClick={handleAddLanguage}
             className="inline-flex items-center gap-2 rounded-full bg-content px-5 py-2 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
           >
             <Plus className="h-4 w-4" />
-            <span>Dodaj Język</span>
+            <span>{t('languages.add')}</span>
           </button>
         </div>
 
         {languages.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border p-8 text-center space-y-2 bg-surface-secondary">
-            <p className="text-xs font-bold text-content">Brak dodanych języków</p>
+            <p className="text-xs font-bold text-content">{t('languages.emptyTitle')}</p>
             <p className="text-[11px] text-content-muted">
-              Dodaj tylko języki, które są istotne dla pracy albo faktycznie potrafisz wykorzystać
-              zawodowo.
+              {t('languages.emptyDescription')}
             </p>
           </div>
         ) : (
@@ -147,7 +142,7 @@ export const ExtraForm: React.FC = () => {
                     type="text"
                     value={lang.language || ''}
                     onChange={(e) => handleChangeLanguage(idx, 'language', e.target.value)}
-                    placeholder="Język (np. Angielski)"
+                    placeholder={t('languages.fields.language.placeholder')}
                     className="rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                   />
                   <select
@@ -155,7 +150,7 @@ export const ExtraForm: React.FC = () => {
                     onChange={(e) => handleChangeLanguage(idx, 'fluency', e.target.value)}
                     className="rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                   >
-                    <option value="">Wybierz poziom</option>
+                    <option value="">{t('languages.fields.fluency.placeholder')}</option>
                     {fluencyLevels.map((level) => (
                       <option key={level} value={level}>
                         {level}
@@ -168,14 +163,14 @@ export const ExtraForm: React.FC = () => {
                     type="text"
                     value={lang.certificate || ''}
                     onChange={(e) => handleChangeLanguage(idx, 'certificate', e.target.value)}
-                    placeholder="Certyfikat / test, jeśli istotny"
+                    placeholder={t('languages.fields.certificate.placeholder')}
                     className="rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                   />
                   <input
                     type="text"
                     value={lang.url || ''}
                     onChange={(e) => handleChangeLanguage(idx, 'url', e.target.value)}
-                    placeholder="Link do wyniku lub certyfikatu"
+                    placeholder={t('languages.fields.url.placeholder')}
                     className="rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                   />
                 </div>
@@ -198,7 +193,7 @@ export const ExtraForm: React.FC = () => {
           <div className="flex items-center space-x-2.5">
             <Award className="h-5 w-5 text-content" />
             <h3 className="text-xl font-bold tracking-tight text-content">
-              Certyfikaty, Licencje i Nagrody
+              {t('certifications.title')}
             </h3>
           </div>
           <button
@@ -206,15 +201,15 @@ export const ExtraForm: React.FC = () => {
             className="inline-flex items-center gap-2 rounded-full bg-content px-5 py-2 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all active:scale-[0.98]"
           >
             <Plus className="h-4 w-4" />
-            <span>Dodaj Certyfikat</span>
+            <span>{t('certifications.add')}</span>
           </button>
         </div>
 
         {certifications.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border p-8 text-center space-y-2 bg-surface-secondary">
-            <p className="text-xs font-bold text-content">Brak dodanych certyfikatów</p>
+            <p className="text-xs font-bold text-content">{t('certifications.emptyTitle')}</p>
             <p className="text-[11px] text-content-muted">
-              Dodaj certyfikaty, licencje, szkolenia i nagrody istotne dla docelowej roli.
+              {t('certifications.emptyDescription')}
             </p>
           </div>
         ) : (
@@ -226,7 +221,7 @@ export const ExtraForm: React.FC = () => {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold uppercase tracking-wider text-content-muted">
-                    Certyfikat #{idx + 1}
+                      {t('certifications.itemLabel', { index: idx + 1 })}
                   </span>
                   <button
                     onClick={() => handleRemoveCert(idx)}
@@ -239,20 +234,20 @@ export const ExtraForm: React.FC = () => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <div className="sm:col-span-2">
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Nazwa Certyfikatu / Nagrody
+                      {t('certifications.fields.name.label')}
                     </label>
                     <input
                       type="text"
                       value={cert.name || ''}
                       onChange={(e) => handleChangeCert(idx, 'name', e.target.value)}
-                      placeholder="np. AWS Certified Solutions Architect - Associate"
+                        placeholder={t('certifications.fields.name.placeholder')}
                       className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                     />
                   </div>
 
                   <div>
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Data Uzyskania
+                      {t('certifications.fields.date.label')}
                     </label>
                     <input
                       type="date"
@@ -263,7 +258,7 @@ export const ExtraForm: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-content mb-1">Status</label>
+                    <label className="block text-[11px] font-bold text-content mb-1">{t('certifications.fields.status.label')}</label>
                     <select
                       value={cert.status || 'Bezterminowy'}
                       onChange={(e) => handleChangeCert(idx, 'status', e.target.value)}
@@ -276,15 +271,14 @@ export const ExtraForm: React.FC = () => {
                       ))}
                     </select>
                     <p className="mt-1 text-[10px] text-content-muted">
-                      Większość certyfikatów jest bezterminowa. Datę wygaśnięcia pokazujemy tylko
-                      dla certyfikatów terminowych.
+                      {t('certifications.fields.status.helper')}
                     </p>
                   </div>
 
                   {certificationNeedsExpiry(cert.status) ? (
                     <div>
                       <label className="block text-[11px] font-bold text-content mb-1">
-                        Data wygaśnięcia
+                        {t('certifications.fields.expires.label')}
                       </label>
                       <input
                         type="date"
@@ -297,39 +291,39 @@ export const ExtraForm: React.FC = () => {
 
                   <div className="sm:col-span-3">
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Wystawca / Organizacja
+                      {t('certifications.fields.issuer.label')}
                     </label>
                     <input
                       type="text"
                       value={cert.issuer || ''}
                       onChange={(e) => handleChangeCert(idx, 'issuer', e.target.value)}
-                      placeholder="np. Amazon Web Services (AWS) / Scrum.org"
+                      placeholder={t('certifications.fields.issuer.placeholder')}
                       className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                     />
                   </div>
 
                   <div className="sm:col-span-3">
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Link do Certyfikatu
+                      {t('certifications.fields.url.label')}
                     </label>
                     <input
                       type="text"
                       value={cert.url || ''}
                       onChange={(e) => handleChangeCert(idx, 'url', e.target.value)}
-                      placeholder="np. credential.net/..."
+                      placeholder={t('certifications.fields.url.placeholder')}
                       className="w-full rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                     />
                   </div>
 
                   <div className="sm:col-span-3">
                     <label className="block text-[11px] font-bold text-content mb-1">
-                      Zakres / Umiejętności Potwierdzone (opcjonalnie)
+                      {t('certifications.fields.details.label')}
                     </label>
                     <textarea
                       rows={3}
                       value={cert.details || ''}
                       onChange={(e) => handleChangeCert(idx, 'details', e.target.value)}
-                      placeholder="np. audyt procesów, podstawy księgowości, zarządzanie projektami, obsługa konkretnego systemu"
+                      placeholder={t('certifications.fields.details.placeholder')}
                       className="w-full rounded-xl border border-border bg-surface p-3 text-xs font-semibold text-content placeholder-content-muted focus:border-content focus:outline-none"
                     />
                   </div>

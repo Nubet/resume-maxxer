@@ -1,0 +1,579 @@
+{
+  "Metadata": {
+    "title": "Resume Maxxer | Kreator CV przyjazny ATS",
+    "description": "Twórz dopracowane CV w nowoczesnym edytorze client-side z PDF-em generowanym przez Typst, układami bezpiecznymi dla ATS i szybkim przełączaniem szablonów."
+  },
+  "LocaleSwitcher": {
+    "label": "Wybierz język",
+    "locales": {
+      "pl": "PL",
+      "en": "EN"
+    }
+  },
+  "Header": {
+    "template": "Szablon:",
+    "compiling": "Kompilacja...",
+    "refreshPdf": "Odśwież PDF",
+    "aiAssistant": "AI Asystent"
+  },
+  "Footer": {
+    "sections": {
+      "product": "Produkt",
+      "aboutProject": "O projekcie",
+      "legal": "Prywatność i prawo"
+    },
+    "description": "Stwórz profesjonalne CV, które przyciąga uwagę rekruterów i przechodzi przez systemy ATS bez problemów z formatowaniem.",
+    "home": "Strona główna",
+    "builder": "Kreator CV",
+    "about": "O nas",
+    "faq": "FAQ",
+    "privacy": "Polityka prywatności",
+    "terms": "Regulamin serwisu",
+    "copyright": "Wszelkie prawa zastrzeżone."
+  },
+  "SubpageLayout": {
+    "backHome": "Powrót na stronę główną",
+    "openBuilder": "Otwórz kreator CV"
+  },
+  "DashboardNavbar": {
+    "newResumeTitle": "Nowe profesjonalne CV",
+    "editorSubtitle": "Wypełnij sekcje po lewej stronie, aby wygenerować PDF.",
+    "templatesTitle": "Galeria szablonów",
+    "templatesSubtitle": "Wybierz układ i styl swojego CV.",
+    "atsTitle": "Audyt ATS i AI",
+    "atsSubtitle": "Sprawdź czytelność CV i zoptymalizuj treść.",
+    "historyTitle": "Historia zapisanych CV",
+    "historySubtitle": "Zarządzaj wersjami dokumentu i wyeksportowanym JSON-em.",
+    "editorOnly": "Tylko edytor",
+    "editor": "Edytor",
+    "splitView": "Widok podzielony",
+    "previewOnly": "Tylko podgląd PDF",
+    "pdfPreview": "Podgląd PDF",
+    "aiAssistant": "AI Asystent",
+    "backToEditing": "Wróć do edycji CV",
+    "compiling": "Kompilacja...",
+    "downloadPdf": "Pobierz PDF"
+  },
+  "DashboardSidebar": {
+    "backHome": "Powrót na stronę główną",
+    "navigation": "Nawigacja",
+    "resumeSections": "Sekcje CV",
+    "template": "Szablon:",
+    "importTitle": "Wczytaj z pliku",
+    "import": "Wczytaj",
+    "exportTitle": "Zapisz do pliku",
+    "export": "Zapisz",
+    "modules": {
+      "editor": "Edytor CV",
+      "templates": "Galeria szablonów",
+      "ats": "Audyt ATS i AI",
+      "history": "Historia wersji"
+    },
+    "steps": {
+      "basics": "Profil i kontakt",
+      "experience": "Doświadczenie",
+      "education": "Edukacja",
+      "skills": "Umiejętności",
+      "projects": "Projekty",
+      "extra": "Języki i dodatki"
+    },
+    "alerts": {
+      "importSuccess": "Pomyślnie wczytano dane CV.",
+      "importError": "Błąd wczytywania: {message}"
+    }
+  },
+  "Pages": {
+    "Faq": {
+      "title": "Często zadawane pytania",
+      "subtitle": "Jak działa platforma, jak obsługiwane są dane i dlaczego Typst poprawia jakość dokumentu.",
+      "items": [
+        {
+          "num": "01",
+          "q": "Dlaczego ten kreator CV jest lepszy od typowych narzędzi graficznych i edytorów tekstu?",
+          "a": "Tradycyjne edytory często psują kolumny, odstępy i strukturę, zwłaszcza po otwarciu pliku gdzie indziej albo podczas odczytu przez ATS. Resume Maxxer generuje czysty PDF, który zachowuje układ i pozostaje czytelny dla systemów."
+        },
+        {
+          "num": "02",
+          "q": "Co daje oddzielenie treści CV od prezentacji?",
+          "a": "Historię zawodową wpisujesz raz. Później możesz dowolnie zmieniać szablon, a treść automatycznie dopasuje się do marginesów, hierarchii i rytmu sekcji."
+        },
+        {
+          "num": "03",
+          "q": "Czy trzeba płacić za pobranie wygenerowanego PDF-a?",
+          "a": "Nie. Kreator jest darmowy w podstawowym zakresie. Nie wymaga obowiązkowego konta, karty płatniczej ani rejestracji do głównego workflow."
+        },
+        {
+          "num": "04",
+          "q": "W jaki sposób Typst poprawia czytelność dla ATS?",
+          "a": "Typst to nowoczesny silnik składu, który produkuje czysty strumień tekstu i wektorów zamiast głęboko zagnieżdżonego układu. To pomaga zachować strukturę potrzebną systemom ATS i spójny wygląd dokumentu."
+        }
+      ],
+      "contactTitle": "Masz pytania techniczne albo pomysł na nowy szablon?",
+      "contactDescription": "Opinie od inżynierów, projektantów i power userów są zawsze mile widziane.",
+      "contactCta": "Napisz do zespołu"
+    },
+    "Authors": {
+      "title": "O nas",
+      "subtitle": "Poznaj misję stojącą za kreatorem CV skupionym na czytelności, zgodności z ATS i praktycznych efektach.",
+      "manifestLabel": "Manifest",
+      "manifestTitle": "Dlaczego powstał Resume Maxxer?",
+      "manifestBody1": "Większość kreatorów CV nadal opiera się na dekoracyjnych układach z sidebarami, tabelami i efektami wizualnymi. Na ekranie potrafią wyglądać dobrze, ale w realnych procesach rekrutacyjnych często przegrywają z wymaganiami ATS dotyczącymi czystej struktury i przewidywalnego przepływu tekstu.",
+      "manifestBody2": "Resume Maxxer powstał jako praktyczna odpowiedź na ten problem. Cel jest prosty: pomagać tworzyć CV, które wygląda dobrze, pozostaje czytelne i przechodzi automatyczną selekcję bez utraty jakości redakcyjnej.",
+      "founderLabel": "Główny architekt i twórca",
+      "founderRole": "Founder & Lead Software Engineer",
+      "founderDescription": "Inżynier i twórca produktów skupiony na budowaniu praktycznych narzędzi, które pomagają ludziom rozwijać karierę bez oddawania kontroli nad prywatnymi danymi.",
+      "visitPortfolio": "Odwiedź portfolio",
+      "linkedinTitle": "LinkedIn",
+      "githubTitle": "GitHub"
+    },
+    "Privacy": {
+      "title": "Polityka prywatności",
+      "subtitle": "Jak Resume Maxxer obsługuje dane osobowe, local storage, generowanie PDF i opcjonalne integracje.",
+      "sections": [
+        {
+          "title": "1. Postanowienia ogólne",
+          "paragraphs": [
+            "Niniejsza polityka prywatności wyjaśnia, jak przetwarzane są dane osobowe podczas korzystania z Resume Maxxer.",
+            "Podstawowy edytor nie wymaga zakładania konta ani weryfikacji tożsamości, aby korzystać z głównych funkcji."
+          ]
+        },
+        {
+          "title": "2. Przetwarzanie danych w modelu local-first",
+          "paragraphs": [
+            "Aplikacja została zaprojektowana w architekturze client-side. Treść CV wpisana do edytora jest przechowywana lokalnie w przeglądarce użytkownika przy użyciu local storage.",
+            "Platforma nie utrzymuje centralnej bazy życiorysów użytkowników i domyślnie nie archiwizuje treści edytora."
+          ]
+        },
+        {
+          "title": "3. Generowanie PDF i użycie API",
+          "paragraphs": [
+            "Podczas generowania PDF-a JSON z danymi CV jest tymczasowo wysyłany do usługi kompilującej dokument.",
+            "To techniczny, krótkotrwały transfer wykorzystywany wyłącznie do stworzenia pliku wynikowego, bez celu dalszego przechowywania danych po zakończeniu procesu.",
+            "Jeśli używane są funkcje AI, wybrane fragmenty tekstu mogą być wysyłane do dostawców modeli językowych w bezstanowym przepływie żądań."
+          ]
+        },
+        {
+          "title": "4. Cookies i analityka",
+          "paragraphs": [
+            "Platforma nie opiera głównego działania na zewnętrznych cookies śledzących, pikselach marketingowych ani inwazyjnych systemach profilowania.",
+            "Mogą być używane jedynie niezbędne mechanizmy przeglądarki potrzebne do utrzymania stanu aplikacji w ramach sesji."
+          ]
+        },
+        {
+          "title": "5. Prawa użytkownika",
+          "paragraphs": [
+            "Ponieważ główne dane CV są przechowywane lokalnie, użytkownik zachowuje bezpośrednią kontrolę nad nimi przez cały czas."
+          ],
+          "bullets": [
+            "Podgląd i edycja CV bezpośrednio w aplikacji.",
+            "Eksport pełnego zestawu danych do JSON w dowolnym momencie.",
+            "Usunięcie lokalnie przechowywanych danych poprzez wyczyszczenie pamięci przeglądarki."
+          ]
+        },
+        {
+          "title": "6. Aktualizacje polityki",
+          "paragraphs": [
+            "Polityka może być aktualizowana wraz z rozwojem produktu albo zmianą wymagań prawnych. Aktualna wersja jest zawsze publikowana na tej stronie."
+          ]
+        }
+      ]
+    },
+    "Terms": {
+      "title": "Regulamin serwisu",
+      "subtitle": "Warunki świadczenia funkcji Resume Maxxer drogą elektroniczną.",
+      "sections": [
+        {
+          "title": "§ 1. Postanowienia ogólne",
+          "paragraphs": [
+            "Niniejszy regulamin określa techniczne i prawne zasady korzystania z Resume Maxxer.",
+            "Serwis udostępnia narzędzia do tworzenia, edycji, walidacji i eksportu dokumentów CV, w tym formatowanie ukierunkowane na ATS oraz generowanie PDF przez Typst.",
+            "Rozpoczęcie korzystania z serwisu oznacza akceptację niniejszego regulaminu od pierwszej interakcji z interfejsem."
+          ]
+        },
+        {
+          "title": "§ 2. Warunki świadczenia usług",
+          "paragraphs": [
+            "Dostęp do podstawowego edytora, podglądu na żywo, kontroli ATS oraz eksportu do PDF i JSON jest dostępny bez obowiązkowej rejestracji.",
+            "Do prawidłowego korzystania z serwisu potrzebna jest nowoczesna przeglądarka z obsługą JavaScript i local storage oraz dostęp do internetu podczas kompilacji PDF.",
+            "Serwis nie może być wykorzystywany do generowania dokumentów niezgodnych z prawem, szkodliwych lub wprowadzających w błąd."
+          ]
+        },
+        {
+          "title": "§ 3. Własność intelektualna i dane kandydata",
+          "paragraphs": [
+            "Prawa autorskie do treści CV wprowadzanej przez użytkownika pozostają po stronie użytkownika.",
+            "Użytkownik zachowuje prawo do wykorzystywania wygenerowanych PDF-ów i wyeksportowanego JSON-a w celach prywatnych, komercyjnych i rekrutacyjnych.",
+            "Kod aplikacji, interfejs, logika walidacji i szablony pozostają własnością intelektualną twórców serwisu."
+          ]
+        },
+        {
+          "title": "§ 4. Wyłączenie odpowiedzialności",
+          "paragraphs": [
+            "Serwis jest udostępniany w formule 'as is' bez gwarancji konkretnego wyniku rekrutacyjnego.",
+            "Dokładane są najwyższe starania, aby dokumenty były czytelne dla ATS, ale nie da się zagwarantować zgodności z każdym zamkniętym systemem rekrutacyjnym podmiotu trzeciego.",
+            "Operatorzy serwisu nie odpowiadają za decyzje pracodawców podejmowane na podstawie wygenerowanych dokumentów."
+          ]
+        },
+        {
+          "title": "§ 5. Postanowienia końcowe",
+          "paragraphs": [
+            "Serwis może być czasowo niedostępny z powodu prac konserwacyjnych, modernizacji albo zmian infrastrukturalnych.",
+            "W sprawach nieuregulowanych wprost w regulaminie zastosowanie mają właściwe przepisy prawa."
+          ]
+        }
+      ]
+    }
+  },
+  "Landing": {
+    "Navbar": {
+      "comparison": "Dlaczego warto",
+      "workflow": "Jak to działa",
+      "faq": "FAQ",
+      "cta": "Stwórz CV online"
+    },
+    "Hero": {
+      "title": "CV, które przechodzi przez systemy ATS",
+      "rotating": [
+        "i zdobywa zaproszenia.",
+        "i wyróżnia Cię z tłumu.",
+        "i buduje Twój wizerunek."
+      ],
+      "description": "Wpisz swoje dane w prostym formularzu. Kreator zadba o układ, marginesy i czysty PDF, który systemy HR odczytają bez problemu.",
+      "cta": "Stwórz swoje CV teraz za darmo"
+    },
+    "Comparison": {
+      "title": "Dlaczego zwykłe edytory <br></br><underline>utrudniają znalezienie pracy?</underline>",
+      "description": "Świetne kandydatury często przepadają przez błędy w pliku. Zobacz, jak oszczędzić czas i zyskać pewność w rekrutacji.",
+      "traditionalTitle": "Zwykłe programy i edytory",
+      "traditionalSubtitle": "Popularne kreatory graficzne i edytory tekstu",
+      "maxxerSubtitle": "Nowoczesny kreator odporny na błędy formatowania",
+      "cta": "Stwórz swoje CV teraz",
+      "traditionalFlaws": [
+        {
+          "title": "Rozjeżdżające się układy",
+          "desc": "Kolumny, odstępy i marginesy często przesuwają się po otwarciu pliku na innym komputerze."
+        },
+        {
+          "title": "Słaba czytelność dla ATS",
+          "desc": "Systemy rekrutacyjne mają problem z dekoracyjnymi szablonami i potrafią gubić ważne treści."
+        },
+        {
+          "title": "Ręczne poprawianie strony",
+          "desc": "Jedno dodatkowe zdanie potrafi zepsuć układ i wymusić poprawianie całego dokumentu."
+        },
+        {
+          "title": "Wpisywanie danych od nowa",
+          "desc": "Zmiana wyglądu CV często oznacza ponowne składanie tej samej historii zatrudnienia."
+        }
+      ],
+      "maxxerAdvantages": [
+        {
+          "title": "Format bezpieczny dla ATS",
+          "desc": "Czysty PDF pomaga systemom ATS poprawnie odczytać pełną treść Twojego CV."
+        },
+        {
+          "title": "Automatyczna kontrola układu",
+          "desc": "Odstępy, hierarchia i marginesy pozostają spójne nawet wtedy, gdy zmienia się treść."
+        },
+        {
+          "title": "Zmiana szablonu jednym kliknięciem",
+          "desc": "Dane wpisujesz raz, a układ zmieniasz bez utraty treści i struktury."
+        },
+        {
+          "title": "Lepsze dopasowanie do oferty",
+          "desc": "Kreator pomaga wyeksponować umiejętności i sygnały, których pracodawcy oczekują."
+        }
+      ]
+    },
+    "Workflow": {
+      "title": "Jak działa <br></br><underline>nasz kreator CV?</underline>",
+      "description": "Od pierwszego zdania do gotowego PDF w zaledwie kilka minut.",
+      "cta": "Stwórz swoje CV teraz za darmo",
+      "steps": [
+        {
+          "title": "Wpisz lub wklej swoje dane",
+          "desc": "Uzupełnij doświadczenie i umiejętności w prostym formularzu bez walki z układem."
+        },
+        {
+          "title": "Wybierz wygląd dokumentu",
+          "desc": "Przełączaj szablony jednym kliknięciem, a treść dopasuje się automatycznie."
+        },
+        {
+          "title": "Pobierz gotowy plik PDF",
+          "desc": "Otrzymujesz profesjonalny dokument gotowy do wysłania od razu."
+        }
+      ]
+    },
+    "Faq": {
+      "title": "Wszystko, co musisz wiedzieć o <br></br><underline>naszym kreatorze CV</underline>",
+      "description": "Odpowiadamy na najczęstsze pytania dotyczące tworzenia skutecznego CV.",
+      "items": [
+        {
+          "question": "Dlaczego ten kreator jest lepszy od zwykłych programów graficznych?",
+          "answer": "Tradycyjne narzędzia często psują układ na różnych urządzeniach i utrudniają odczyt CV przez systemy ATS. Tutaj PDF zachowuje spójne formatowanie."
+        },
+        {
+          "question": "Co daje oddzielenie treści od wyglądu?",
+          "answer": "Historię zawodową wpisujesz raz, a potem możesz swobodnie zmieniać szablony bez przepisywania i ręcznego składania dokumentu."
+        },
+        {
+          "question": "Czy korzystanie z kreatora jest darmowe?",
+          "answer": "Tak. Podstawowy kreator jest bezpłatny i nie wymaga karty płatniczej ani obowiązkowego zakładania konta."
+        }
+      ],
+      "moreQuestionsTitle": "Masz więcej pytań o swoje CV?",
+      "moreQuestionsDescription": "Otwórz kreator i zobacz, jak szybko powstaje profesjonalny dokument gotowy do wysyłki."
+    },
+    "Cta": {
+      "title": "Gotowy na <underline>czytelne CV</underline> bez problemów z formatowaniem?",
+      "description": "Dołącz do osób, które tworzą życiorysy w nowoczesnym edytorze i wiedzą, że pracodawca zawsze otworzy przejrzysty, profesjonalny dokument.",
+      "cta": "Stwórz swoje CV teraz za darmo"
+    }
+  },
+  "Editor": {
+    "Shared": {
+      "addPoint": "Dodaj punkt",
+      "removePoint": "Usuń punkt"
+    },
+    "Wizard": {
+      "stepCounter": "Krok {current} z {total}",
+      "stepFooterPrefix": "Krok",
+      "stepFooterSuffix": "z {total}",
+      "back": "Wstecz",
+      "next": "Dalej",
+      "finish": "Zakończ i sprawdź PDF",
+      "completedAlert": "Wszystkie sekcje są uzupełnione. Możesz teraz przejrzeć podgląd PDF albo sprawdzić audyt ATS.",
+      "steps": {
+        "basics": { "title": "Profil, kontakt i cel aplikacji", "description": "Zbierz najpierw informacje, które ustawiają kierunek całego CV.", "checklist": "Dane kontaktowe, docelowa rola, oferta pracy, krótkie podsumowanie." },
+        "experience": { "title": "Doświadczenie i efekty pracy", "description": "Oddziel zakres obowiązków od rezultatów, żeby później łatwo zbudować mocne punkty CV.", "checklist": "Stanowiska, kontekst firmy, obowiązki, liczby, osiągnięcia." },
+        "education": { "title": "Edukacja, kursy i osiągnięcia", "description": "Ta sekcja jest szczególnie ważna dla studentów, juniorów i osób po przebranżowieniu.", "checklist": "Szkoły, kierunki, kursy, projekty edukacyjne, wyróżnienia." },
+        "skills": { "title": "Umiejętności i słowa kluczowe", "description": "Dodaj tylko konkretne kompetencje, które pasują do roli i można je obronić rozmową lub doświadczeniem.", "checklist": "Narzędzia, systemy, branżowe kompetencje, certyfikowane umiejętności." },
+        "projects": { "title": "Projekty, inicjatywy i portfolio", "description": "Dodaj rzeczy, które pokazują praktyczne zastosowanie umiejętności poza samą nazwą stanowiska.", "checklist": "Cel projektu, rola, narzędzia, skala, rezultat." },
+        "extra": { "title": "Języki, certyfikaty i dodatki", "description": "Na końcu dodaj informacje, które wzmacniają wiarygodność lub są wymagane w ofercie.", "checklist": "Języki, poziomy, licencje, certyfikaty, linki potwierdzające." }
+      }
+    },
+    "Basics": {
+      "introEyebrow": "Najpierw",
+      "introTitle": "Kim jesteś i na jaką rolę aplikujesz?",
+      "introDescription": "Te dane pomagają dopasować ton CV, nagłówek i słowa kluczowe do konkretnej rekrutacji.",
+      "contactEyebrow": "Kontakt",
+      "contactTitle": "Jak rekruter ma się z Tobą skontaktować?",
+      "contactDescription": "Podaj tylko dane potrzebne rekruterowi. Lokalizacja w CV zostanie złożona z kraju, miasta i ewentualnej informacji o pracy zdalnej.",
+      "summaryEyebrow": "Wizytówka",
+      "summaryTitle": "Podsumowanie zawodowe",
+      "summaryDescription": "Napisz 2-4 linie w trzeciej osobie: lata doświadczenia, specjalizacja, najmocniejsze osiągnięcia i dopasowanie do roli.",
+      "linksEyebrow": "Online",
+      "linksTitle": "Profile i portfolio",
+      "linksDescription": "Sam wybierz portale. Inne linki mają sens dla grafika, inne dla programisty, sprzedawcy, twórcy lub naukowca.",
+      "empty": "Brak linków. Dodaj tylko te profile, które realnie wspierają aplikację.",
+      "addLink": "Dodaj link",
+      "linkTypes": { "other": "własny typ" },
+      "fields": {
+        "name": { "label": "Imię i nazwisko", "placeholder": "np. Jan Kowalski" },
+        "title": { "label": "Aktualny tytuł zawodowy", "placeholder": "np. Specjalista ds. obsługi klienta, Księgowa, Elektryk" },
+        "targetRole": { "label": "Docelowe stanowisko", "placeholder": "np. Kierownik zmiany, Junior Analityk, Magazynier" },
+        "targetCompany": { "label": "Firma / branża docelowa", "placeholder": "np. logistyka, bankowość, edukacja, konkretna firma" },
+        "targetJobDescription": { "label": "Opis oferty pracy", "helper": "Jeśli masz ogłoszenie, wklej je tutaj. Jeśli nie, zostaw puste i uzupełnij resztę CV normalnie.", "placeholder": "Wymagania, obowiązki, nazwa stanowiska, słowa kluczowe z ogłoszenia..." },
+        "email": { "label": "Adres e-mail", "placeholder": "np. jan.kowalski@example.com" },
+        "phone": { "label": "Numer telefonu", "placeholder": "np. +48 123 456 789" },
+        "country": { "label": "Kraj", "placeholder": "np. Polska" },
+        "city": { "label": "Miasto", "placeholder": "np. Warszawa" },
+        "remoteFriendly": { "label": "Czy praca zdalna też wchodzi w grę?", "helper": "Jeśli zaznaczone, w wygenerowanym CV lokalizacja może zostać zapisana jako `miasto / Zdalnie`.", "remoteWord": "Zdalnie" },
+        "summary": { "placeholder": "Specjalista ds. obsługi klienta z 4-letnim doświadczeniem w pracy z klientem biznesowym, reklamacjami i systemami CRM..." },
+        "customLabel": { "placeholder": "etykieta" },
+        "url": { "placeholder": "adres profilu lub strony" }
+      }
+    },
+    "Experience": {
+      "eyebrow": "Zasada",
+      "title": "Opisz stanowisko tak, jak ma wyglądać w CV",
+      "description": "Podaj firmę, rolę, daty, lokalizację, obowiązki i konkretne efekty. Nic więcej nie jest tu potrzebne.",
+      "add": "Dodaj stanowisko",
+      "emptyTitle": "Brak wpisów o doświadczeniu",
+      "emptyDescription": "Dodaj pracę etatową, zlecenia, praktyki, działalność lub doświadczenie branżowe. Najmocniejsze wpisy pokazują efekt pracy, nie tylko zakres obowiązków.",
+      "newItem": "Nowe stanowisko",
+      "at": "w",
+      "remove": "Usuń stanowisko",
+      "tip": "Wypełnij w kolejności: firma i rola, daty, obowiązki, a potem konkretne efekty z liczbami.",
+      "fields": {
+        "position": { "label": "Stanowisko / rola", "placeholder": "np. Specjalista ds. sprzedaży, Technik utrzymania ruchu" },
+        "company": { "label": "Nazwa firmy / organizacji", "placeholder": "np. IKEA / ABC Logistics / własna działalność" },
+        "startDate": { "label": "Od" },
+        "endDate": { "label": "Do", "current": "Obecnie" },
+        "location": { "label": "Lokalizacja (miasto / tryb)", "placeholder": "np. Warszawa, Polska" }
+      },
+      "responsibilities": {
+        "label": "Główne obowiązki",
+        "placeholder": "np. Obsługa klientów biznesowych w systemie CRM",
+        "helper": "Dodaj najważniejsze obszary pracy. Jeden punkt opisuje jeden konkretny obowiązek.",
+        "add": "Dodaj obowiązek"
+      },
+      "highlights": {
+        "label": "Osiągnięcia i efekty",
+        "placeholder": "np. Skrócenie czasu obsługi reklamacji z 5 do 2 dni roboczych",
+        "helper": "Dodaj 2-5 najmocniejszych efektów. Najlepiej jeden punkt = jedno działanie i jeden rezultat.",
+        "add": "Dodaj efekt"
+      }
+    },
+    "Education": {
+      "eyebrow": "Kiedy to ważne",
+      "title": "Edukacja może być głównym dowodem kompetencji",
+      "description": "Jeśli masz mało doświadczenia albo zmieniasz branżę, dodaj szkoły, kierunki i ważne kursy pasujące do docelowej roli.",
+      "add": "Dodaj szkołę / uczelnię",
+      "emptyTitle": "Brak wpisów o edukacji",
+      "emptyDescription": "Dodaj szkoły, studia, kursy zawodowe albo szkolenia, które wspierają docelową rolę.",
+      "newItem": "Nowa uczelnia",
+      "remove": "Usuń wpis",
+      "tip": "Zacznij od formalnych danych, a niżej dodaj tylko te kursy i przedmioty, które wspierają aplikację.",
+      "degreeOptions": ["Szkoła średnia","Technik","Licencjat","Inżynier","Magister","Magister inżynier","Studia podyplomowe","Kurs zawodowy","Szkolenie branżowe"],
+      "fieldOptions": ["Administracja","Ekonomia","Finanse i rachunkowość","Informatyka","Logistyka","Marketing","Mechanika","Pedagogika","Sprzedaż","Zarządzanie"],
+      "fields": {
+        "degree": { "label": "Stopień / tytuł", "placeholder": "Wybierz lub wpisz własny" },
+        "field": { "label": "Kierunek / specjalizacja", "placeholder": "Wybierz lub wpisz własny" },
+        "institution": { "label": "Uczelnia / szkoła", "placeholder": "np. Politechnika Warszawska" },
+        "location": { "label": "Lokalizacja", "placeholder": "np. Polska, Warszawa" },
+        "gpa": { "label": "Wynik / średnia (opcjonalnie)", "placeholder": "np. 4.8 / 5.0 (Wyróżnienie)" },
+        "startDate": { "label": "Od" },
+        "endDate": { "label": "Do" }
+      },
+      "coursework": {
+        "label": "Ważne kursy i przedmioty",
+        "placeholder": "np. Analiza finansowa",
+        "helper": "Dodaj tylko te pozycje, które realnie wspierają rolę, na którą aplikujesz.",
+        "add": "Dodaj pozycję"
+      }
+    },
+    "Skills": {
+      "eyebrow": "Słowa kluczowe",
+      "title": "Dodawaj tylko kompetencje, które umiesz obronić",
+      "description": "Wybierz układ kategorii pod swoją branżę. Template tylko pokaże dane, a preset pomaga Ci je sensownie uporządkować.",
+      "suggestedTitle": "Sugerowane grupy",
+      "suggestedDescription": "Kliknij kategorię, żeby od razu dodać do niej skille albo utworzyć pustą grupę.",
+      "customCategory": "Własna kategoria...",
+      "customCategoryPlaceholder": "np. Tooling, Security, Embedded, ERP",
+      "chooseCategory": "Wybierz kategorię",
+      "add": "Dodaj",
+      "emptyTitle": "Brak wpisów o umiejętnościach",
+      "emptyDescription": "Dodaj 6-12 najważniejszych umiejętności pasujących do docelowej roli i ogłoszenia.",
+      "groupPlaceholder": "Nazwa grupy",
+      "removeGroup": "Usuń grupę",
+      "categories": {
+        "industryExpertise": "Kompetencje branżowe",
+        "toolsAndSystems": "Narzędzia i systemy",
+        "processesAndMethods": "Procesy i metodyki",
+        "technicalSkills": "Umiejętności techniczne",
+        "languages": "Języki",
+        "frameworks": "Frameworki",
+        "testing": "Testowanie",
+        "databases": "Bazy danych",
+        "devops": "DevOps",
+        "cloud": "Chmura",
+        "tooling": "Tooling",
+        "architecture": "Architektura"
+      },
+      "presets": {
+        "general": { "label": "Uniwersalne", "description": "Dobre dla większości ról biznesowych, operacyjnych, administracyjnych i usługowych.", "placeholder": "np. Salesforce, Excel, obsługa reklamacji, AutoCAD, HACCP" },
+        "engineering": { "label": "IT / Engineering", "description": "Podział pod techniczne CV: języki, frameworki, testy, dane, DevOps i tooling.", "placeholder": "np. Python, TypeScript, FastAPI, React, Pytest, Ruff, PostgreSQL, Docker" },
+        "custom": { "label": "Własne", "description": "Pełna swoboda. Tworzysz własne grupy dokładnie pod swoją branżę i narrację CV.", "placeholder": "np. wpisz własną kategorię i dodaj do niej konkretne skille" }
+      }
+    },
+    "Projects": {
+      "eyebrow": "Dowody",
+      "title": "Dodaj projekty, które pokazują praktyczne umiejętności",
+      "description": "To mogą być projekty zawodowe, szkolne, własne, wolontariackie albo usprawnienia procesów. Najważniejsze są Twoja rola i rezultat.",
+      "add": "Dodaj projekt",
+      "emptyTitle": "Brak wpisów o projektach",
+      "emptyDescription": "Dodaj projekty zawodowe, akademickie, portfolio, usprawnienia procesów albo ważne inicjatywy pozaetatowe.",
+      "newItem": "Nowy projekt",
+      "remove": "Usuń projekt",
+      "tip": "Wpis powinien odpowiedzieć na cztery pytania: co to było, jaka była Twoja rola, jakich narzędzi użyto i jaki był efekt.",
+      "fields": {
+        "name": { "label": "Nazwa projektu / inicjatywy", "placeholder": "np. Wdrożenie CRM, Audyt magazynu, Kampania sprzedażowa" },
+        "url": { "label": "Link / materiał online", "placeholder": "np. portfolio, publikacja, repozytorium, case study" },
+        "role": { "label": "Twoja rola", "placeholder": "np. Koordynator, Analityk, Projektant, Wykonawca" },
+        "organization": { "label": "Organizacja / kontekst", "placeholder": "np. uczelnia, firma, klient, projekt własny" },
+        "startDate": { "label": "Start projektu (opcjonalnie)" },
+        "endDate": { "label": "Koniec projektu (opcjonalnie)" },
+        "keywords": { "label": "Narzędzia / metody / słowa kluczowe (oddzielone przecinkami)", "placeholder": "np. Excel, CRM, analiza danych, Figma, AutoCAD, Lean, SQL" },
+        "description": { "label": "Cel i zakres projektu", "placeholder": "Opisz po co projekt powstał, jaki problem rozwiązywał, dla kogo był realizowany i jaka była Twoja odpowiedzialność." }
+      },
+      "highlights": {
+        "label": "Rezultaty projektu",
+        "placeholder": "np. Skrócenie czasu raportowania z 3 godzin do 30 minut",
+        "helper": "Dodaj najważniejsze rezultaty projektu. Każdy punkt powinien mówić, co realnie się poprawiło albo powstało.",
+        "add": "Dodaj rezultat"
+      }
+    },
+    "Extra": {
+      "eyebrow": "Na koniec",
+      "title": "Dodaj tylko informacje, które wzmacniają aplikację",
+      "description": "Języki, licencje i certyfikaty są mocne wtedy, gdy są istotne dla roli albo potwierdzają konkretną umiejętność.",
+      "fluencyLevels": ["Elementary proficiency","Limited working proficiency","Professional working proficiency","Full professional proficiency","Native or bilingual proficiency"],
+      "statuses": { "permanent": "Bezterminowy", "expiring": "Terminowy", "expired": "Wygasły", "renewal": "Do odnowienia" },
+      "tips": { "languages": "Języki wpisuj standardowym poziomem, bez gwiazdek i pasków.", "certifications": "Certyfikaty dodawaj z wystawcą, datą i statusem ważności." },
+      "languages": {
+        "title": "Języki obce",
+        "add": "Dodaj język",
+        "emptyTitle": "Brak dodanych języków",
+        "emptyDescription": "Dodaj tylko języki, które są istotne dla pracy albo faktycznie potrafisz wykorzystać zawodowo.",
+        "fields": {
+          "language": { "placeholder": "Język (np. Angielski)" },
+          "fluency": { "placeholder": "Wybierz poziom" },
+          "certificate": { "placeholder": "Certyfikat / test, jeśli istotny" },
+          "url": { "placeholder": "Link do wyniku lub certyfikatu" }
+        }
+      },
+      "certifications": {
+        "title": "Certyfikaty, licencje i nagrody",
+        "add": "Dodaj certyfikat",
+        "emptyTitle": "Brak dodanych certyfikatów",
+        "emptyDescription": "Dodaj certyfikaty, licencje, szkolenia i nagrody istotne dla docelowej roli.",
+        "itemLabel": "Certyfikat #{index}",
+        "fields": {
+          "name": { "label": "Nazwa certyfikatu / nagrody", "placeholder": "np. AWS Certified Solutions Architect - Associate" },
+          "date": { "label": "Data uzyskania" },
+          "status": { "label": "Status", "helper": "Większość certyfikatów jest bezterminowa. Datę wygaśnięcia pokazujemy tylko dla certyfikatów terminowych." },
+          "expires": { "label": "Data wygaśnięcia" },
+          "issuer": { "label": "Wystawca / organizacja", "placeholder": "np. Amazon Web Services (AWS) / Scrum.org" },
+          "url": { "label": "Link do certyfikatu", "placeholder": "np. credential.net/..." },
+          "details": { "label": "Zakres / umiejętności potwierdzone (opcjonalnie)", "placeholder": "np. audyt procesów, podstawy księgowości, zarządzanie projektami, obsługa konkretnego systemu" }
+        }
+      }
+    }
+  },
+  "TemplateGallery": {
+    "title": "Galeria szablonów",
+    "description": "Wybierz układ, który najlepiej pasuje do Twojej profesji. Wszystkie szablony są zaprojektowane tak, aby ułatwić czytanie i wyeksponować Twoje kompetencje.",
+    "searchPlaceholder": "Wyszukaj po nazwie lub tagu...",
+    "previewAlt": "Podgląd {name}",
+    "selectVariant": "Wybierz układ i język",
+    "comingSoon": "Wkrótce",
+    "comingSoonAlert": "Ten szablon będzie dostępny w nadchodzącej aktualizacji biblioteki!",
+    "activePl": "Aktywny PL",
+    "activeEn": "Aktywny EN",
+    "variantPl": "Polski",
+    "variantEn": "English",
+    "emptyTitle": "Nic nie znaleziono",
+    "emptyDescription": "Spróbuj wpisać inne zapytanie lub wybierz inną kategorię.",
+    "categories": {
+      "all": "Wszystkie",
+      "classic": "Klasyczne",
+      "modern": "Nowoczesne",
+      "tech": "IT & Inżynieria",
+      "exec": "Management"
+    },
+    "templates": {
+      "atlas-classic": { "description": "Najbardziej formalny z aktualnych szablonów: jednokolumnowy, spokojny i konserwatywny, z prostymi liniami sekcji i układem nastawionym na czytelność ATS.", "tags": ["Classic", "ATS", "One Column", "Formal"] },
+      "meridian-clean": { "description": "Czysty, bezszeryfowy layout z lekkim rytmem sekcji, siatkowym zapisem wpisów i bardziej współczesnym charakterem niż klasyczne układy CV.", "tags": ["Clean", "Sans Serif", "Structured", "Modern"] },
+      "summit-serif": { "description": "Serifowy układ o inżynierskim charakterze: wycentrowany nagłówek, mocna hierarchia sekcji i bardziej akademicki ton bez utraty czytelności biznesowego CV.", "tags": ["Serif", "Engineering", "Centered Header", "Structured"] },
+      "contour-timeline": { "description": "Najbardziej akademicki z aktywnych szablonów: szerokie marginesy, spokojna serifowa typografia i sekcje rozpisane jak uporządkowana oś czasu.", "tags": ["Timeline", "Serif", "Academic", "Spacious"] },
+      "vector-compact": { "description": "Gęsty, techniczny one-pager zaprojektowany pod maksymalne wykorzystanie miejsca: minimalne marginesy, ciasny rytm i szybkie skanowanie doświadczenia.", "tags": ["Compact", "Technical", "One Page", "Dense"] },
+      "horizon-sidebar": { "description": "Najbardziej ekspresyjny szablon w katalogu: kolorowy sidebar, tagi umiejętności i nowoczesny podział treści na warstwę główną oraz pomocniczą.", "tags": ["Sidebar", "Color", "Expressive", "Modern"] },
+      "harbor-serif": { "description": "Elegancki, lekko redakcyjny układ serifowy z etykietami sekcji po lewej stronie. Dobrze sprawdza się tam, gdzie CV ma wyglądać bardziej uporządkowanie niż technicznie.", "tags": ["Serif", "Editorial", "Elegant", "Two Column Header"] },
+      "beacon-technical": { "description": "Planowana rodzina dla szablonu technicznego z mocniejszym akcentem na ownership, architekturę i projekty. Jeszcze niedostępna w aplikacji.", "tags": ["Planned", "Technical", "Projects", "Leadership"] },
+      "north-executive": { "description": "Planowana rodzina dla ról zarządczych i liderskich, z większym naciskiem na skalę odpowiedzialności, wyniki i wpływ biznesowy. Jeszcze niedostępna.", "tags": ["Planned", "Executive", "Business", "Leadership"] },
+      "strata-academic": { "description": "Planowana rodzina dla pełnego CV naukowego z publikacjami, grantami i działalnością akademicką. Jeszcze niedostępna w obecnym katalogu.", "tags": ["Planned", "Academic", "Research", "Publications"] },
+      "delta-editorial": { "description": "Planowana rodzina dla bardziej magazynowego, wizualnie odważnego CV. Kierunek jest zdefiniowany, ale sam szablon nie jest jeszcze zaimplementowany.", "tags": ["Planned", "Editorial", "Creative", "Design"] }
+    }
+  }
+}

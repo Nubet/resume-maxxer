@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Cpu } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 
 export const Footer: React.FC = () => {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="border-t border-border bg-surface-tertiary py-12 md:py-16 text-xs text-content-secondary font-sans">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -17,27 +20,23 @@ export const Footer: React.FC = () => {
               <span className="text-base font-bold tracking-tight text-content">Resume Maxxer</span>
             </div>
             <p className="text-content-secondary leading-relaxed max-w-sm">
-              Stwórz profesjonalne CV, które przyciąga uwagę rekruterów i bezbłędnie przechodzi
-              przez systemy ATS.
+              {t('description')}
             </p>
           </div>
 
           <div className="space-y-3">
             <h3 className="text-xs font-mono font-bold text-content tracking-wider uppercase">
-              / Produkt
+              / {t('sections.product')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="hover:text-content transition-colors">
-                  Strona Główna
+                  {t('home')}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/#builder"
-                  className="hover:text-content transition-colors font-medium text-content"
-                >
-                  Kreator CV (Edytor)
+                <Link href="/builder" className="hover:text-content transition-colors font-medium text-content">
+                  {t('builder')}
                 </Link>
               </li>
             </ul>
@@ -45,17 +44,17 @@ export const Footer: React.FC = () => {
 
           <div className="space-y-3">
             <h3 className="text-xs font-mono font-bold text-content tracking-wider uppercase">
-              / O Projekcie
+              / {t('sections.aboutProject')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/authors" className="hover:text-content transition-colors">
-                  O nas
+                  {t('about')}
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="hover:text-content transition-colors">
-                  Często Zadawane Pytania
+                  {t('faq')}
                 </Link>
               </li>
             </ul>
@@ -63,17 +62,17 @@ export const Footer: React.FC = () => {
 
           <div className="space-y-3">
             <h3 className="text-xs font-mono font-bold text-content tracking-wider uppercase">
-              / Prywatność & Prawo
+              / {t('sections.legal')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/privacy" className="hover:text-content transition-colors">
-                  Polityka Prywatności
+                  {t('privacy')}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="hover:text-content transition-colors">
-                  Regulamin Serwisu
+                  {t('terms')}
                 </Link>
               </li>
             </ul>
@@ -81,7 +80,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-content-muted font-mono text-[11px]">
-          <div>&copy; {new Date().getFullYear()} Resume Maxxer. Wszelkie prawa zastrzeżone.</div>
+          <div>&copy; {new Date().getFullYear()} Resume Maxxer. {t('copyright')}</div>
         </div>
       </div>
     </footer>

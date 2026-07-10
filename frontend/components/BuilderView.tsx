@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useSyncExternalStore, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 import type { DashboardModule, TabType } from './DashboardSidebar';
 import { DashboardSidebar } from './DashboardSidebar';
 import { DashboardNavbar } from './DashboardNavbar';

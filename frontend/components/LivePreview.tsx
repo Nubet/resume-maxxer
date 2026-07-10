@@ -1,15 +1,66 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useLocale } from 'next-intl';
 import { useResume } from '@/context/ResumeContext';
 import { RefreshCw, AlertTriangle, CheckCircle2, X } from 'lucide-react';
 
 export const LivePreview: React.FC = () => {
+  const locale = useLocale();
+  const isPl = locale === 'pl';
   const { pdfBlobUrl, isGenerating, triggerRefresh, resumeData } = useResume();
   const [atsReport, setAtsReport] = useState<{
     status: string;
     checks: { name: string; passed: boolean; message: string }[];
   } | null>(null);
+
+  const text = isPl
+    ? {
+        status: 'Zgodność ze skanerami (Workday, Taleo, Greenhouse)',
+        formatName: 'Format i silnik składu',
+        formatMessage: 'Plik kompilowany w Typst (100% wektorowy strumień bez ukrytych tabel HTML).',
+        summaryName: 'Profil wykonawczy (Summary)',
+        summaryPass: 'Wykryto czytelne podsumowanie na początku dokumentu.',
+        summaryFail: 'Brak podsumowania. Dodaj 2-3 zdania w sekcji Kontakt i Profil.',
+        historyName: 'Historia zatrudnienia',
+        historyPass: 'Wykryto sekcję doświadczenia z chronologicznym układem dat.',
+        historyFail: 'Brak pozycji zawodowych. Dodaj swoje stanowiska.',
+        keywordsName: 'Słowa kluczowe (Keywords)',
+        keywordsPass: (count: number) => `Zidentyfikowano ${count} kompetencji kluczowych.`,
+        keywordsFail: 'Dodaj min. 3 umiejętności, aby przejść automatyczną filtrację.',
+        livePreview: 'Podgląd na żywo',
+        atsTitle: 'Szybki test czytelności ATS',
+        runAts: 'Sprawdź ATS',
+        generating: 'Generowanie...',
+        previewError: 'Nie udało się załadować podglądu PDF. Kliknij przycisk poniżej, aby ponowić próbę kompilacji w silniku Typst.',
+        refresh: 'Odśwież podgląd',
+        pdfTitle: 'Podgląd PDF',
+        reportTitle: 'Czytelność ATS',
+        close: 'Zamknij raport',
+      }
+    : {
+        status: 'Scanner compatibility (Workday, Taleo, Greenhouse)',
+        formatName: 'Format and typesetting engine',
+        formatMessage: 'File compiled with Typst (100% vector output stream without hidden HTML tables).',
+        summaryName: 'Executive profile (summary)',
+        summaryPass: 'A clear summary was detected at the beginning of the document.',
+        summaryFail: 'No summary found. Add 2-3 sentences in the Contact and Profile section.',
+        historyName: 'Employment history',
+        historyPass: 'Detected an experience section with chronological dates.',
+        historyFail: 'No work entries found. Add your roles.',
+        keywordsName: 'Keywords',
+        keywordsPass: (count: number) => `Detected ${count} key competencies.`,
+        keywordsFail: 'Add at least 3 skills to pass automated filtering.',
+        livePreview: 'Live preview',
+        atsTitle: 'Quick ATS readability check',
+        runAts: 'Check ATS',
+        generating: 'Generating...',
+        previewError: 'Could not load the PDF preview. Click the button below to retry compilation in Typst.',
+        refresh: 'Refresh preview',
+        pdfTitle: 'PDF preview',
+        reportTitle: 'ATS readability',
+        close: 'Close report',
+      };
 
   const handleRunAtsCheck = () => {
     const hasSummary = Boolean(
@@ -21,33 +72,27 @@ export const LivePreview: React.FC = () => {
     const hasSkills = totalSkills >= 3;
 
     setAtsReport({
-      status: 'Zgodność ze skanerami (Workday, Taleo, Greenhouse)',
+      status: text.status,
       checks: [
         {
-          name: 'Format i Silnik Składu',
+          name: text.formatName,
           passed: true,
-          message: 'Plik kompilowany w Typst (100% wektorowy strumień bez ukrytych tabel HTML).',
+          message: text.formatMessage,
         },
         {
-          name: 'Profil Wykonawczy (Summary)',
+          name: text.summaryName,
           passed: hasSummary,
-          message: hasSummary
-            ? 'Wykryto czytelne podsumowanie na początku dokumentu.'
-            : 'Brak podsumowania — dodaj 2-3 zdania w sekcji Kontakt i Profil.',
+          message: hasSummary ? text.summaryPass : text.summaryFail,
         },
         {
-          name: 'Historia Zatrudnienia',
+          name: text.historyName,
           passed: hasExp,
-          message: hasExp
-            ? 'Wykryto sekcję doświadczenia z chronologicznym układem dat.'
-            : 'Brak pozycji zawodowych — dodaj swoje stanowiska.',
+          message: hasExp ? text.historyPass : text.historyFail,
         },
         {
-          name: 'Słowa Kluczowe (Keywords)',
+          name: text.keywordsName,
           passed: hasSkills,
-          message: hasSkills
-            ? `Zidentyfikowano ${totalSkills} kompetencji kluczowych.`
-            : 'Dodaj min. 3 umiejętności, aby przejść automatyczną filtrację.',
+          message: hasSkills ? text.keywordsPass(totalSkills) : text.keywordsFail,
         },
       ],
     });
@@ -61,18 +106,18 @@ export const LivePreview: React.FC = () => {
         <div className="flex items-center space-x-2.5">
           <span className="h-2 w-2 rounded-full bg-content"></span>
           <span className="text-xs font-bold uppercase tracking-widest text-content-muted">
-            Podgląd na żywo
+            {text.livePreview}
           </span>
         </div>
 
         <div className="flex items-center space-x-2">
           <button
             onClick={handleRunAtsCheck}
-            title="Szybki test czytelności ATS"
+            title={text.atsTitle}
             className="inline-flex items-center gap-2 rounded-full border border-content bg-content px-4 py-2 text-xs font-bold text-content-inverse hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm active:scale-[0.98]"
           >
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Sprawdź ATS</span>
+            <span>{text.runAts}</span>
           </button>
         </div>
       </div>
@@ -82,28 +127,27 @@ export const LivePreview: React.FC = () => {
           <div className="flex flex-col items-center justify-center p-8 text-center animate-fade-in">
             <RefreshCw className="h-6 w-6 text-content animate-spin mb-3" />
             <span className="text-xs font-bold tracking-wide uppercase text-content-muted">
-              Generowanie...
+              {text.generating}
             </span>
           </div>
         ) : !pdfBlobUrl ? (
           <div className="flex flex-col items-center justify-center p-8 text-center max-w-sm space-y-4 animate-fade-in">
             <AlertTriangle className="h-8 w-8 text-content mx-auto" />
             <p className="text-xs font-medium text-content-secondary leading-relaxed">
-              Nie udało się załadować podglądu PDF. Kliknij przycisk poniżej, aby ponowić próbe
-              kompilacji w silniku Typst.
+              {text.previewError}
             </p>
             <button
               onClick={() => triggerRefresh()}
               className="rounded-full bg-content px-6 py-2.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all"
             >
-              Odśwież podgląd
+              {text.refresh}
             </button>
           </div>
         ) : (
           <iframe
             src={`${pdfBlobUrl}#toolbar=0&navpanes=0&scrollbar=0`}
             className="h-full w-full border-0 rounded-3xl"
-            title="Podgląd PDF"
+            title={text.pdfTitle}
           />
         )}
       </div>
@@ -117,7 +161,7 @@ export const LivePreview: React.FC = () => {
                   ATS
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-content">Czytelność ATS</h4>
+                  <h4 className="font-bold text-sm text-content">{text.reportTitle}</h4>
                   <p className="text-xs text-content-muted">{atsReport.status}</p>
                 </div>
               </div>
@@ -156,7 +200,7 @@ export const LivePreview: React.FC = () => {
               onClick={() => setAtsReport(null)}
               className="w-full rounded-full bg-content py-3 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all shadow-sm active:scale-[0.98]"
             >
-              Zamknij raport
+              {text.close}
             </button>
           </div>
         </div>

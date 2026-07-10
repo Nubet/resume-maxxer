@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Plus, Trash2 } from 'lucide-react';
 
 interface ListEditorFieldProps {
@@ -20,8 +21,9 @@ export const ListEditorField: React.FC<ListEditorFieldProps> = ({
   onChange,
   placeholder,
   helperText,
-  addLabel = 'Dodaj punkt',
+  addLabel,
 }) => {
+  const t = useTranslations('Editor.Shared');
   const visibleItems = items.length > 0 ? items : [''];
 
   const handleItemChange = (index: number, value: string) => {
@@ -88,7 +90,7 @@ export const ListEditorField: React.FC<ListEditorFieldProps> = ({
           className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-2 text-[11px] font-bold text-content transition-colors hover:border-border-strong hover:bg-surface-secondary"
         >
           <Plus className="h-3.5 w-3.5" />
-          <span>{addLabel}</span>
+          <span>{addLabel || t('addPoint')}</span>
         </button>
       </div>
 
@@ -118,11 +120,11 @@ export const ListEditorField: React.FC<ListEditorFieldProps> = ({
 
               {canRemove ? (
                 <button
-                  type="button"
-                  onClick={() => handleRemoveItem(index)}
-                  title="Usuń punkt"
-                  className="mt-1 shrink-0 rounded-full p-2 text-content-muted transition-colors hover:bg-surface-secondary hover:text-red-600"
-                >
+                    type="button"
+                    onClick={() => handleRemoveItem(index)}
+                    title={t('removePoint')}
+                    className="mt-1 shrink-0 rounded-full p-2 text-content-muted transition-colors hover:bg-surface-secondary hover:text-red-600"
+                  >
                   <Trash2 className="h-4 w-4" />
                 </button>
               ) : null}

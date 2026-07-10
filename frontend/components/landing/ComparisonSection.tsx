@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { XCircle, ArrowRight, Check } from 'lucide-react';
 
@@ -9,43 +10,9 @@ interface ComparisonSectionProps {
 }
 
 export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBuilder }) => {
-  const traditionalFlaws = [
-    {
-      title: 'Rozjeżdżające się tabele',
-      desc: 'Po otwarciu na innym komputerze kolumny i marginesy często się przesuwają.',
-    },
-    {
-      title: 'Brak odczytu w systemach HR',
-      desc: 'Programy rekrutacyjne nie potrafią odczytać liter z szablonów graficznych i odrzucają plik.',
-    },
-    {
-      title: 'Ręczne poprawianie układu',
-      desc: 'Dopisanie jednego zdania niszczy układ strony i zmusza do poprawiania całości.',
-    },
-    {
-      title: 'Przepisywanie danych od nowa',
-      desc: 'Zmiana wyglądu CV wymaga ponownego wprowadzania całej historii zatrudnienia.',
-    },
-  ];
-
-  const maxxerAdvantages = [
-    {
-      title: 'Pewna rekrutacja HR',
-      desc: 'Czysty format PDF gwarantuje, że system rekrutacyjny odczyta 100% Twoich umiejętności.',
-    },
-    {
-      title: 'Automatyczny układ strony',
-      desc: 'Nasz system sam wyrównuje tekst i marginesy w czasie rzeczywistym.',
-    },
-    {
-      title: 'Zmień wygląd jednym kliknięciem',
-      desc: 'Dane wpisujesz raz, a szablony graficzne przełączasz bez utraty treści.',
-    },
-    {
-      title: 'Dopasowanie do oferty pracy',
-      desc: 'Inteligentny asystent pomaga wyeksponować umiejętności, których dokładnie szuka pracodawca.',
-    },
-  ];
+  const t = useTranslations('Landing.Comparison');
+  const traditionalFlaws = t.raw('traditionalFlaws') as Array<{ title: string; desc: string }>;
+  const maxxerAdvantages = t.raw('maxxerAdvantages') as Array<{ title: string; desc: string }>;
 
   return (
     <section id="comparison" className="py-20 md:py-32 relative bg-surface border-t border-border">
@@ -58,14 +25,17 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
       >
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-content">
-            Dlaczego zwykłe edytory <br />
-            <span className="underline decoration-border-strong decoration-2 underline-offset-8">
-              utrudniają znalezienie pracy?
-            </span>
+            {t.rich('title', {
+              br: () => <br />,
+              underline: (chunks) => (
+                <span className="underline decoration-border-strong decoration-2 underline-offset-8">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h2>
           <p className="text-base sm:text-lg text-content-secondary leading-relaxed">
-            Świetne kandydatury często przepadają przez błędy w pliku. Zobacz, jak oszczędzić czas i
-            zyskać pewność w rekrutacji.
+            {t('description')}
           </p>
         </div>
 
@@ -73,9 +43,9 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
           <div className="rounded-3xl border border-border bg-surface-secondary p-8 sm:p-10 flex flex-col justify-between space-y-8 relative">
             <div className="space-y-6">
               <div className="border-b border-border pb-6">
-                <h3 className="text-xl font-bold text-content">Zwykłe programy i edytory</h3>
+                <h3 className="text-xl font-bold text-content">{t('traditionalTitle')}</h3>
                 <p className="text-xs text-content-muted mt-1">
-                  Popularne kreatory graficzne i edytory tekstu
+                  {t('traditionalSubtitle')}
                 </p>
               </div>
 
@@ -100,7 +70,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
               <div className="border-b border-neutral-800 pb-6">
                 <h3 className="text-xl font-bold text-content-inverse">Resume Maxxer</h3>
                 <p className="text-xs text-neutral-400 mt-1">
-                  Nowoczesny kreator odporny na błędy formatowania
+                  {t('maxxerSubtitle')}
                 </p>
               </div>
 
@@ -124,7 +94,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onStartBui
                 onClick={onStartBuilder}
                 className="inline-flex items-center gap-1.5 font-bold text-white hover:underline decoration-white underline-offset-4"
               >
-                <span>Stwórz swoje CV teraz</span>
+                <span>{t('cta')}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>

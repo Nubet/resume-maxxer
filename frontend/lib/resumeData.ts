@@ -1,8 +1,9 @@
 import type { ZodError } from 'zod';
 import {
-  ResumeDataSchema,
+  getResumeDataSchema,
   type CertificationItem,
   type ResumeData,
+  type ResumeLocale,
   type ResumeMetadata,
 } from '@/types/resume';
 import { DEFAULT_SKILL_PROFILE, type SkillProfile } from '@/lib/skillPresets';
@@ -29,6 +30,12 @@ const asObject = (value: unknown): Record<string, unknown> =>
     : {};
 
 const asLanguage = (value: unknown): ResumeMetadata['language'] => (value === 'en' ? 'en' : 'pl');
+
+const getLocalizedPresent = (language: ResumeMetadata['language']) =>
+  language === 'en' ? 'present' : 'Obecnie';
+
+const getLocalizedRemote = (language: ResumeMetadata['language']) =>
+  language === 'en' ? 'Remote' : 'Zdalnie';
 
 const asSkillProfile = (value: unknown): SkillProfile =>
   value === 'engineering' || value === 'custom' ? value : DEFAULT_SKILL_PROFILE;
@@ -62,24 +69,31 @@ const asMonth = (value: unknown) => {
   return '';
 };
 
-const asMonthOrPresent = (value: unknown) => {
+const asMonthOrPresent = (value: unknown, language: ResumeMetadata['language']) => {
   const date = asString(value);
   if (/^\d{4}-\d{2}-\d{2}/.test(date)) return date.slice(0, 7);
   if (/^\d{4}-\d{2}$/.test(date)) return date;
   if (['present', 'Present', 'PRESENT', 'obecnie', 'Obecnie', 'OBECNIE'].includes(date)) {
-    return 'Obecnie';
+    return getLocalizedPresent(language);
   }
   return '';
 };
 
-const buildLocation = (city: string, country: string, remoteFriendly: boolean, current: string) => {
+const buildLocation = (
+  city: string,
+  country: string,
+  remoteFriendly: boolean,
+  current: string,
+  language: ResumeMetadata['language']
+) => {
+  const remote = getLocalizedRemote(language);
   const baseLocation = [country, city].filter(Boolean).join(', ');
   if (baseLocation) {
-    return remoteFriendly ? `${baseLocation} / Remote` : baseLocation;
+    return remoteFriendly ? `${baseLocation} / ${remote}` : baseLocation;
   }
 
   if (current) return current;
-  return remoteFriendly ? 'Remote' : '';
+  return remoteFriendly ? remote : '';
 };
 
 const buildProjectPeriod = (startDate: string, endDate: string, current: string) => {
@@ -107,23 +121,24 @@ const withOptionalString = (key: string, value: string) => (value ? { [key]: val
 export const normalizeResumeData = (input: unknown, templateId?: string): ResumeData => {
   const source = asObject(input);
   const metadata = asObject(source.metadata);
+  const language = asLanguage(metadata.language);
   const basics = asObject(source.basics);
   const city = asString(basics.city);
   const country = asString(basics.country);
   const remoteFriendly = Boolean(basics.remoteFriendly);
   const normalizedTemplateId = resolveTemplateVariantId(
     templateId || asString(metadata.template_id),
-    asLanguage(metadata.language)
+    language
   );
 
   return {
     metadata: {
-      language: getTemplateLanguage(normalizedTemplateId),
+        language: getTemplateLanguage(normalizedTemplateId),
       schema_version: RESUME_SCHEMA_VERSION,
       template_id: normalizedTemplateId || DEFAULT_TEMPLATE_ID,
       skill_profile: asSkillProfile(metadata.skill_profile),
     },
-    basics: {
+      basics: {
       name: asString(basics.name),
       title: asString(basics.title),
       targetRole: asString(basics.targetRole),
@@ -134,7 +149,7 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
       city,
       country,
       remoteFriendly,
-      location: buildLocation(city, country, remoteFriendly, asString(basics.location)),
+        location: buildLocation(city, country, remoteFriendly, asString(basics.location), language),
       urls: normalizeUrls(basics.urls),
       summary: asString(basics.summary),
     },
@@ -146,7 +161,7 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
             position: asString(experience.position),
             location: asString(experience.location),
             startDate: asMonth(experience.startDate),
-            endDate: asMonthOrPresent(experience.endDate),
+            endDate: asMonthOrPresent(experience.endDate, language),
             responsibilities: asStringArray(experience.responsibilities),
             highlights: asStringArray(experience.highlights),
           };
@@ -228,10 +243,15 @@ export const normalizeResumeData = (input: unknown, templateId?: string): Resume
   };
 };
 
-export const serializeResumeData = (input: ResumeData, templateId?: string): ResumeData => {
+export const serializeResumeData = (
+  input: ResumeData,
+  templateId?: string,
+  locale?: ResumeLocale
+): ResumeData => {
   const data = normalizeResumeData(input, templateId);
+  const schema = getResumeDataSchema(locale || data.metadata.language);
 
-  return ResumeDataSchema.parse({
+  return schema.parse({
     metadata: data.metadata,
     basics: {
       name: data.basics.name,

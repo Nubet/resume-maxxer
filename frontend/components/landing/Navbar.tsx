@@ -1,20 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, ArrowRight, Menu, X } from 'lucide-react';
+import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 
 interface NavbarProps {
   onStartBuilder: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
+  const t = useTranslations('Landing.Navbar');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Dlaczego warto', href: '#comparison' },
-    { name: 'Jak to działa', href: '#workflow' },
-    { name: 'FAQ', href: '#faq' },
+    { name: t('comparison'), href: '#comparison' },
+    { name: t('workflow'), href: '#workflow' },
+    { name: t('faq'), href: '#faq' },
   ];
 
   return (
@@ -47,11 +50,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
             </nav>
 
             <div className="hidden sm:flex items-center gap-2">
+              <LocaleSwitcher />
+
               <button
                 onClick={onStartBuilder}
                 className="group inline-flex items-center gap-2 rounded-full bg-content px-5 py-2 text-xs font-bold text-content-inverse shadow-sm hover:bg-neutral-800 transition-all duration-200 active:scale-[0.98]"
               >
-                <span>Stwórz CV online</span>
+                <span>{t('cta')}</span>
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white text-black group-hover:translate-x-0.5 transition-transform">
                   <ArrowRight className="h-2.5 w-2.5 stroke-3" />
                 </span>
@@ -91,6 +96,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
                 </a>
               ))}
               <div className="pt-3 border-t border-border flex flex-col gap-2">
+                <LocaleSwitcher />
+
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
@@ -98,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartBuilder }) => {
                   }}
                   className="w-full flex items-center justify-center gap-2 rounded-full bg-content px-4 py-3.5 text-xs font-bold text-content-inverse shadow-md hover:bg-neutral-800 transition-colors"
                 >
-                  <span>Stwórz CV online</span>
+                  <span>{t('cta')}</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import type { TabType } from './DashboardSidebar';
 import { BasicsForm } from './editor/BasicsForm';
 import { ExperienceForm } from './editor/ExperienceForm';
@@ -16,46 +17,42 @@ interface EditorProps {
 }
 
 export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
+  const t = useTranslations('Editor.Wizard');
   const steps: TabType[] = ['basics', 'experience', 'education', 'skills', 'projects', 'extra'];
   const currentStepIndex = steps.indexOf(activeTab);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
-  const stepContent: Record<TabType, { title: string; description: string; checklist: string }> = {
-    basics: {
-      title: 'Profil, kontakt i cel aplikacji',
-      description: 'Zbierz najpierw informacje, które ustawiają kierunek całego CV.',
-      checklist: 'Dane kontaktowe, docelowa rola, oferta pracy, krótkie podsumowanie.',
-    },
-    experience: {
-      title: 'Doświadczenie i efekty pracy',
-      description:
-        'Oddziel zakres obowiązków od rezultatów, żeby później łatwo zbudować mocne punkty CV.',
-      checklist: 'Stanowiska, kontekst firmy, obowiązki, liczby, osiągnięcia.',
-    },
-    education: {
-      title: 'Edukacja, kursy i osiągnięcia',
-      description:
-        'Ta sekcja jest szczególnie ważna dla studentów, juniorów i osób po przebranżowieniu.',
-      checklist: 'Szkoły, kierunki, kursy, projekty edukacyjne, wyróżnienia.',
-    },
-    skills: {
-      title: 'Umiejętności i słowa kluczowe',
-      description:
-        'Dodaj tylko konkretne kompetencje, które pasują do roli i można je obronić rozmową lub doświadczeniem.',
-      checklist: 'Narzędzia, systemy, branżowe kompetencje, certyfikowane umiejętności.',
-    },
-    projects: {
-      title: 'Projekty, inicjatywy i portfolio',
-      description:
-        'Dodaj rzeczy, które pokazują praktyczne zastosowanie umiejętności poza samą nazwą stanowiska.',
-      checklist: 'Cel projektu, rola, narzędzia, skala, rezultat.',
-    },
-    extra: {
-      title: 'Języki, certyfikaty i dodatki',
-      description:
-        'Na końcu dodaj informacje, które wzmacniają wiarygodność lub są wymagane w ofercie.',
-      checklist: 'Języki, poziomy, licencje, certyfikaty, linki potwierdzające.',
-    },
-  };
+   const stepContent: Record<TabType, { title: string; description: string; checklist: string }> = {
+     basics: {
+      title: t('steps.basics.title'),
+      description: t('steps.basics.description'),
+      checklist: t('steps.basics.checklist'),
+     },
+     experience: {
+      title: t('steps.experience.title'),
+      description: t('steps.experience.description'),
+      checklist: t('steps.experience.checklist'),
+     },
+     education: {
+      title: t('steps.education.title'),
+      description: t('steps.education.description'),
+      checklist: t('steps.education.checklist'),
+     },
+     skills: {
+      title: t('steps.skills.title'),
+      description: t('steps.skills.description'),
+      checklist: t('steps.skills.checklist'),
+     },
+     projects: {
+      title: t('steps.projects.title'),
+      description: t('steps.projects.description'),
+      checklist: t('steps.projects.checklist'),
+     },
+     extra: {
+      title: t('steps.extra.title'),
+      description: t('steps.extra.description'),
+      checklist: t('steps.extra.checklist'),
+     },
+   };
   const currentContent = stepContent[activeTab];
 
   const handleNext = () => {
@@ -97,7 +94,7 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-3">
                 <div className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-black uppercase tracking-widest text-content-muted">
-                  Krok {currentStepIndex + 1} z {steps.length}
+                  {t('stepCounter', { current: currentStepIndex + 1, total: steps.length })}
                 </div>
                 <div>
                   <h2 className="text-2xl font-black tracking-tight text-content sm:text-3xl">
@@ -131,11 +128,11 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
           className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-2.5 text-xs font-bold text-content hover:border-content disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-border transition-all active:scale-[0.98]"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          <span>Wstecz</span>
+          <span>{t('back')}</span>
         </button>
 
         <div className="text-xs font-bold text-content-muted">
-          Krok <strong className="text-content">{currentStepIndex + 1}</strong> z {steps.length}
+          {t('stepFooterPrefix')} <strong className="text-content">{currentStepIndex + 1}</strong> {t('stepFooterSuffix', { total: steps.length })}
         </div>
 
         {currentStepIndex < steps.length - 1 ? (
@@ -143,20 +140,20 @@ export const Editor: React.FC<EditorProps> = ({ activeTab, onTabChange }) => {
             onClick={handleNext}
             className="inline-flex items-center gap-2 rounded-full bg-content px-8 py-2.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98] shadow-sm"
           >
-            <span>Dalej</span>
+            <span>{t('next')}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         ) : (
           <button
             onClick={() =>
               alert(
-                'Wszystkie sekcje wypełnione! Możesz teraz przejrzeć podgląd PDF lub sprawdzić audyt ATS.'
+                t('completedAlert')
               )
             }
             className="inline-flex items-center gap-2 rounded-full bg-content px-8 py-2.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98] shadow-sm"
           >
             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-            <span>Zakończ i sprawdź PDF</span>
+            <span>{t('finish')}</span>
           </button>
         )}
       </div>

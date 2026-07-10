@@ -1,41 +1,30 @@
 'use client';
 
 import React from 'react';
-import { SubpageLayout } from '@/components/SubpageLayout';
+import { useTranslations } from 'next-intl';
 import { Globe } from 'lucide-react';
-import { FiLinkedin, FiGithub } from 'react-icons/fi';
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
+import { SubpageLayout } from '@/components/SubpageLayout';
 
 export default function AuthorsPage() {
+  const t = useTranslations('Pages.Authors');
+
   return (
-    <SubpageLayout
-      title="O Nas"
-      subtitle="Poznaj misję, która stoi za stworzeniem najskuteczniejszego kreatora CV na rynku."
-    >
+    <SubpageLayout title={t('title')} subtitle={t('subtitle')}>
       <div className="max-w-4xl mx-auto pt-6 space-y-16 font-medium">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-border">
           <div className="md:col-span-5 space-y-3">
             <span className="text-xs font-black uppercase tracking-widest text-content-muted">
-              / 01 Manifest
+              / 01 {t('manifestLabel')}
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-content tracking-tight leading-snug">
-              Dlaczego zbudowaliśmy Resume Maxxer?
+              {t('manifestTitle')}
             </h2>
           </div>
 
           <div className="md:col-span-7 space-y-6 text-sm sm:text-base text-content-secondary leading-relaxed">
-            <p>
-              Większość kreatorów CV w internecie to powtarzalne szablony przeładowane kolorowymi
-              paskami, tabelami i elementami graficznymi. Choć mogą wyglądać efektownie na ekranie,
-              w zderzeniu z systemami rekrutacyjnymi ATS (Applicant Tracking Systems) w korporacjach
-              często gubią strukturę, układ kolumn i słowa kluczowe.
-            </p>
-            <p>
-              Resume Maxxer powstał jako odpowiedź na ten chaos. Stworzyliśmy profesjonalne
-              narzędzie, które stawia na czysty, elegancki minimalizm – dokładnie to, co przyciąga
-              wzrok topowych rekruterów. Nasze dokumenty są perfekcyjnie zoptymalizowane pod maską,
-              dzięki czemu bezbłędnie przechodzą przez automatyczne systemy selekcji kandydatów
-              (ATS) i realnie zwiększają Twoje szanse na zdobycie wymarzonej pracy.
-            </p>
+            <p>{t('manifestBody1')}</p>
+            <p>{t('manifestBody2')}</p>
           </div>
         </div>
 
@@ -53,19 +42,15 @@ export default function AuthorsPage() {
               <div className="space-y-4">
                 <div className="space-y-1.5">
                   <span className="text-[10px] font-black uppercase tracking-widest text-content-muted">
-                    / Główny Architekt & Twórca
+                    / {t('founderLabel')}
                   </span>
                   <h3 className="text-4xl sm:text-5xl font-black text-content tracking-tight">
                     Norbert Fila
                   </h3>
                 </div>
-                <p className="text-xs font-bold uppercase tracking-wider text-content">
-                  Founder & Lead Software Engineer
-                </p>
+                <p className="text-xs font-bold uppercase tracking-wider text-content">{t('founderRole')}</p>
                 <p className="text-sm sm:text-base text-content-secondary leading-relaxed pt-3">
-                  Programista i projektant, dla którego priorytetem jest tworzenie użytecznych
-                  narzędzi, które ułatwiają ludziom karierę i gwarantują pełne bezpieczeństwo ich
-                  prywatnych danych.
+                  {t('founderDescription')}
                 </p>
               </div>
 
@@ -77,7 +62,7 @@ export default function AuthorsPage() {
                   className="inline-flex items-center gap-2.5 rounded-full bg-content px-7 py-3.5 text-xs font-bold text-content-inverse hover:bg-neutral-800 transition-all active:scale-[0.98] shadow-md"
                 >
                   <Globe className="h-4 w-4" />
-                  <span>Odwiedź Portfolio</span>
+                  <span>{t('visitPortfolio')}</span>
                 </a>
 
                 <a
@@ -85,7 +70,7 @@ export default function AuthorsPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center h-11 w-11 rounded-full border border-border bg-surface text-content hover:border-content hover:bg-surface-tertiary transition-all active:scale-[0.98]"
-                  title="LinkedIn"
+                  title={t('linkedinTitle')}
                 >
                   <FiLinkedin className="h-4 w-4" />
                 </a>
@@ -95,7 +80,7 @@ export default function AuthorsPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center h-11 w-11 rounded-full border border-border bg-surface text-content hover:border-content hover:bg-surface-tertiary transition-all active:scale-[0.98]"
-                  title="GitHub"
+                  title={t('githubTitle')}
                 >
                   <FiGithub className="h-4 w-4" />
                 </a>
