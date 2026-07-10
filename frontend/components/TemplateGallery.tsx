@@ -48,9 +48,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
 
   return (
     <div className="flex-1 overflow-y-auto bg-surface text-content animate-fade-in font-sans relative selection:bg-content selection:text-surface">
-      <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-surface-secondary/80 to-transparent pointer-events-none -z-10" />
+      <div className="absolute top-0 left-0 w-full h-[50vh] bg-linear-to-b from-surface-secondary/80 to-transparent pointer-events-none -z-10" />
 
-      <div className="pt-24 pb-16 px-6 sm:px-12 lg:px-20 mx-auto max-w-[1400px]">
+      <div className="pt-24 pb-16 px-6 sm:px-12 lg:px-20 mx-auto max-w-350">
         <div className="max-w-3xl space-y-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-content leading-tight">
             {t('title')}
@@ -62,7 +62,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
       </div>
 
       <div className="sticky top-0 z-30 bg-surface/80 backdrop-blur-2xl border-b border-border/40 transition-all">
-        <div className="mx-auto max-w-[1400px] px-6 sm:px-12 lg:px-20 py-4 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+        <div className="mx-auto max-w-350 px-6 sm:px-12 lg:px-20 py-4 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
           <div className="flex gap-8 overflow-x-auto w-full md:w-auto no-scrollbar mask-linear-fade">
             {categories.map((cat) => (
               <button
@@ -76,7 +76,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
               >
                 {cat.label}
                 {selectedCategory === cat.id && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-content rounded-t-full" />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-content rounded-t-full" />
                 )}
               </button>
             ))}
@@ -97,7 +97,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1400px] px-6 sm:px-12 lg:px-20 py-16">
+      <div className="mx-auto max-w-350 px-6 sm:px-12 lg:px-20 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {filteredTemplates.map((tpl) => {
             const selectedVariant = tpl.variants.find((variant) => variant.id === templateId) ?? null;
@@ -127,7 +127,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onSelectTempla
                     />
 
                     {tpl.available && !isSelected && (
-                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] bg-linear-to-t from-black/80 via-black/40 to-transparent">
                         <div className="flex items-center justify-between text-white">
                             <span className="font-bold text-lg tracking-tight">{t('selectVariant')}</span>
                           <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
