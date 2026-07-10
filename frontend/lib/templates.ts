@@ -21,6 +21,9 @@ export interface TemplateFamily {
   variants: TemplateVariant[];
 }
 
+const getGeneratedTemplatePreviewImage = (sourceTemplateId: string) =>
+  `/images/templates/generated/${sourceTemplateId}.webp`;
+
 const createVariants = (familyId: string, sourceTemplateId: string): TemplateVariant[] => [
   {
     id: `${sourceTemplateId}_pl`,
@@ -48,7 +51,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'atlasClassic',
     tagKeys: ['classic', 'ats', 'oneColumn', 'formal'],
     available: true,
-    image: '/images/templates/basic-resume-0.2.9-small.webp',
+    image: getGeneratedTemplatePreviewImage('atlas_classic_v1'),
     variants: createVariants('atlas-classic', 'atlas_classic_v1'),
   },
   {
@@ -60,7 +63,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'meridianClean',
     tagKeys: ['clean', 'sansSerif', 'structured', 'modern'],
     available: true,
-    image: '/images/templates/modern-resume-1.0.0-small.webp',
+    image: getGeneratedTemplatePreviewImage('meridian_clean_v1'),
     variants: createVariants('meridian-clean', 'meridian_clean_v1'),
   },
   {
@@ -72,7 +75,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'summitSerif',
     tagKeys: ['serif', 'engineering', 'centeredHeader', 'structured'],
     available: true,
-    image: '/images/templates/imprecv-template3-preview.jpg',
+    image: getGeneratedTemplatePreviewImage('summit_serif_v1'),
     variants: createVariants('summit-serif', 'summit_serif_v1'),
   },
   {
@@ -84,7 +87,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'contourTimeline',
     tagKeys: ['timeline', 'serif', 'academic', 'spacious'],
     available: true,
-    image: '/images/templates/academicv-template4-preview.png',
+    image: getGeneratedTemplatePreviewImage('contour_timeline_v1'),
     variants: createVariants('contour-timeline', 'contour_timeline_v1'),
   },
   {
@@ -96,7 +99,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'vectorCompact',
     tagKeys: ['compact', 'technical', 'onePage', 'dense'],
     available: true,
-    image: '/images/templates/simple-technical-template5-preview.png',
+    image: getGeneratedTemplatePreviewImage('vector_compact_v1'),
     variants: createVariants('vector-compact', 'vector_compact_v1'),
   },
   {
@@ -108,7 +111,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'horizonSidebar',
     tagKeys: ['sidebar', 'color', 'expressive', 'modern'],
     available: true,
-    image: '/images/templates/metronic-template6-preview.png',
+    image: getGeneratedTemplatePreviewImage('horizon_sidebar_v1'),
     variants: createVariants('horizon-sidebar', 'horizon_sidebar_v1'),
   },
   {
@@ -120,7 +123,7 @@ export const TEMPLATE_FAMILIES: TemplateFamily[] = [
     descriptionKey: 'harborSerif',
     tagKeys: ['serif', 'editorial', 'elegant', 'twoColumnHeader'],
     available: true,
-    image: '/images/templates/yuan-template7-preview.png',
+    image: getGeneratedTemplatePreviewImage('harbor_serif_v1'),
     variants: createVariants('harbor-serif', 'harbor_serif_v1'),
   },
   {
